@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--创建任务时的主页面-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.jacklee.clatclatter.CreateTaskActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <com.jacklee.clatclatter.RowSwitchView
+        xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="hello word"
-        android:textSize="16sp"/>
+        android:layout_width="match_parent"
+        liming:title="特色闹钟" />
+
+    <com.jacklee.clatclatter.RowSwitchView
+        xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        liming:title="专注模式" />
+
+    <com.jacklee.clatclatter.RowSwitchView
+        xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        liming:title="重复" />
+
+    <com.jacklee.clatclatter.RowSwitchView
+        xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        liming:title="提醒" />
+
 
 </LinearLayout>
