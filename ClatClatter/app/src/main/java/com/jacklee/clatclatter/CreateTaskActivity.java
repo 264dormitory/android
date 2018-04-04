@@ -33,11 +33,9 @@ public class CreateTaskActivity extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_cancel);
-            //finish();
         }
     }
     //在只有一个左上角的大返回按钮的时候，如果点击按钮，想处理具体的事件，需要这样写。
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.floatbutton_tick, menu);//引入菜单的xml文件
@@ -58,4 +56,8 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    ImageButton warn_button;
+    
+
 }
