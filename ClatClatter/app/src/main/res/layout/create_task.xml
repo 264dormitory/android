@@ -68,27 +68,35 @@
 
 
     <com.jacklee.clatclatter.RowSwitchView
+        android:id="@+id/special_alarm"
         xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        liming:isShowDelimiter="true"
         liming:title="特色闹钟" />
 
     <com.jacklee.clatclatter.RowSwitchView
+        android:id="@+id/focus_mode"
         xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        liming:isShowDelimiter="true"
         liming:title="专注模式" />
 
     <com.jacklee.clatclatter.RowSwitchView
+        android:id="@+id/repeat"
         xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        liming:isShowDelimiter="true"
         liming:title="重复" />
 
     <com.jacklee.clatclatter.RowSwitchView
+        android:id="@+id/remind"
         xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        liming:isShowDelimiter="false"
         liming:title="提醒" />
 
 

@@ -2,9 +2,12 @@ package com.jacklee.clatclatter;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.rey.material.widget.Switch;
 
 /**
  * 自定义横线的switch类
@@ -12,9 +15,13 @@ import android.widget.TextView;
  */
 
 public class RowSwitchView extends LinearLayout {
-    public static final String NAMESPACE ="http://schemas.android.com/apk/res/com.jacklee.clatclatter";
+    public static final String NAMESPACE = "http://schemas.android.com/apk/res/com.jacklee.clatclatter";
+    private static final String TAG      = "RowSwtichView";
     private TextView rowName;
+    private TextView remineTextView;
     private View view;
+    private Switch rowSwtich;
+    private View delimiter;                     //分隔符　　
 
     public RowSwitchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -37,9 +44,15 @@ public class RowSwitchView extends LinearLayout {
          */
         //获取布局中的属性值
 
-        String title = attrs.getAttributeValue(NAMESPACE, "title");
+        String title           = attrs.getAttributeValue(NAMESPACE, "title");
+        String isShowDelimiter = attrs.getAttributeValue(NAMESPACE, "isShowDelimiter");
+        Log.i(TAG, "初始化界面相关信息");
         initView();
         rowName.setText(title);
+        if (Boolean.parseBoolean(isShowDelimiter))
+            delimiter.setVisibility(View.VISIBLE);      //设置下划线是可见
+        else
+            delimiter.setVisibility(View.INVISIBLE);    //设置下滑性不可见
     }
 
     public RowSwitchView(Context context, AttributeSet attrs) {
@@ -52,13 +65,43 @@ public class RowSwitchView extends LinearLayout {
 
     }
 
+    /**
+     * switch开关事件的回调
+     * @param listener
+     */
+    public void setOnClickListener(final switchClickListener listener) {
+        rowSwtich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.switchListener();
+            }
+        });
+    }
+
+    /**
+     * 点击开关事件接口
+     */
+    public interface switchClickListener {
+        void switchListener();
+    }
+
+    /**
+     * 设置remind_text_view
+     * @param text
+     */
+    public void setText(String text) {
+        remineTextView.setText(text);
+    }
 
     /**
      * 初始化文件布局
      */
     private void  initView() {
-        view = View.inflate(getContext(), R.layout.row_switch, null);
-        rowName = view.findViewById(R.id.row_name_text);          //获取自动更新的id
+        view           = View.inflate(getContext(), R.layout.row_switch, null);
+        rowName        = view.findViewById(R.id.row_name_text);
+        remineTextView = view.findViewById(R.id.remin_text_view);
+        rowSwtich      = view.findViewById(R.id.switch_0);               //获取Switch控件
+        delimiter      = view.findViewById(R.id.delimiter);              //获取下划线
         addView(view);
     }
 }

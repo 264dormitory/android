@@ -19,11 +19,7 @@
 
         <!--注册创建任务活动-->
         <activity android:name=".CreateTaskActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
