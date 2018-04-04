@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 创建划出的导航栏 -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/date_calendar"
+            android:title="日历"/>
+
+        <item
+            android:id="@+id/nav_today"
+            android:icon="@drawable/nav_todaytest"
+            android:title="今日任务"/>
+
+        <item
+            android:id="@+id/nav_cycle"
+            android:icon="@drawable/nav_cycle"
+            android:title="周期性任务"/>
+
+        <item
+            android:id="@+id/nav_whiteList"
+            android:icon="@drawable/nav_whitelist"
+            android:title="应用白名单"/>
+
+    </group>
+
+</menu>
