@@ -6,4 +6,4 @@
 ## 可复用的自定义控件
 ### com.jacklee.clatclatter.RowSwitchView
 如遇类似以下界面都可用此控件
-![](/android/document/view/row_switch_view.png) 
+![](/document/view/row_switch_view.png) 
