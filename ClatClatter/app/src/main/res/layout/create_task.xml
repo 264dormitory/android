@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--创建任务时的主页面-->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.jacklee.clatclatter.CreateTaskActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:layout_collapseMode="pin"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
