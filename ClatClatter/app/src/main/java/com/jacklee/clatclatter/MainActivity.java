@@ -1,5 +1,6 @@
 package com.jacklee.clatclatter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private io.blackbox_vision.materialcalendarview.view.CalendarView calendarView;
+    private final static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +73,18 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Data deleted", Snackbar.LENGTH_SHORT)
-                        .setAction("undo", new View.OnClickListener(){
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(MainActivity.this, "Data restored", Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                        })
-                        .show();
+                Log.i(TAG, "启动CreateTaskActivity");
+                Intent intent = new Intent(MainActivity.this, CreateTaskActivity.class);
+                startActivity(intent);
+
+//                Snackbar.make(view, "Data deleted", Snackbar.LENGTH_SHORT)
+//                        .setAction("undo", new View.OnClickListener(){
+//                            @Override
+//                            public void onClick(View view) {
+//
+//                            }
+//                        })
+//                        .show();
             }
         });
 
