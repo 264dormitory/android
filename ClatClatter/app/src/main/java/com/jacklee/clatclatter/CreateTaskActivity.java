@@ -1,15 +1,12 @@
 package com.jacklee.clatclatter;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
@@ -18,6 +15,12 @@ import android.widget.Toast;
  */
 
 public class CreateTaskActivity extends AppCompatActivity {
+    private RowSwitchView specialAlarmSwitch;       //特色闹钟switch
+    private RowSwitchView focusModeSwitch;          //专注模式switch
+    private RowSwitchView repeatSwitch;             //重复switch
+    private RowSwitchView remindSwitch;             //提醒switch
+
+    private static final String TAG = "CreateTaskActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,62 @@ public class CreateTaskActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_cancel);
             //finish();
         }
+
+        Log.i(TAG, "初始化页面控件");
+        initView();
+
+        Log.i(TAG, "注册监听事件");
+        addListener();
     }
+
+    /**
+     * 注册控件的监听事件
+     */
+    private void addListener() {
+        Log.i(TAG, "注册特色闹钟的监听事件");
+        specialAlarmSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
+            @Override
+            public void switchListener() {
+                specialAlarmSwitch.setText("开启");
+            }
+        });
+
+        Log.i(TAG, "注册专注模式的监听事件");
+        focusModeSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
+            @Override
+            public void switchListener() {
+                focusModeSwitch.setText("开启");
+            }
+        });
+
+        Log.i(TAG, "注册重复的监听事件");
+        repeatSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
+            @Override
+            public void switchListener() {
+                repeatSwitch.setText("开启");
+            }
+        });
+
+        Log.i(TAG, "注册提醒的监听事件");
+        remindSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
+            @Override
+            public void switchListener() {
+                remindSwitch.setText("开启");
+            }
+        });
+    }
+
+    /**
+     * 初始化界面控件
+     */
+    private void initView() {
+        specialAlarmSwitch = (RowSwitchView) findViewById(R.id.special_alarm);
+        focusModeSwitch    = (RowSwitchView) findViewById(R.id.focus_mode);
+        remindSwitch       = (RowSwitchView) findViewById(R.id.remind);
+        repeatSwitch       = (RowSwitchView) findViewById(R.id.repeat);
+    }
+
+
     //在只有一个左上角的大返回按钮的时候，如果点击按钮，想处理具体的事件，需要这样写。
 
     @Override
