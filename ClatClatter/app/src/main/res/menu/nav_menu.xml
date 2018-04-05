@@ -5,7 +5,6 @@
     android:layout_width="match_parent">
 
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/date_calendar"
@@ -20,12 +19,15 @@
             android:id="@+id/nav_cycle"
             android:icon="@drawable/nav_cycle"
             android:title="周期性任务"/>
-
-        <item
-            android:id="@+id/nav_whiteList"
-            android:icon="@drawable/nav_whitelist"
-            android:title="应用白名单"/>
-
     </group>
+
+    <item android:title="专注模式">
+        <menu>
+            <item
+                android:id="@+id/nav_whiteList"
+                android:icon="@drawable/nav_whitelist"
+                android:title="专注模式白名单"/>
+        </menu>
+    </item>
 
 </menu>

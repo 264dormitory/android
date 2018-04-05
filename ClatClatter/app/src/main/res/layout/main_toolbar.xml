@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Toolbar的实现部分 -->
+<android.support.design.widget.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_bar_height"
+    app:layout_scrollFlags="scroll|enterAlways|snap">
+
+    <!-- 用于实现将日历嵌入Toolbar当中 -->
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/main_toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentScrim="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:titleEnabled="false">
+
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- 应用日历插件 -->
+            <io.blackbox_vision.materialcalendarview.view.CalendarView
+                android:id="@+id/calendar_view"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:calendarIsMultiSelectDayEnabled="false"
+                app:calendarIsOverflowDatesVisible="true"
+                app:calendarBackgroundColor="@color/colorPrimary"
+                app:calendarTitleTextColor="@color/colorAccent"
+                app:calendarCurrentDayTextColor="@color/white"
+                app:calendarDayOfWeekTextColor="@android:color/white"
+                app:calendarDisabledDayBackgroundColor="@color/colorPrimary"
+                app:calendarDisabledDayTextColor="@android:color/darker_gray"
+                app:calendarSelectedDayBackgroundColor="@color/colorAccent"
+                app:calendarTitleBackgroundColor="@color/colorPrimary"
+                app:calendarWeekBackgroundColor="@color/colorPrimary"
+                app:calendarCurrentDayBackgroundColor="@color/teal500"
+                app:calendarWeekendTextColor="@color/colorAccent"
+                app:calendarButtonBackgroundColor="@color/colorAccent"
+                app:calendarWeekendDays="saturday|sunday">
+            </io.blackbox_vision.materialcalendarview.view.CalendarView>
+
+        </FrameLayout>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:layout_collapseMode="pin"/>
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+</android.support.design.widget.AppBarLayout>
