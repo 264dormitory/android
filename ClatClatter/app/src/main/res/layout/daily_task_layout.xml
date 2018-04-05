@@ -11,42 +11,40 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <!-- 有任务时显示任务清单 -->
-        <android.support.v7.widget.CardView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_task_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/main_no_task"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            app:cardCornerRadius="4dp"
             android:visibility="gone">
+            <!-- 没任务时显示提示页面 -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_task"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没有任务，放松一下"
+                android:textSize="20sp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击+按钮添加任务"
+                android:textSize="15sp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
-
-
-        </android.support.v7.widget.CardView>
-
-        <!-- 没任务时显示提示页面 -->
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_task"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="没有任务，放松一下"
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击+按钮添加任务"
-            android:textSize="15sp"
-            android:layout_gravity="center"/>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
