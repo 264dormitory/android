@@ -13,17 +13,19 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
         <!-- 带日历的主页Toolbar -->
-        <include layout="@layout/main_toolbar" />
+        <include
+            android:id="@+id/main_appbar"
+            layout="@layout/main_toolbar" />
 
-        <!-- 用于实现下拉刷新的效果 -->
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/main_swipe_refresh"
+        <FrameLayout
+            android:id="@+id/frame_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <!-- 当日任务展示页面 -->
-            <include layout="@layout/daily_task_layout" />
-        </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@id/main_appbar"
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+        </FrameLayout>
 
         <!-- 用于实现浮动按钮 -->
         <android.support.design.widget.FloatingActionButton
@@ -33,7 +35,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_plus"/>
-
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- 侧滑栏页面 -->
