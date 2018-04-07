@@ -127,7 +127,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
         else{
             holder.taskCheckbox.setChecked(false);
             holder.taskName.setTextColor(mContext.getResources().getColor(R.color.black));
-            holder.taskDate.setTextColor(mContext.getResources().getColor(R.color.teal500));
+            holder.taskDate.setTextColor(mContext.getResources().getColor(R.color.pink));
         }
         holder.taskName.setText(task.getTaskName().toString());
         holder.taskDate.setText(task.getTaskDate() + ", " + task.getTaskStartTime() + "-" + task.getTaskEndTime());

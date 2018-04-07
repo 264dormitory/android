@@ -100,13 +100,26 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
                 }).show();
     }
 
+    @Override
+    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        // 释放View时回调，清除背景颜色，隐藏图标
+        // 默认是操作ViewHolder的itemView，这里调用ItemTouchUIUtil的clearView方法传入指定的view
+        getDefaultUIUtil().clearView(((TaskItemAdapter.ViewHolder) viewHolder).taskItem);
+        ((TaskItemAdapter.ViewHolder) viewHolder).backGround.setBackgroundColor(Color.WHITE);
+        ((TaskItemAdapter.ViewHolder) viewHolder).taskDelete.setVisibility(View.GONE);
+    }
+
 //    @Override
 //    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-//        // 释放View时回调，清除背景颜色，隐藏图标
-//        // 默认是操作ViewHolder的itemView，这里调用ItemTouchUIUtil的clearView方法传入指定的view
-//        getDefaultUIUtil().clearView(((TaskItemAdapter.ViewHolder) viewHolder).taskItem);
-//        ((TaskItemAdapter.ViewHolder) viewHolder).backGround.setBackgroundColor(Color.TRANSPARENT);
-//        ((TaskItemAdapter.ViewHolder) viewHolder).taskDelete.setVisibility(View.GONE);
+//        super.clearView(recyclerView, viewHolder);
+//
+//        viewHolder.itemView.setAlpha(ALPHA_FULL);
+//
+//        if (viewHolder instanceof ItemTouchHelperViewHolder) {
+//            // Tell the view holder it's time to restore the idle state
+//            ItemTouchHelperViewHolder itemViewHolder = (ItemTouchHelperViewHolder) viewHolder;
+//            itemViewHolder.onItemClear();
+//        }
 //    }
 
 //    @Override
@@ -117,40 +130,6 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 //            getDefaultUIUtil().onSelected(((TaskItemAdapter.ViewHolder) viewHolder).taskItem);
 //        }
 //    }
-//
-//    @Override
-//    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-//        // ItemTouchHelper的onDraw方法会调用该方法，可以使用Canvas对象进行绘制，绘制的图案会在RecyclerView的下方
-//        // 默认是操作ViewHolder的itemView，这里调用ItemTouchUIUtil的clearView方法传入指定的view
-//        getDefaultUIUtil().onDraw(c, recyclerView, ((TaskItemAdapter.ViewHolder) viewHolder).taskItem, dX, dY, actionState, isCurrentlyActive);
-//        if (dX > 0) { // 向左滑动时的提示
-//            ((TaskItemAdapter.ViewHolder) viewHolder).backGround.setBackgroundResource(R.color.red);
-//            ((TaskItemAdapter.ViewHolder) viewHolder).taskDelete.setVisibility(View.VISIBLE);
-//        }
-////        if (dX < 0) { // 向右滑动时的提示
-////            ((TaskItemAdapter.ViewHolder) viewHolder).backGround.setBackgroundResource(R.color.colorSchedule);
-////            ((TaskItemAdapter.ViewHolder) viewHolder).ivSchedule.setVisibility(View.VISIBLE);
-////        }
-//    }
-
-    @Override
-    public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        // ItemTouchHelper的onDrawOver方法会调用该方法，可以使用Canvas对象进行绘制，绘制的图案会在RecyclerView的上方
-        // 默认是操作ViewHolder的itemView，这里调用ItemTouchUIUtil的clearView方法传入指定的view
-        getDefaultUIUtil().onDrawOver(c, recyclerView, ((TaskItemAdapter.ViewHolder) viewHolder).taskItem, dX, dY, actionState, isCurrentlyActive);
-    }
-
-    @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            // Fade out the view as it is swiped out of the parent's bounds
-            final float alpha = ALPHA_FULL - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
-            viewHolder.itemView.setAlpha(alpha);
-            viewHolder.itemView.setTranslationX(dX);
-        } else {
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        }
-    }
 
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
@@ -159,6 +138,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
             if (viewHolder instanceof ItemTouchHelperViewHolder) {
                 // Let the view holder know that this item is being moved or dragged
                 ItemTouchHelperViewHolder itemViewHolder = (ItemTouchHelperViewHolder) viewHolder;
+                getDefaultUIUtil().onSelected(((TaskItemAdapter.ViewHolder) viewHolder).taskItem);
                 itemViewHolder.onItemSelected();
             }
         }
@@ -166,16 +146,40 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         super.onSelectedChanged(viewHolder, actionState);
     }
 
+//    @Override
+//    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+//        // ItemTouchHelper的onDraw方法会调用该方法，可以使用Canvas对象进行绘制，绘制的图案会在RecyclerView的下方
+//        // 默认是操作ViewHolder的itemView，这里调用ItemTouchUIUtil的clearView方法传入指定的view
+//        getDefaultUIUtil().onDraw(c, recyclerView, ((TaskItemAdapter.ViewHolder) viewHolder).taskItem, dX, dY, actionState, isCurrentlyActive);
+//        if (dX < 0) { // 向左滑动时的提示
+//            ((TaskItemAdapter.ViewHolder) viewHolder).backGround.setBackgroundResource(R.color.red);
+//            ((TaskItemAdapter.ViewHolder) viewHolder).taskDelete.setVisibility(View.VISIBLE);
+//        }
+//    }
     @Override
-    public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        super.clearView(recyclerView, viewHolder);
+    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            getDefaultUIUtil().onDraw(c, recyclerView, ((TaskItemAdapter.ViewHolder) viewHolder).taskItem, dX, dY, actionState, isCurrentlyActive);
+            if (dX < 0) { // 向左滑动时的提示
+                ((TaskItemAdapter.ViewHolder) viewHolder).backGround.setBackgroundResource(R.color.red);
+                ((TaskItemAdapter.ViewHolder) viewHolder).taskDelete.setVisibility(View.VISIBLE);
+            }
+            // Fade out the view as it is swiped out of the parent's bounds
+//            final float alpha = ALPHA_FULL - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
+//            viewHolder.itemView.setAlpha(alpha);
+//            viewHolder.itemView.setTranslationX(dX);
 
-        viewHolder.itemView.setAlpha(ALPHA_FULL);
-
-        if (viewHolder instanceof ItemTouchHelperViewHolder) {
-            // Tell the view holder it's time to restore the idle state
-            ItemTouchHelperViewHolder itemViewHolder = (ItemTouchHelperViewHolder) viewHolder;
-            itemViewHolder.onItemClear();
+        } else {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     }
+
+
+    @Override
+    public void onChildDrawOver(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        // ItemTouchHelper的onDrawOver方法会调用该方法，可以使用Canvas对象进行绘制，绘制的图案会在RecyclerView的上方
+        // 默认是操作ViewHolder的itemView，这里调用ItemTouchUIUtil的clearView方法传入指定的view
+        getDefaultUIUtil().onDrawOver(c, recyclerView, ((TaskItemAdapter.ViewHolder) viewHolder).taskItem, dX, dY, actionState, isCurrentlyActive);
+    }
+
 }
