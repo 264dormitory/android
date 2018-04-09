@@ -16,8 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 注册创建任务活动 -->
-        <activity android:name=".CreateTaskActivity"></activity>
+
+        <!--注册创建任务活动-->
+        <activity android:name=".CreateTaskActivity">
+
+        </activity>
+        <!--注册创建任务活动-->
+        <activity android:name=".DateTime">
+        </activity>
     </application>
 
 </manifest>

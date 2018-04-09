@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.jacklee.clatclatter.CreateTaskActivity">
-
+    <!--toolbar的结构-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -19,6 +19,127 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_scrollFlags="scroll|enterAlways|snap"
         app:layout_collapseMode="pin"/>
+    <!-- app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:layout_collapseMode="pin"
+        这个标签加上就会监听它的子容器，如果有滚动事件，toolbar就会产生相应的动作
+    用来隐藏原本的actionbar-->
+    <!--界面上部-->
+
+
+    <!--该linerlayout包含标题栏和下划线-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+        <!--该linerlayout包含标题栏中textview和edittext和imagebutton-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+            <TextView
+                xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标题"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/warn_button"
+                android:onClick="warn_button"
+                android:layout_width="match_parent"
+                android:background="#00000000"
+                android:layout_marginTop="20px"
+                android:layout_marginLeft="-80px"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/cardview_shadow_end_color"
+                android:src="@drawable/ic_error" />
+        </LinearLayout>
+        <!--此为下划线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/background" />
+
+    </LinearLayout>
+    <!--标题行结束-->
+
+    <!--内容行开始-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="内容（备注）"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_gravity="center_vertical"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <!--内容框下划线特有的linerview，因为不好设计特提出该下划线-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+        <!--此为下划线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/background" />
+    </LinearLayout>
+    <!--日期行开始-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical"
+        android:onClick="date_select">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+            <TextView
+                xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日期"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"/>
+        </LinearLayout>
+        <!--此为下划线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/background" />
+
+    </LinearLayout>
+
+
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/special_alarm"
@@ -51,6 +172,7 @@
         android:layout_width="match_parent"
         liming:isShowDelimiter="false"
         liming:title="提醒" />
+
 
 
 </LinearLayout>
