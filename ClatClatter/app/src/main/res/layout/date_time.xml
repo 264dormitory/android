@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/date_start"
+    tools:context="com.jacklee.clatclatter.DateTime"
+    android:background="@color/white">
+
+    <!-- 应用日历插件 -->
+    <io.blackbox_vision.materialcalendarview.view.CalendarView
+        android:id="@+id/calendar_view"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:calendarIsMultiSelectDayEnabled="false"
+        app:calendarIsOverflowDatesVisible="false"
+
+        app:calendarTitleTextColor="@color/colorAccent"
+        app:calendarCurrentDayTextColor="@color/white"
+        app:calendarDayOfWeekTextColor="@color/colorAccent"
+
+        app:calendarSelectedDayBackgroundColor="@color/colorAccent"
+        app:calendarCurrentDayBackgroundColor="@color/teal500"
+        app:calendarWeekendTextColor="@color/colorAccent"
+        app:calendarButtonBackgroundColor="@color/colorAccent"
+        app:calendarWeekendDays="saturday|sunday">
+    </io.blackbox_vision.materialcalendarview.view.CalendarView>
+    <CalendarView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">2</CalendarView>
+
+</LinearLayout>
