@@ -1,12 +1,17 @@
 package com.jacklee.clatclatter;
 
+import android.app.Activity;
 import android.app.TabActivity;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.widget.TabHost;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.time.Year;
@@ -22,6 +27,7 @@ import io.blackbox_vision.materialcalendarview.view.CalendarView;
  */
 
 public class DateTime extends TabActivity {
+    private int year,month,day,hour,minute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +43,7 @@ public class DateTime extends TabActivity {
         //calendarView init
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
 
-        calendarView.shouldAnimateOnEnter(false)//true和false是选择是否从底下弹出的
+        calendarView.shouldAnimateOnEnter(false)
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setOnDateClickListener(new CalendarView.OnDateClickListener(){
                     @Override
@@ -54,10 +60,41 @@ public class DateTime extends TabActivity {
                 .setOnMonthTitleClickListener(this::onMonthTitleClick);*/
 
         if (calendarView.isMultiSelectDayEnabled()) {
-            // todo        calendarView.setOnMultipleDaySelectedListener(this::onMultipleDaySelected);
+            //todo        calendarView.setOnMultipleDaySelectedListener(this::onMultipleDaySelected);
         }
 
         calendarView.update(Calendar.getInstance(Locale.getDefault()));
+
+        TimePicker timePicker=findViewById(R.id.timePicker);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
+                DateTime.this.hour=i;
+                DateTime.this.minute=i1;
+                showDate(year,month,day,hour,minute);
+            }
+        });
+    }
+    private void showDate(int year,int month,int day,int hour,int minute){
+        Toast.makeText(DateTime.this,"你的生日是"+ hour+"小时"+minute,Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showTimePickerDialog(Activity activity, int themeResId, final TextView tv, Calendar calendar) {
+        // Calendar c = Calendar.getInstance();
+        // 创建一个TimePickerDialog实例，并把它显示出来
+        // 解释一哈，Activity是context的子类
+        new TimePickerDialog(activity, themeResId,
+                // 绑定监听器
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        tv.setText("您选择了：" + hourOfDay + "时" + minute + "分");
+                    }
+                }
+                // 设置初始时间
+                , calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)
+                // true表示采用24小时制
+                , true).show();
     }
 
 }
