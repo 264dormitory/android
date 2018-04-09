@@ -8,10 +8,16 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import com.rey.material.app.BottomSheetDialog;
 
 /**
  * 创建任务是的Activity
@@ -24,7 +30,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     private RowSwitchView repeatSwitch;             //重复switch
     private RowSwitchView remindSwitch;             //提醒switch
 
-    private static final String TAG = "CreateTaskActivity";
+    private static final String TAG = CreateTaskActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         //这句话用来实现使用toolbar 代替 actionbar
         setSupportActionBar(toolbar);//actionbar的位置替换成toolbar
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_cancel);
         }
@@ -81,7 +87,8 @@ public class CreateTaskActivity extends AppCompatActivity {
         remindSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                remindSwitch.setText("开启");
+                Log.i(TAG, "调用弹窗");
+                CreateTaskActivity.this.showDialog();
             }
         });
     }
@@ -96,6 +103,38 @@ public class CreateTaskActivity extends AppCompatActivity {
         repeatSwitch       = (RowSwitchView) findViewById(R.id.repeat);
     }
 
+    /**
+     * 显示弹窗
+     * @author gaoliming
+     */
+    public void showDialog() {
+        Log.i(TAG, "初始化页面及List控件");
+        final BottomSheetDialog dialog = new BottomSheetDialog(CreateTaskActivity.this);
+        final String[] array           = new String[]{"不提醒", "正点", "五分钟前", "10分钟前"};
+        View dialogView                = LayoutInflater.from(CreateTaskActivity.this)
+                                                        .inflate(R.layout.pop_remind, null);
+        ListView listView              = dialogView.findViewById(R.id.listview);
+        ArrayAdapter adapter           = new ArrayAdapter(CreateTaskActivity.this,
+                                                                    android.R.layout.simple_list_item_1,
+                                                                    array);
+        listView.setAdapter(adapter);
+
+        Log.i(TAG, "为控件注册监听事件");
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                remindSwitch.setText(array[i]);
+                Log.i(TAG, "弹窗消失");
+                dialog.dismiss();
+            }
+        });
+
+        Log.i(TAG, "显示弹窗");
+        dialog.setContentView(dialogView);
+        dialog.show();
+    }
+
+
     /*完成人——韩瑞峰*/
 
     //在只有一个左上角的大返回按钮的时候，如果点击按钮，想处理具体的事件，需要这样写。
@@ -104,10 +143,11 @@ public class CreateTaskActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.floatbutton_tick, menu);//引入菜单的xml文件
         return true;
     }
+
     //为改tick定义点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.tick://点击对勾的事件
                 Toast.makeText(CreateTaskActivity.this, "You click the tick", Toast.LENGTH_SHORT).show();
                 this.finish();
@@ -120,11 +160,12 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
         return true;
     }//tick定义点击事件结束
-//    ImageButton warn_button;
-    public void warn_button(View view){
-        final String items[]={"高优先级","中优先级","低优先级"};
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(this)
+    //    ImageButton warn_button;
+    public void warn_button(View view) {
+        final String items[] = {"高优先级", "中优先级", "低优先级"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 //设置对话框标题
                 .setTitle("优先级")
                 //设置单选列表项
@@ -141,18 +182,20 @@ public class CreateTaskActivity extends AppCompatActivity {
         builder.create();
         builder.show();
     }//ImageButton warn_button;点击事件结束
+
     //确定按钮点击事件
-    private AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder){
+    private AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder) {
         //调用setPositiveButton方法添加确定按钮
-        return builder.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+        return builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog,int which){
+            public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(CreateTaskActivity.this, "确定", Toast.LENGTH_SHORT).show();
             }
         });
     }//确定按钮点击事件结束
+
     //取消按钮点击事件
-    private AlertDialog.Builder setNegativeButton(AlertDialog.Builder builder){
+    private AlertDialog.Builder setNegativeButton(AlertDialog.Builder builder) {
         //调用该方法，添加取消按钮
         return builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -161,8 +204,9 @@ public class CreateTaskActivity extends AppCompatActivity {
             }
         });
     }//取消按钮点击事件结束
+
     //日期选择按钮
-    public void date_select(View view){
+    public void date_select(View view) {
         Toast.makeText(CreateTaskActivity.this, "选择了date_select", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(CreateTaskActivity.this, DateTime.class);
         startActivity(intent);
