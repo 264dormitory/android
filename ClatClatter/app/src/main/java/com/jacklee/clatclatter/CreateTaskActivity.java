@@ -1,12 +1,16 @@
 package com.jacklee.clatclatter;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 /**
@@ -92,6 +96,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         repeatSwitch       = (RowSwitchView) findViewById(R.id.repeat);
     }
 
+    /*完成人——韩瑞峰*/
 
     //在只有一个左上角的大返回按钮的时候，如果点击按钮，想处理具体的事件，需要这样写。
     @Override
@@ -108,14 +113,58 @@ public class CreateTaskActivity extends AppCompatActivity {
                 this.finish();
                 break;
             case android.R.id.home://点击叉号的事件
+                Toast.makeText(CreateTaskActivity.this, "You click the wrong", Toast.LENGTH_SHORT).show();
                 this.finish();
                 break;
             default:
         }
         return true;
+    }//tick定义点击事件结束
+//    ImageButton warn_button;
+    public void warn_button(View view){
+        final String items[]={"高优先级","中优先级","低优先级"};
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                //设置对话框标题
+                .setTitle("优先级")
+                //设置单选列表项
+                .setSingleChoiceItems(items, 2, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(CreateTaskActivity.this, items[i], Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        //添加确定和取消按钮
+        setPositiveButton(builder);
+        setNegativeButton(builder);
+        builder.create();
+        builder.show();
+    }//ImageButton warn_button;点击事件结束
+    //确定按钮点击事件
+    private AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder){
+        //调用setPositiveButton方法添加确定按钮
+        return builder.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog,int which){
+                Toast.makeText(CreateTaskActivity.this, "确定", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }//确定按钮点击事件结束
+    //取消按钮点击事件
+    private AlertDialog.Builder setNegativeButton(AlertDialog.Builder builder){
+        //调用该方法，添加取消按钮
+        return builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(CreateTaskActivity.this, "取消", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }//取消按钮点击事件结束
+    //日期选择按钮
+    public void date_select(View view){
+        Toast.makeText(CreateTaskActivity.this, "选择了date_select", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(CreateTaskActivity.this, DateTime.class);
+        startActivity(intent);
     }
-
-    ImageButton warn_button;
-    
-
 }
