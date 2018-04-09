@@ -12,72 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
-        <!-- Toolbar的实现部分 -->
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/main_app_bar"
+        <!-- 带日历的主页Toolbar -->
+        <include
+            android:id="@+id/main_appbar"
+            layout="@layout/main_toolbar" />
+
+        <FrameLayout
+            android:id="@+id/frame_content"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/app_bar_height"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            android:layout_height="match_parent"
+            android:layout_below="@id/main_appbar"
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-            <!-- 用于实现将日历嵌入Toolbar当中 -->
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/main_toolbar_layout"
-                android:fitsSystemWindows="true"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:titleEnabled="false">
-
-                <FrameLayout
-                    android:id="@+id/content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <!-- 应用日历插件 -->
-                    <io.blackbox_vision.materialcalendarview.view.CalendarView
-                        android:id="@+id/calendar_view"
-                        android:layout_marginTop="56dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:calendarIsMultiSelectDayEnabled="false"
-                        app:calendarIsOverflowDatesVisible="true"
-                        app:calendarBackgroundColor="@color/colorPrimary"
-                        app:calendarTitleTextColor="@color/colorAccent"
-                        app:calendarCurrentDayTextColor="@color/white"
-                        app:calendarDayOfWeekTextColor="@android:color/white"
-                        app:calendarDisabledDayBackgroundColor="@color/colorPrimary"
-                        app:calendarDisabledDayTextColor="@android:color/darker_gray"
-                        app:calendarSelectedDayBackgroundColor="@color/colorAccent"
-                        app:calendarTitleBackgroundColor="@color/colorPrimary"
-                        app:calendarWeekBackgroundColor="@color/colorPrimary"
-                        app:calendarCurrentDayBackgroundColor="@color/teal500"
-                        app:calendarWeekendTextColor="@color/colorAccent"
-                        app:calendarButtonBackgroundColor="@color/colorAccent"
-                        app:calendarWeekendDays="saturday|sunday">
-                    </io.blackbox_vision.materialcalendarview.view.CalendarView>
-
-                </FrameLayout>
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/main_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
-                    app:layout_collapseMode="pin"/>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
-
-        <!-- 当日任务展示页面 -->
-        <include layout="@layout/daily_task_layout" />
+        </FrameLayout>
 
         <!-- 用于实现浮动按钮 -->
         <android.support.design.widget.FloatingActionButton
@@ -87,7 +35,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_plus"/>
-
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- 侧滑栏页面 -->
