@@ -9,42 +9,43 @@
     android:id="@+id/date_start"
     tools:context="com.jacklee.clatclatter.DateTime"
     android:background="@color/white">
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-    </TimePicker>
 
     <!-- 应用日历插件 -->
     <io.blackbox_vision.materialcalendarview.view.CalendarView
         android:id="@+id/calendar_view"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
         android:layout_marginEnd="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginStart="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+        app:calendarButtonBackgroundColor="@color/colorPrimary"
+        app:calendarCurrentDayBackgroundColor="@color/teal500"
+        app:calendarCurrentDayTextColor="@color/white"
+        app:calendarDayOfWeekTextColor="@color/colorPrimary"
         app:calendarIsMultiSelectDayEnabled="false"
         app:calendarIsOverflowDatesVisible="false"
-        app:calendarTitleTextColor="@color/colorAccent"
-        app:calendarCurrentDayTextColor="@color/white"
-        app:calendarDayOfWeekTextColor="@color/colorAccent"
         app:calendarSelectedDayBackgroundColor="@color/colorAccent"
-        app:calendarCurrentDayBackgroundColor="@color/teal500"
-        app:calendarWeekendTextColor="@color/colorAccent"
-        app:calendarButtonBackgroundColor="@color/colorAccent"
-        app:calendarWeekendDays="saturday|sunday">
+        app:calendarTitleTextColor="@color/colorPrimary"
+        app:calendarWeekendDays="saturday|sunday"
+        app:calendarWeekendTextColor="@color/colorPrimary">
+
     </io.blackbox_vision.materialcalendarview.view.CalendarView>
     <TimePicker
         android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        android:theme="@style/MyTimePicker"
+
         android:layout_gravity="center_horizontal">
 
     </TimePicker>
+
+
+
 
 
 </LinearLayout>
