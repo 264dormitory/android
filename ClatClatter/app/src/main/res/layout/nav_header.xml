@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 抽屉栏的头部 用于展示用户的个人信息 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:padding="10dp"
+    android:background="?attr/colorPrimary">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icon_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/nav_icon"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="36dp"/>
+
+    <TextView
+        android:id="@+id/header_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textStyle="bold"
+        android:text="851275924@qq.com"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/header_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/header_mail"
+        android:textStyle="bold"
+        android:text="Jack Lee"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        android:layout_marginLeft="10dp"/>
+
+</RelativeLayout>

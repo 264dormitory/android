@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ClatClat</string>
+    <string name="start">开启</string>
+    <string name="today_task">今日任务</string>
+    <string name="daily">每日</string>
+    <string name="weekly">每周</string>
+    <string name="monthly">每月</string>
+    <string name="annual">每年</string>
+</resources>
