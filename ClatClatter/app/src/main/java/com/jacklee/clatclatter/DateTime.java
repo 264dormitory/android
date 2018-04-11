@@ -34,40 +34,34 @@ public class DateTime extends TabActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //利用tabhost创建tab标签栏
+        /*利用tabhost创建tab标签栏*/
         final TabHost tabHost = getTabHost();
         LayoutInflater.from(this).inflate(R.layout.date_time, tabHost.getTabContentView(),true);
         LayoutInflater.from(this).inflate(R.layout.date_time2, tabHost.getTabContentView(),true);
+        //创建开始tab栏
         tabHost.addTab(tabHost.newTabSpec("TAB1").
                 setIndicator("开始").setContent(R.id.date_start));
+        //创建结束tab栏
         tabHost.addTab(tabHost.newTabSpec("TAB2").
                 setIndicator("结束").setContent(R.id.date_end));
-
-        //calendarView init
+        tabHost.setCurrentTab(0);//置初始的tab为第一个tab栏
+        /*tab栏创建完毕*/
+        /*calendarView 日历栏函数*/
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
-
         calendarView.shouldAnimateOnEnter(false)
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setOnDateClickListener(new CalendarView.OnDateClickListener(){
                     @Override
                     public void onDateClick(@NonNull Date date) {
                         Toast.makeText(DateTime.this,"你的生日是"+ date,Toast.LENGTH_SHORT).show();
-
                     }
                 });
-        /*calendarView.shouldAnimateOnEnter(true)
-                .setFirstDayOfWeek(Calendar.MONDAY)
-                .setOnDateClickListener(new CalendarView.OnDateClickListener())
-                .setOnMonthChangeListener(this::onMonthChange)
-                .setOnDateLongClickListener(this::onDateLongClick)
-                .setOnMonthTitleClickListener(this::onMonthTitleClick);*/
-
         if (calendarView.isMultiSelectDayEnabled()) {
             //todo        calendarView.setOnMultipleDaySelectedListener(this::onMultipleDaySelected);
         }
-
         calendarView.update(Calendar.getInstance(Locale.getDefault()));
-        //timepicker函数
+        /*日历栏结束*/
+        /*timepicker函数*/
         TimePicker timePicker=findViewById(R.id.timePicker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -77,13 +71,15 @@ public class DateTime extends TabActivity {
                 showDate(year,month,day,hour,minute);
             }
         });
+        /*timepicker函数结束*/
+        /*sure函数和cancel函数开始*/
         //sure按钮函数
         TextView textView_sure = findViewById(R.id.sure);
         textView_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tabHost.setCurrentTab(1);//跳转到第二个tab栏
                 Toast.makeText(DateTime.this,"sure",Toast.LENGTH_SHORT).show();
-
             }
         });
         //cacel按钮函数
@@ -95,7 +91,9 @@ public class DateTime extends TabActivity {
                 Toast.makeText(DateTime.this,"cancel",Toast.LENGTH_SHORT).show();
             }
         });
+        /*sure和cancel函数结束*/
     }
+    /*oncreate函数结束*/
     private void showDate(int year,int month,int day,int hour,int minute){
         Toast.makeText(DateTime.this,"你的生日是"+ hour+"小时"+minute,Toast.LENGTH_SHORT).show();
     }
