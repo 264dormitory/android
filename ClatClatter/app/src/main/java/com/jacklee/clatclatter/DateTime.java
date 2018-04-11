@@ -3,9 +3,12 @@ package com.jacklee.clatclatter;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -32,7 +35,7 @@ public class DateTime extends TabActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //利用tabhost创建tab标签栏
-        TabHost tabHost = getTabHost();
+        final TabHost tabHost = getTabHost();
         LayoutInflater.from(this).inflate(R.layout.date_time, tabHost.getTabContentView(),true);
         LayoutInflater.from(this).inflate(R.layout.date_time2, tabHost.getTabContentView(),true);
         tabHost.addTab(tabHost.newTabSpec("TAB1").
@@ -64,7 +67,7 @@ public class DateTime extends TabActivity {
         }
 
         calendarView.update(Calendar.getInstance(Locale.getDefault()));
-
+        //timepicker函数
         TimePicker timePicker=findViewById(R.id.timePicker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -72,6 +75,24 @@ public class DateTime extends TabActivity {
                 DateTime.this.hour=i;
                 DateTime.this.minute=i1;
                 showDate(year,month,day,hour,minute);
+            }
+        });
+        //sure按钮函数
+        TextView textView_sure = findViewById(R.id.sure);
+        textView_sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(DateTime.this,"sure",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        //cacel按钮函数
+        TextView textView_cancel = findViewById(R.id.cancel);
+        textView_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Toast.makeText(DateTime.this,"cancel",Toast.LENGTH_SHORT).show();
             }
         });
     }
