@@ -1,7 +1,11 @@
 package com.jacklee.clatclatter;
 
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -30,6 +34,10 @@ public class CreateTaskActivity extends AppCompatActivity {
     private RowSwitchView repeatSwitch;             //重复switch
     private RowSwitchView remindSwitch;             //提醒switch
 
+    private PackageManager mPackageManager;
+    private DevicePolicyManager mDevicePolicyManager;
+    private ComponentName mAdminComponentName;
+
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
 
     @Override
@@ -53,6 +61,19 @@ public class CreateTaskActivity extends AppCompatActivity {
 
         Log.i(TAG, "注册监听事件");
         addListener();
+
+        // Check to see if started by LockActivity and disable LockActivity if so
+        Intent intent = getIntent();
+
+        if(intent.getIntExtra(LockedActivity.LOCK_ACTIVITY_KEY,0) ==
+                LockedActivity.FROM_LOCK_ACTIVITY){
+            mDevicePolicyManager.clearPackagePersistentPreferredActivities(
+                    mAdminComponentName,getPackageName());
+            mPackageManager.setComponentEnabledSetting(
+                    new ComponentName(getApplicationContext(), LockedActivity.class),
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP);
+        }
     }
 
     /**
@@ -63,7 +84,10 @@ public class CreateTaskActivity extends AppCompatActivity {
         specialAlarmSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                specialAlarmSwitch.setText("开启");
+                if (specialAlarmSwitch.isChecked())
+                    specialAlarmSwitch.setText("开启");
+                else
+                    specialAlarmSwitch.setText("");
             }
         });
 
@@ -71,7 +95,23 @@ public class CreateTaskActivity extends AppCompatActivity {
         focusModeSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                focusModeSwitch.setText("开启");
+                if ( mDevicePolicyManager.isDeviceOwnerApp(
+                        getApplicationContext().getPackageName())) {
+                    Intent lockIntent = new Intent(getApplicationContext(),
+                            LockedActivity.class);
+
+                    mPackageManager.setComponentEnabledSetting(
+                            new ComponentName(getApplicationContext(),
+                                    LockedActivity.class),
+                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP);
+                    startActivity(lockIntent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
+                            .show();
+                }
             }
         });
 
@@ -79,7 +119,10 @@ public class CreateTaskActivity extends AppCompatActivity {
         repeatSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                repeatSwitch.setText("开启");
+                if (repeatSwitch.isChecked())
+                    repeatSwitch.setText("开启");
+                else
+                    repeatSwitch.setText("");
             }
         });
 
@@ -88,7 +131,10 @@ public class CreateTaskActivity extends AppCompatActivity {
             @Override
             public void switchListener() {
                 Log.i(TAG, "调用弹窗");
-                CreateTaskActivity.this.showDialog();
+                if (remindSwitch.isChecked())
+                    CreateTaskActivity.this.showDialog();
+                else
+                    remindSwitch.setText("");
             }
         });
     }
@@ -101,6 +147,12 @@ public class CreateTaskActivity extends AppCompatActivity {
         focusModeSwitch    = (RowSwitchView) findViewById(R.id.focus_mode);
         remindSwitch       = (RowSwitchView) findViewById(R.id.remind);
         repeatSwitch       = (RowSwitchView) findViewById(R.id.repeat);
+
+        //初始化权限内容
+        mDevicePolicyManager = (DevicePolicyManager)
+                getSystemService(Context.DEVICE_POLICY_SERVICE);
+        mAdminComponentName = DeviceAdminReceiver.getComponentName(this);
+        mPackageManager = this.getPackageManager();
     }
 
     /**
