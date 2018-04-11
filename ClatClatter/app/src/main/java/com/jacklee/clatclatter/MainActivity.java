@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity{
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.today_task);
         floatingActionButton.setVisibility(View.VISIBLE);
-        content.setVisibility(View.GONE);++
+        content.setVisibility(View.GONE);
     }
     //周期性任务的跳转
     public void switchToPeriodicTaskFragment(){
