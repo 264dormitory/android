@@ -72,6 +72,23 @@
     </LinearLayout>
     <!--标题行结束-->
 
+    <!--全屏显示按钮-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_imageView"/>
+
+    </LinearLayout>
+    <!--全屏显示按钮结束-->
+
     <!--内容行开始-->
     <LinearLayout
         android:layout_width="match_parent"
