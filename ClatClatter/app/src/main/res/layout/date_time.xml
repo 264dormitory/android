@@ -39,13 +39,33 @@
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"
         android:theme="@style/MyTimePicker"
-
         android:layout_gravity="center_horizontal">
-
     </TimePicker>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:layout_marginTop="-20dp">
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textSize="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/colorPrimary"/>
+        <TextView
+            android:id="@+id/sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimary"/>
 
-
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -24,6 +24,9 @@
         <!--注册创建任务活动-->
         <activity android:name=".DateTime">
         </activity>
+        <!--注册创建任务活动-->
+        <activity android:name=".DateTime2">
+        </activity>
     </application>
 
 </manifest>
