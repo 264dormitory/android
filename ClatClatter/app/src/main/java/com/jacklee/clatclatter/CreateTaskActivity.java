@@ -84,7 +84,10 @@ public class CreateTaskActivity extends AppCompatActivity {
         specialAlarmSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                specialAlarmSwitch.setText("开启");
+                if (specialAlarmSwitch.isChecked())
+                    specialAlarmSwitch.setText("开启");
+                else
+                    specialAlarmSwitch.setText("");
             }
         });
 
@@ -116,7 +119,10 @@ public class CreateTaskActivity extends AppCompatActivity {
         repeatSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                repeatSwitch.setText("开启");
+                if (repeatSwitch.isChecked())
+                    repeatSwitch.setText("开启");
+                else
+                    repeatSwitch.setText("");
             }
         });
 
@@ -125,7 +131,10 @@ public class CreateTaskActivity extends AppCompatActivity {
             @Override
             public void switchListener() {
                 Log.i(TAG, "调用弹窗");
-                CreateTaskActivity.this.showDialog();
+                if (remindSwitch.isChecked())
+                    CreateTaskActivity.this.showDialog();
+                else
+                    remindSwitch.setText("");
             }
         });
     }
