@@ -9,17 +9,19 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <!-- 将闪屏页面作为APP的开启页面 -->
+        <activity android:name=".SplashActivity"
+            android:theme="@style/launch_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- APP的主程序页面 -->
+        <activity android:name=".MainActivity">
+        </activity>
         <!--注册创建任务活动-->
         <activity android:name=".CreateTaskActivity">
-
         </activity>
         <!--注册创建任务活动-->
         <activity android:name=".DateTime">
