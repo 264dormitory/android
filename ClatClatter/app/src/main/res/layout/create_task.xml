@@ -182,7 +182,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="特色闹钟" />
+        liming:title="特色闹钟"
+        liming:src="@drawable/ic_alarm"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/focus_mode"
@@ -190,7 +191,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="专注模式" />
+        liming:title="专注模式"
+        liming:src="@drawable/ic_focus"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/repeat"
@@ -198,7 +200,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="重复" />
+        liming:title="重复"
+        liming:src="@drawable/circular_background"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/remind"
@@ -206,7 +209,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="false"
-        liming:title="提醒" />
+        liming:title="提醒"/>
 
 
 
