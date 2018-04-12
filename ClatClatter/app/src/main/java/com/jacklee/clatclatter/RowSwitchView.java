@@ -6,8 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.rey.material.widget.Switch;
+import android.support.v7.widget.SwitchCompat;
 
 /**
  * 自定义横线的switch类
@@ -20,7 +19,7 @@ public class RowSwitchView extends LinearLayout {
     private TextView rowName;
     private TextView remineTextView;
     private View view;
-    private Switch rowSwtich;
+    private SwitchCompat rowSwtich;
     private View delimiter;                     //分隔符　　
 
     public RowSwitchView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -91,6 +90,17 @@ public class RowSwitchView extends LinearLayout {
      */
     public void setText(String text) {
         remineTextView.setText(text);
+    }
+
+    /**
+     * 判断switch是否被点击
+     * @return
+     */
+    public boolean isChecked() {
+        if (rowSwtich.isChecked())
+            return true;                //被点击
+
+        return false;                   //没有被点击
     }
 
     /**

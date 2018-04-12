@@ -8,19 +8,17 @@
     android:orientation="vertical"
     android:id="@+id/date_start"
     tools:context="com.jacklee.clatclatter.DateTime"
-    android:background="@color/white">
+    >
 
     <!-- 应用日历插件 -->
     <io.blackbox_vision.materialcalendarview.view.CalendarView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginEnd="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginStart="2dp"
-
         app:calendarButtonBackgroundColor="@color/colorPrimary"
         app:calendarCurrentDayBackgroundColor="@color/teal500"
         app:calendarCurrentDayTextColor="@color/white"
@@ -30,8 +28,11 @@
         app:calendarSelectedDayBackgroundColor="@color/colorAccent"
         app:calendarTitleTextColor="@color/colorPrimary"
         app:calendarWeekendDays="saturday|sunday"
-        app:calendarWeekendTextColor="@color/colorPrimary">
+        app:calendarWeekendTextColor="@color/colorPrimary"
 
+        app:calendarBackgroundColor="@android:color/transparent"
+        app:calendarTitleBackgroundColor="@android:color/transparent"
+        app:calendarWeekBackgroundColor="@android:color/transparent">
     </io.blackbox_vision.materialcalendarview.view.CalendarView>
     <TimePicker
         android:id="@+id/timePicker"
