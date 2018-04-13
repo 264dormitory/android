@@ -37,7 +37,7 @@ public class DBManagerTest {
         task.put("focus", "1");
         task.put("is_repeat", "1");
         task.put("sleep_pattern", "1");
-        task.put("repeat_pattern", "1");
+        task.put("repeat_pattern", "每周");
         task.put("priority", "中级");
         task.put("sleep_pattern_kind", "1");
         task.put("start_time", "2016-02-21 12:36:20");
@@ -50,5 +50,7 @@ public class DBManagerTest {
         if (cursor1 != null)
             while (cursor1.moveToNext())
                 cursor1.getString(cursor1.getColumnIndex("title"));
+
+        db.close();
     }
 }

@@ -25,7 +25,7 @@ public class DBManager extends SQLiteOpenHelper {
             "focus char(1) default 0," +
             "is_repeat char(1) default 0," +
             "sleep_pattern char(1) default 0," +
-            "repeat_pattern integer default 0," +
+            "repeat_pattern char(10)," +
             "priority char(10)," +
             "sleep_pattern_kind integer," +
             "start_time datetime," +

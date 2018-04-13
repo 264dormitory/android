@@ -48,11 +48,12 @@
                 xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="标题"
+                android:text="@string/title"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"/>
 
             <EditText
+                android:id="@+id/create_task_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -119,6 +120,7 @@
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"/>
             <EditText
+                android:id="@+id/create_task_mark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
