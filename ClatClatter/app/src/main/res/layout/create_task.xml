@@ -41,6 +41,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
                 android:src="@drawable/ic_title"
                 android:layout_gravity="center"/>
             <TextView
@@ -104,6 +105,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
             android:src="@drawable/ic_bookmark"
             android:layout_gravity="top"/>
         <LinearLayout
@@ -146,15 +149,18 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:orientation="vertical"
-        android:onClick="date_select">
+        android:id="@+id/date">
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_canleder"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginRight="2dp"
                 android:layout_gravity="center"/>
             <TextView
                 xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
@@ -163,6 +169,20 @@
                 android:text="日期"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTime"
+                android:textSize="16sp"
+                android:gravity="right"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="160dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"
+                android:layout_gravity="center"/>
+
         </LinearLayout>
         <!--此为下划线-->
         <View
@@ -174,6 +194,83 @@
 
     </LinearLayout>
 
+    <!--时间行开始-->
+    <!--下面容器包含整个时间框和下划线-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="vertical">
+        <!--下面的容器包含开始容器，图片和结束容器-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+            <!--下面容器为开始容器-->
+            <LinearLayout
+                android:layout_width="135dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/time_start">
+                <TextView
+                    xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="开始"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/show_time"
+                    android:textSize="20sp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="right"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+            <!--下面的为下划线-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"
+                android:layout_gravity="center"/>
+            <!--下面为结束容器-->
+            <LinearLayout
+                android:layout_width="135dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/time_end">
+                <TextView
+                    xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="结束"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/show_time2"
+                    android:textSize="20sp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="right"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+        </LinearLayout>
+        <!--内容容器结束-->
+        <!--此为下划线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/background" />
+
+    </LinearLayout>
+    <!--时间行结束-->
 
 
     <com.jacklee.clatclatter.RowSwitchView
@@ -182,7 +279,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="特色闹钟" />
+        liming:title="特色闹钟"
+        liming:src="@drawable/alarm"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/focus_mode"
@@ -190,7 +288,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="专注模式" />
+        liming:title="专注模式"
+        liming:src="@drawable/eye"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/repeat"
@@ -198,7 +297,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="重复" />
+        liming:title="重复"
+        liming:src="@drawable/ic_repeat"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/remind"
@@ -206,7 +306,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="false"
-        liming:title="提醒" />
+        liming:title="提醒"
+        liming:src="@drawable/ic_remind"/>
 
 
 
