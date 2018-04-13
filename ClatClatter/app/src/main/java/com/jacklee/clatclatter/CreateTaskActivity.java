@@ -12,9 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,19 +20,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
-import com.bigkoo.pickerview.TimePickerView;
 import com.rey.material.app.BottomSheetDialog;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import io.blackbox_vision.materialcalendarview.view.DayView;
+import java.util.*;
+import java.util.Date;
 
 import static com.bigkoo.pickerview.TimePickerView.*;
 
@@ -63,6 +60,18 @@ public class CreateTaskActivity extends AppCompatActivity {
     private ComponentName mAdminComponentName;
 
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
+
+    private EditText editTextMark;
+    private EditText editText;
+    private int focus;
+    private int is_repeat;
+    private int sleep_pattern = 1;      //没有获取真正的值
+    private String priority;
+    private int sleep_pattern_kind = 1; //默认就是第一种防睡模式
+    private String start_time;
+    private String end_time;
+    private String remind_time;
+    private String task_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +115,7 @@ public class CreateTaskActivity extends AppCompatActivity {
             @Override
             public void onTimeSelect(java.util.Date date) {
                 tvTime.setText(getTime(date));
-                time = getTime(date);
+                task_date=getTime(date);
             }
         });
         //弹出时间选择器
@@ -127,6 +136,7 @@ public class CreateTaskActivity extends AppCompatActivity {
             @Override
             public void onTimeSelect(java.util.Date date) {
                 showtime.setText(getTime_time(date));
+                start_time=getTime_time(date);
             }
         });
         //弹出时间选择器
@@ -148,6 +158,7 @@ public class CreateTaskActivity extends AppCompatActivity {
             public void onTimeSelect(java.util.Date date) {
                 Log.i(TAG, "时间结束");
                 showtime2.setText(getTime_time2(date));
+                end_time=getTime_time2(date);
             }
         });
         //弹出时间选择器
@@ -201,6 +212,18 @@ public class CreateTaskActivity extends AppCompatActivity {
                             R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
                             .show();
                 }
+
+                if (focusModeSwitch.isChecked()) {
+                    Log.i(TAG, "专注模式开启");
+                    CreateTaskActivity.this.focus = 1;
+                    focusModeSwitch.setText("开启");
+
+                } else {
+                    Log.i(TAG, "专注模式关闭");
+                    CreateTaskActivity.this.focus = 0;
+                    focusModeSwitch.setText("");
+                }
+
             }
         });
 
@@ -208,10 +231,16 @@ public class CreateTaskActivity extends AppCompatActivity {
         repeatSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                if (repeatSwitch.isChecked())
-                    repeatSwitch.setText("开启");
-                else
+                if (repeatSwitch.isChecked()) {
+                    showDialog(getResources().getStringArray(R.array.repeat), repeatSwitch);
+                    Log.i(TAG, "是否重复开启");
+                    is_repeat = 1;
+                }
+                else {
+                    Log.i(TAG, "是否重复关闭");
+                    is_repeat = 0;
                     repeatSwitch.setText("");
+                }
             }
         });
 
@@ -221,7 +250,7 @@ public class CreateTaskActivity extends AppCompatActivity {
             public void switchListener() {
                 Log.i(TAG, "调用弹窗");
                 if (remindSwitch.isChecked())
-                    CreateTaskActivity.this.showDialog();
+                    showDialog(getResources().getStringArray(R.array.remind), remindSwitch);
                 else
                     remindSwitch.setText("");
             }
@@ -232,26 +261,30 @@ public class CreateTaskActivity extends AppCompatActivity {
      * 初始化界面控件
      */
     private void initView() {
-        specialAlarmSwitch = (RowSwitchView) findViewById(R.id.special_alarm);
-        focusModeSwitch    = (RowSwitchView) findViewById(R.id.focus_mode);
-        remindSwitch       = (RowSwitchView) findViewById(R.id.remind);
-        repeatSwitch       = (RowSwitchView) findViewById(R.id.repeat);
+        specialAlarmSwitch  = (RowSwitchView) findViewById(R.id.special_alarm);
+        focusModeSwitch     = (RowSwitchView) findViewById(R.id.focus_mode);
+        remindSwitch        = (RowSwitchView) findViewById(R.id.remind);
+        repeatSwitch        = (RowSwitchView) findViewById(R.id.repeat);
 
-        //初始化权限内容
-        mDevicePolicyManager = (DevicePolicyManager)
+        Log.i(TAG, "初始化权限内容");
+        mDevicePolicyManager    = (DevicePolicyManager)
                 getSystemService(Context.DEVICE_POLICY_SERVICE);
-        mAdminComponentName = DeviceAdminReceiver.getComponentName(this);
-        mPackageManager = this.getPackageManager();
+        mAdminComponentName     = DeviceAdminReceiver.getComponentName(this);
+        mPackageManager          = this.getPackageManager();
+
+        Log.i(TAG, "初始化控件");
+        editTextMark = (EditText) findViewById(R.id.create_task_mark);
+        editText = (EditText) findViewById(R.id.create_task_edit_text);
     }
 
     /**
      * 显示弹窗
      * @author gaoliming
      */
-    public void showDialog() {
+    private void showDialog(String[] arr, final RowSwitchView object) {
         Log.i(TAG, "初始化页面及List控件");
         final BottomSheetDialog dialog = new BottomSheetDialog(CreateTaskActivity.this);
-        final String[] array           = new String[]{"不提醒", "正点", "五分钟前", "10分钟前"};
+        final String[] array           = arr;
         View dialogView                = LayoutInflater.from(CreateTaskActivity.this)
                                                         .inflate(R.layout.pop_remind, null);
         ListView listView              = dialogView.findViewById(R.id.listview);
@@ -264,7 +297,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                remindSwitch.setText(array[i]);
+                object.setText(array[i]);
                 Log.i(TAG, "弹窗消失");
                 dialog.dismiss();
             }
@@ -285,26 +318,98 @@ public class CreateTaskActivity extends AppCompatActivity {
         return true;
     }
 
-    //为改tick定义点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.i(TAG, "为改tick定义点击事件");
         switch (item.getItemId()) {
-            case R.id.tick://点击对勾的事件
-                Toast.makeText(CreateTaskActivity.this, "You click the tick", Toast.LENGTH_SHORT).show();
+            case R.id.tick:
+                Log.i(TAG, "点击对勾的事件");
+                this.saveTask();
                 this.finish();
                 break;
-            case android.R.id.home://点击叉号的事件
-                Toast.makeText(CreateTaskActivity.this, "You click the wrong", Toast.LENGTH_SHORT).show();
+            case android.R.id.home:
+                Log.i(TAG, "点击叉号的事件");
                 this.finish();
                 break;
             default:
         }
         return true;
-    }//tick定义点击事件结束
+    }
+
+    /**
+     * 保存创建的任务
+     */
+    private void saveTask() {
+        Log.i(TAG, "初始化数据库对象");
+        DBManager db = new DBManager(this, "task.db", null, 3);
+
+
+        Log.i(TAG, "获取保存数据");
+        ContentValues task = new ContentValues();
+        task.put("title", editText.getText().toString());
+        task.put("mark", editTextMark.getText().toString());
+        task.put("focus", focus);
+        task.put("is_repeat", is_repeat);
+        task.put("sleep_pattern", sleep_pattern);
+        task.put("repeat_pattern", repeatSwitch.getText());
+        task.put("priority", priority);
+        task.put("sleep_pattern_kind", sleep_pattern_kind);
+        task.put("start_time", start_time);
+        task.put("end_time", end_time);
+        task.put("remind_time", getRmindTime());
+        task.put("task_date", task_date);
+
+        Log.i(TAG, "保存数据");
+        db.getReadableDatabase().insert("task", null, task);
+
+        Log.i(TAG, "查询数据");
+
+        Log.i(TAG, "关闭数据库对象");
+        db.close();
+    }
+
+    /**
+     * 获取提醒时间
+     * @return
+     */
+    private String getRmindTime() {
+        switch (remindSwitch.getText()) {
+            case "不提醒":
+                return "00:00";
+            case "正点":
+                return start_time;
+            case "五分钟前":
+                return translateTime(5);
+            case "十分钟前":
+                return translateTime(10);
+                default:
+                    return start_time;
+        }
+    }
+
+    private String translateTime(long time) {
+        String strBefore = start_time;
+        Log.i(TAG, "将分钟转化为秒");
+        time        = time * 60 * 1000;
+        String temp = "0000-00-00 " + start_time + ":00";        //拼凑正确的格式
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        try {
+            Date date   = sdf.parse(temp);
+            Date before = new Date(date.getTime() - time);
+            strBefore   = before.getHours() + ":" + before.getMinutes();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return strBefore;
+    }
 
     //    ImageButton warn_button;
     public void warn_button(View view) {
-        final String items[] = {"高优先级", "中优先级", "低优先级"};
+        Log.i(TAG, "初始化优先级数组");
+        final String items[] = getResources().getStringArray(R.array.priority) ;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 //设置对话框标题
@@ -313,8 +418,8 @@ public class CreateTaskActivity extends AppCompatActivity {
                 .setSingleChoiceItems(items, 2, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(CreateTaskActivity.this, items[i], Toast.LENGTH_SHORT).show();
-
+                        // Toast.makeText(CreateTaskActivity.this, items[i], Toast.LENGTH_SHORT).show();
+                        priority = items[i];
                     }
                 });
         //添加确定和取消按钮

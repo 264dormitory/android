@@ -101,6 +101,13 @@ public class RowSwitchView extends LinearLayout {
     }
 
     /**
+     * @return String text
+     */
+    public String getText() {
+        return (String) remineTextView.getText();
+    }
+
+    /**
      * 判断switch是否被点击
      * @return
      */
