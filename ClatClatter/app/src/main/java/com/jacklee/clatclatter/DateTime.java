@@ -37,14 +37,6 @@ public class DateTime extends TabActivity {
         /*利用tabhost创建tab标签栏*/
         final TabHost tabHost = getTabHost();
         LayoutInflater.from(this).inflate(R.layout.date_time, tabHost.getTabContentView(),true);
-        LayoutInflater.from(this).inflate(R.layout.date_time2, tabHost.getTabContentView(),true);
-        //创建开始tab栏
-        tabHost.addTab(tabHost.newTabSpec("TAB1").
-                setIndicator("开始").setContent(R.id.date_start));
-        //创建结束tab栏
-        tabHost.addTab(tabHost.newTabSpec("TAB2").
-                setIndicator("结束").setContent(R.id.date_end));
-        tabHost.setCurrentTab(0);//置初始的tab为第一个tab栏
         /*tab栏创建完毕*/
         /*calendarView 日历栏函数*/
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
@@ -78,7 +70,7 @@ public class DateTime extends TabActivity {
         textView_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tabHost.setCurrentTab(1);//跳转到第二个tab栏
+
                 Toast.makeText(DateTime.this,"sure",Toast.LENGTH_SHORT).show();
             }
         });

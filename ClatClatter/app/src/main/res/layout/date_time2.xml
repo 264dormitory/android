@@ -6,11 +6,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/date_end"
-    tools:context="com.jacklee.clatclatter.DateTime">
-    <TextView
+    android:id="@+id/date_start"
+    tools:context="com.jacklee.clatclatter.DateTime"
+    >
+
+    <!-- 应用日历插件 -->
+    <io.blackbox_vision.materialcalendarview.view.CalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginStart="2dp"
+        app:calendarButtonBackgroundColor="@color/colorPrimary"
+        app:calendarCurrentDayBackgroundColor="@color/teal500"
+        app:calendarCurrentDayTextColor="@color/white"
+        app:calendarDayOfWeekTextColor="@color/colorPrimary"
+        app:calendarIsMultiSelectDayEnabled="false"
+        app:calendarIsOverflowDatesVisible="false"
+        app:calendarSelectedDayBackgroundColor="@color/colorAccent"
+        app:calendarTitleTextColor="@color/colorPrimary"
+        app:calendarWeekendDays="saturday|sunday"
+        app:calendarWeekendTextColor="@color/colorPrimary"
+
+        app:calendarBackgroundColor="@android:color/transparent"
+        app:calendarTitleBackgroundColor="@android:color/transparent"
+        app:calendarWeekBackgroundColor="@android:color/transparent">
+    </io.blackbox_vision.materialcalendarview.view.CalendarView>
+    <TimePicker
+        android:id="@+id/timePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="结束"/>
+        android:timePickerMode="spinner"
+        android:theme="@style/MyTimePicker"
+        android:layout_gravity="center_horizontal">
+    </TimePicker>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:layout_marginTop="-20dp">
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textSize="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/colorPrimary"/>
+        <TextView
+            android:id="@+id/sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
