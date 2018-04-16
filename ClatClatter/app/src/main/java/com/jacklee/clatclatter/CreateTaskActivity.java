@@ -20,9 +20,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +37,7 @@ import com.rey.material.app.BottomSheetDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.InputMismatchException;
 
 import io.blackbox_vision.materialcalendarview.view.DayView;
 
@@ -159,9 +164,21 @@ public class CreateTaskActivity extends AppCompatActivity {
             }
         });
         /*结束时间结束*/
+        /*使得内容框获得聚焦*/
+        LinearLayout focus=(LinearLayout) findViewById(R.id.focus);
+        focus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "聚焦内容框");
+                EditText note=(EditText) findViewById(R.id.note);
+                note.setFocusable(true);
+                note.setFocusableInTouchMode(true);
+                note.requestFocus();
+                showKeyboard(note);//弹出软键盘
 
-
-
+            }
+        });
+        /*内容框聚焦结束*/
     }
     /*oncreate结束*/
 
@@ -323,7 +340,6 @@ public class CreateTaskActivity extends AppCompatActivity {
         builder.create();
         builder.show();
     }//ImageButton warn_button;点击事件结束
-
     //确定按钮点击事件
     private AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder) {
         //调用setPositiveButton方法添加确定按钮
@@ -357,7 +373,8 @@ public class CreateTaskActivity extends AppCompatActivity {
         pvTime = new TimePickerView(this, Type.YEAR_MONTH_DAY);
         pvTime.setTime(new java.util.Date());
         //  pvTime.setCyclic(false);
-        pvTime.setCancelable(true);
+        pvTime.setCancelable(false);
+        pvTime.setTitle("日期");
         //显示当前时间
         final Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -404,15 +421,23 @@ public class CreateTaskActivity extends AppCompatActivity {
         Log.i(TAG, "timeInit_time开始");
         textView = (TextView) findViewById(id);
         //时间选择器
-        pvtime_time = new TimePickerView(this, Type.HOURS_MINS);
+        pvtime_time = new TimePickerView(this, TimePickerView.Type.HOURS_MINS);
         pvtime_time.setTime(new java.util.Date());
+        pvtime_time.setTitle("开始时间");
+
+
         //  pvTime.setCyclic(false);
-        pvtime_time.setCancelable(true);
+        pvtime_time.setCancelable(false);
         //显示当前时间
         final Calendar c = Calendar.getInstance();
         hour = c.get(Calendar.HOUR_OF_DAY);
         minute = c.get(Calendar.MINUTE);
-        time=hour+":"+minute;
+        if(minute<10){
+            time=hour+":"+"0"+minute;
+        }
+        else{
+            time=hour+":"+minute;
+        }
         Log.i(TAG, "minute="+minute);
         showtime.setText(time);
         pvtime_time.setOnTimeSelectListener(new OnTimeSelectListener() {
@@ -444,13 +469,18 @@ public class CreateTaskActivity extends AppCompatActivity {
         //时间选择器
         pvtime_time2 = new TimePickerView(this, Type.HOURS_MINS);
         pvtime_time2.setTime(new java.util.Date());
-        //  pvTime.setCyclic(false);
-        pvtime_time2.setCancelable(true);
+        pvtime_time2.setCancelable(false);
+        pvtime_time2.setTitle("结束时间");
         //显示当前时间
         final Calendar c = Calendar.getInstance();
         hour = c.get(Calendar.HOUR_OF_DAY);
         minute = c.get(Calendar.MINUTE);
-        time=hour+":"+minute;
+        if(minute<10){
+            time=hour+":"+"0"+minute;
+        }
+        else{
+            time=hour+":"+minute;
+        }
         Log.i(TAG, "minute="+minute);
         showtime.setText(time);
         pvtime_time2.setOnTimeSelectListener(new OnTimeSelectListener() {
@@ -469,5 +499,14 @@ public class CreateTaskActivity extends AppCompatActivity {
         });
     }
     /*选择日期结束*/
+    /*弹出软键盘函数*/
+    public static void showKeyboard(View view){
+        InputMethodManager inputMethodManager=(InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(inputMethodManager!=null){
+            view.requestFocus();
+            inputMethodManager.showSoftInput(view,0);
+        }
+    }
+    /*弹出软键盘函数结束*/
 
 }

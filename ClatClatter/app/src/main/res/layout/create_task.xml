@@ -101,7 +101,8 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        android:id="@+id/focus">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,7 +112,7 @@
             android:layout_gravity="top"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"            android:orientation="vertical">
+            android:layout_height="110dp"            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,7 +124,8 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:layout_gravity="center_vertical"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:id="@+id/note"/>
         </LinearLayout>
 
     </LinearLayout>
