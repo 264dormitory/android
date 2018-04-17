@@ -1,14 +1,16 @@
 package com.jacklee.clatclatter;
 
+import android.app.Service;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
+import com.jacklee.clatclatter.service.LockService;
 import com.rey.material.app.BottomSheetDialog;
 
 import java.text.ParseException;
@@ -60,6 +63,9 @@ public class CreateTaskActivity extends AppCompatActivity {
     private ComponentName mAdminComponentName;
 
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
+
+    private LockService.MyBinder iBinder;
+    private ServiceConnection serviceConnection;
 
     private EditText editTextMark;
     private EditText editText;
@@ -211,7 +217,14 @@ public class CreateTaskActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),
                             R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
                             .show();
+
+
+
                 }
+                Log.i(TAG, "实现锁定app的功能");
+                CreateTaskActivity.this.lockApp();
+
+
 
                 if (focusModeSwitch.isChecked()) {
                     Log.i(TAG, "专注模式开启");
@@ -255,6 +268,31 @@ public class CreateTaskActivity extends AppCompatActivity {
                     remindSwitch.setText("");
             }
         });
+    }
+
+    /**
+     * 锁定app功能
+     */
+    public void lockApp() {
+        serviceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder service) {
+                Log.i(TAG, "返回服务对象");
+                iBinder = (LockService.MyBinder) service;
+                iBinder.listenerApps();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+                Log.i(TAG, "解除绑定");
+                iBinder = null;
+            }
+        };
+
+        Log.i(TAG, "绑定服务");
+        Intent intent = new Intent(CreateTaskActivity.this, LockService.class);
+        bindService(intent, serviceConnection, Service.BIND_AUTO_CREATE);
+
     }
 
     /**
