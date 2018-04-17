@@ -85,6 +85,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.SwitchStyle);
         setContentView(R.layout.create_task);
 
         //Toolbar Setting
