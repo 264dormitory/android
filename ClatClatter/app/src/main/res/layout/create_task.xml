@@ -70,6 +70,7 @@
         </LinearLayout>
         <!--此为下划线-->
         <View
+            android:layout_marginLeft="@dimen/icon_margin_left"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
@@ -139,6 +140,7 @@
         android:orientation="vertical">
         <!--此为下划线-->
         <View
+            android:layout_marginLeft="@dimen/icon_margin_left"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
@@ -189,6 +191,7 @@
         </LinearLayout>
         <!--此为下划线-->
         <View
+            android:layout_marginLeft="@dimen/icon_margin_left"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
@@ -266,6 +269,7 @@
         <!--内容容器结束-->
         <!--此为下划线-->
         <View
+            android:layout_marginLeft="@dimen/icon_margin_left"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
