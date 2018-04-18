@@ -359,7 +359,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.tick:
                 Log.i(TAG, "点击对勾的事件");
-                this.saveTask();
+//                this.saveTask();
                 this.finish();
                 break;
             case android.R.id.home:
