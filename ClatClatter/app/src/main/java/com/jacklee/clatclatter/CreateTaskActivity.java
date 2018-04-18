@@ -28,7 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
-import com.jacklee.clatclatter.service.LockService;
+import com.jacklee.clatclatter.service.DetectionService;
 import com.rey.material.app.BottomSheetDialog;
 
 import java.text.ParseException;
@@ -64,7 +64,6 @@ public class CreateTaskActivity extends AppCompatActivity {
 
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
 
-    private LockService.MyBinder iBinder;
     private ServiceConnection serviceConnection;
 
     private EditText editTextMark;
@@ -201,30 +200,31 @@ public class CreateTaskActivity extends AppCompatActivity {
         focusModeSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                if ( mDevicePolicyManager.isDeviceOwnerApp(
-                        getApplicationContext().getPackageName())) {
-                    Intent lockIntent = new Intent(getApplicationContext(),
-                            LockedActivity.class);
+//                if ( mDevicePolicyManager.isDeviceOwnerApp(
+//                        getApplicationContext().getPackageName())) {
+//                    Intent lockIntent = new Intent(getApplicationContext(),
+//                            LockedActivity.class);
+//
+//                    mPackageManager.setComponentEnabledSetting(
+//                            new ComponentName(getApplicationContext(),
+//                                    LockedActivity.class),
+//                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//                            PackageManager.DONT_KILL_APP);
+//                    startActivity(lockIntent);
+//                    finish();
+//                } else {
+//                    Toast.makeText(getApplicationContext(),
+//                            R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
+//                            .show();
+//
+//                }
 
-                    mPackageManager.setComponentEnabledSetting(
-                            new ComponentName(getApplicationContext(),
-                                    LockedActivity.class),
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP);
-                    startActivity(lockIntent);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
+                Toast.makeText(getApplicationContext(),
+                            R.string.remind_auxiliary_function,Toast.LENGTH_SHORT)
                             .show();
-
-
-
-                }
-                Log.i(TAG, "实现锁定app的功能");
-                CreateTaskActivity.this.lockApp();
-
-
+                Log.i(TAG, "启动服务");
+                Intent intent = new Intent(CreateTaskActivity.this, DetectionService.class);
+                startService(intent);
 
                 if (focusModeSwitch.isChecked()) {
                     Log.i(TAG, "专注模式开启");
@@ -268,31 +268,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                     remindSwitch.setText("");
             }
         });
-    }
-
-    /**
-     * 锁定app功能
-     */
-    public void lockApp() {
-        serviceConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName componentName, IBinder service) {
-                Log.i(TAG, "返回服务对象");
-                iBinder = (LockService.MyBinder) service;
-                iBinder.listenerApps();
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName componentName) {
-                Log.i(TAG, "解除绑定");
-                iBinder = null;
-            }
-        };
-
-        Log.i(TAG, "绑定服务");
-        Intent intent = new Intent(CreateTaskActivity.this, LockService.class);
-        bindService(intent, serviceConnection, Service.BIND_AUTO_CREATE);
-
     }
 
     /**
