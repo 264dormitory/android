@@ -17,6 +17,9 @@
     <string name="remind_auxiliary_function">请在手机中为ClatClatter打开辅助功能,否则无法使用此功能</string>
     <!--Lock mode结束-->
 
+    <!--应用白名单-->
+    <string name="app_whitelist_name">应用白名单</string>
+
     <!--定义优先级数组-->
     <string-array name="priority">
         <item>高优先级</item>

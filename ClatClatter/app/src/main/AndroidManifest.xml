@@ -45,6 +45,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ShowActivity">
         </activity>
 
@@ -59,6 +60,17 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/detection_service_config"/>
         </service>
+
+        <!--白名单-->
+        <activity android:name=".WhiteListActivity"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_whitelist_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        </activity>
+
         <!--注册创建任务活动-->
         <activity android:name=".DateTime">
         </activity>
