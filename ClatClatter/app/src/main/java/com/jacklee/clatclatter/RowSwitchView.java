@@ -1,9 +1,11 @@
 package com.jacklee.clatclatter;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.SwitchCompat;
@@ -15,12 +17,13 @@ import android.support.v7.widget.SwitchCompat;
 
 public class RowSwitchView extends LinearLayout {
     public static final String NAMESPACE = "http://schemas.android.com/apk/res/com.jacklee.clatclatter";
-    private static final String TAG      = "RowSwtichView";
+    private static final String TAG      = RowSwitchView.class.getSimpleName();
     private TextView rowName;
     private TextView remineTextView;
     private View view;
     private SwitchCompat rowSwtich;
-    private View delimiter;                     //分隔符　　
+    private View delimiter;                     //分隔符　
+    private ImageView imageView;
 
     public RowSwitchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -52,6 +55,11 @@ public class RowSwitchView extends LinearLayout {
             delimiter.setVisibility(View.VISIBLE);      //设置下划线是可见
         else
             delimiter.setVisibility(View.INVISIBLE);    //设置下滑性不可见
+
+        //设置图片
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RowSwitchView);
+        int src = typedArray.getResourceId(R.styleable.RowSwitchView_src, 0);
+        imageView.setImageResource(src);
     }
 
     public RowSwitchView(Context context, AttributeSet attrs) {
@@ -93,6 +101,13 @@ public class RowSwitchView extends LinearLayout {
     }
 
     /**
+     * @return String text
+     */
+    public String getText() {
+        return (String) remineTextView.getText();
+    }
+
+    /**
      * 判断switch是否被点击
      * @return
      */
@@ -112,6 +127,7 @@ public class RowSwitchView extends LinearLayout {
         remineTextView = view.findViewById(R.id.remin_text_view);
         rowSwtich      = view.findViewById(R.id.switch_0);               //获取Switch控件
         delimiter      = view.findViewById(R.id.delimiter);              //获取下划线
+        imageView      = view.findViewById(R.id.row_image);
         addView(view);
     }
 }
