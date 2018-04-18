@@ -85,6 +85,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.SwitchStyle);
         setContentView(R.layout.create_task);
 
         //Toolbar Setting
@@ -571,6 +572,25 @@ public class CreateTaskActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         return format.format(date);
     }
+    //特色闹钟
+    public void alarm_clock(View view) {
+        Toast.makeText(CreateTaskActivity.this, "选择了alarm_clock", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(CreateTaskActivity.this, Alarm_Clock.class);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    Log.i("tag",returnedData);
+                    specialAlarmSwitch.setText(returnedData);
+
+                }
+        }
+    }
     private void timeInit_time2(int id) {
         final TextView textView;
         Log.i(TAG, "timeInit_time开始");
@@ -617,5 +637,4 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
     }
     /*弹出软键盘函数结束*/
-
 }

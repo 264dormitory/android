@@ -73,7 +73,10 @@
                 android:src="@drawable/ic_error" />
         </LinearLayout>
         <!--此为下划线-->
+
         <LinearLayout
+
+            android:layout_marginLeft="@dimen/icon_margin_left"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="20dp">
@@ -147,7 +150,11 @@
         android:paddingRight="16dp"
         android:orientation="vertical">
         <!--此为下划线-->
+
         <LinearLayout
+
+            android:layout_marginLeft="@dimen/icon_margin_left"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="20dp">
@@ -210,6 +217,7 @@
         </LinearLayout>
         <!--此为下划线-->
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="20dp">
@@ -297,6 +305,7 @@
         </LinearLayout>
         <!--内容容器结束-->
         <!--此为下划线-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -321,7 +330,9 @@
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
         liming:title="特色闹钟"
-        liming:src="@drawable/alarm"/>
+        android:onClick="alarm_clock"
+        liming:src="@drawable/alarm"
+        />
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/focus_mode"
