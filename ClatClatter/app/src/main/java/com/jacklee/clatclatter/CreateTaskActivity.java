@@ -32,8 +32,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
+import com.jacklee.clatclatter.database.task;
 import com.jacklee.clatclatter.service.DetectionService;
 import com.rey.material.app.BottomSheetDialog;
+
+import org.litepal.crud.DataSupport;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -359,7 +362,7 @@ public class CreateTaskActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.tick:
                 Log.i(TAG, "点击对勾的事件");
-//                this.saveTask();
+                this.saveTask();
                 this.finish();
                 break;
             case android.R.id.home:
@@ -376,31 +379,24 @@ public class CreateTaskActivity extends AppCompatActivity {
      */
     private void saveTask() {
         Log.i(TAG, "初始化数据库对象");
-        DBManager db = new DBManager(this, "task.db", null, 3);
-
+        task task = new task();
 
         Log.i(TAG, "获取保存数据");
-        ContentValues task = new ContentValues();
-        task.put("title", editText.getText().toString());
-        task.put("mark", editTextMark.getText().toString());
-        task.put("focus", focus);
-        task.put("is_repeat", is_repeat);
-        task.put("sleep_pattern", sleep_pattern);
-        task.put("repeat_pattern", repeatSwitch.getText());
-        task.put("priority", priority);
-        task.put("sleep_pattern_kind", sleep_pattern_kind);
-        task.put("start_time", start_time);
-        task.put("end_time", end_time);
-        task.put("remind_time", getRmindTime());
-        task.put("task_date", task_date);
+        task.setTitle(editText.getText().toString());
+        task.setMark(editTextMark.getText().toString());
+        task.setFocus((char) focus);
+        task.setIs_repeat((char) is_repeat);
+        task.setSleep_pattern((char) sleep_pattern);
+        task.setRepeat_pattern(repeatSwitch.getText());
+        task.setPriority(priority);
+        task.setSleep_pattern_kind(sleep_pattern_kind);
+        task.setStart_time(start_time);
+        task.setEnd_time(end_time);
+        task.setRemind_time(getRmindTime());
+        task.setTask_date(task_date);
 
         Log.i(TAG, "保存数据");
-        db.getReadableDatabase().insert("task", null, task);
-
-        Log.i(TAG, "查询数据");
-
-        Log.i(TAG, "关闭数据库对象");
-        db.close();
+        task.save();
     }
 
     /**
