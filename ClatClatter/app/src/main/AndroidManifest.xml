@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jacklee.clatclatter">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
@@ -24,6 +26,24 @@
         <!--注册创建任务活动-->
         <activity android:name=".DateTime">
         </activity>
+        <activity android:name=".Alarm_Clock">
+
+        </activity>
+        <activity android:name=".Model_Select">
+
+        </activity>
+        <activity android:name=".Song_Select">
+
+        </activity>
+        <activity android:name=".Model0">
+
+        </activity>
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.jacklee.clatclatter.alarm.clock"/>
+            </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>

@@ -147,7 +147,9 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="特色闹钟" />
+        liming:title="特色闹钟"
+        android:onClick="alarm_clock"
+        />
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/focus_mode"
