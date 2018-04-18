@@ -16,6 +16,9 @@
     <string name="not_device_owner">手机不是Device Owner</string>
     <!--Lock mode结束-->
 
+    <!--应用白名单-->
+    <string name="app_whitelist_name">应用白名单</string>
+
     <!--定义优先级数组-->
     <string-array name="priority">
         <item>高优先级</item>
