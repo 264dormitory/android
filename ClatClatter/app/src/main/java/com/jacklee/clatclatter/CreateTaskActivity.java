@@ -1,14 +1,16 @@
 package com.jacklee.clatclatter;
 
+import android.app.Service;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
+import com.jacklee.clatclatter.service.DetectionService;
 import com.rey.material.app.BottomSheetDialog;
 
 import java.text.ParseException;
@@ -69,6 +72,8 @@ public class CreateTaskActivity extends AppCompatActivity {
     private ComponentName mAdminComponentName;
 
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
+
+    private ServiceConnection serviceConnection;
 
     private EditText editTextMark;
     private EditText editText;
@@ -217,23 +222,31 @@ public class CreateTaskActivity extends AppCompatActivity {
         focusModeSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                if ( mDevicePolicyManager.isDeviceOwnerApp(
-                        getApplicationContext().getPackageName())) {
-                    Intent lockIntent = new Intent(getApplicationContext(),
-                            LockedActivity.class);
+//                if ( mDevicePolicyManager.isDeviceOwnerApp(
+//                        getApplicationContext().getPackageName())) {
+//                    Intent lockIntent = new Intent(getApplicationContext(),
+//                            LockedActivity.class);
+//
+//                    mPackageManager.setComponentEnabledSetting(
+//                            new ComponentName(getApplicationContext(),
+//                                    LockedActivity.class),
+//                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//                            PackageManager.DONT_KILL_APP);
+//                    startActivity(lockIntent);
+//                    finish();
+//                } else {
+//                    Toast.makeText(getApplicationContext(),
+//                            R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
+//                            .show();
+//
+//                }
 
-                    mPackageManager.setComponentEnabledSetting(
-                            new ComponentName(getApplicationContext(),
-                                    LockedActivity.class),
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP);
-                    startActivity(lockIntent);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
+                Toast.makeText(getApplicationContext(),
+                            R.string.remind_auxiliary_function,Toast.LENGTH_SHORT)
                             .show();
-                }
+                Log.i(TAG, "启动服务");
+                Intent intent = new Intent(CreateTaskActivity.this, DetectionService.class);
+                startService(intent);
 
                 if (focusModeSwitch.isChecked()) {
                     Log.i(TAG, "专注模式开启");
