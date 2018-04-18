@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jacklee.clatclatter">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- 在application中配置name属性才能使用LitePal -->
@@ -42,6 +45,41 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".ShowActivity">
+        </activity>
+
+        <!--注册服务-->
+        <service
+            android:name=".service.DetectionService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/detection_service_config"/>
+        </service>
+        <!--注册创建任务活动-->
+        <activity android:name=".DateTime">
+        </activity>
+        <activity android:name=".Alarm_Clock">
+
+        </activity>
+        <activity android:name=".Model_Select">
+
+        </activity>
+        <activity android:name=".Song_Select">
+
+        </activity>
+        <activity android:name=".Model0">
+
+        </activity>
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.jacklee.clatclatter.alarm.clock"/>
+            </intent-filter>
+
+        </receiver>
 
         <!-- 注册创建任务活动 -->
         <activity android:name=".CreateTaskActivity"></activity>
@@ -68,5 +106,10 @@
 
         <activity android:name=".Date"></activity>
     </application>
+
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <!--应用锁权限-->
+    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
+    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>-->
 
 </manifest>
