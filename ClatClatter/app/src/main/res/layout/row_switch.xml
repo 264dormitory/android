@@ -64,6 +64,7 @@
 
     <View
         android:id="@+id/delimiter"
+        android:layout_marginLeft="@dimen/icon_margin_left"
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:background="@color/background"
