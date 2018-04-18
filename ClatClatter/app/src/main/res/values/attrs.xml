@@ -4,5 +4,6 @@
         <!--定义title属性-->
         <attr name="title" format="string" />
         <attr name="isShowDelimiter" format="boolean" />
+        <attr name="src" format="reference" />
     </declare-styleable>
 </resources>

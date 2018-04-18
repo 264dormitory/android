@@ -6,4 +6,36 @@
     <string name="weekly">每周</string>
     <string name="monthly">每月</string>
     <string name="annual">每年</string>
+    <string name="title">标题</string>
+
+    <!--Lock mode用到-->
+    <string name="title_activity_locked">LockedActivity</string>
+    <string name="lock_button">Start Lock Task Mode</string>
+    <string name="stop_lock_button">Stop lock task mode</string>
+    <string name="not_lock_whitelisted">手机没有在权限白名单里，古不能开启这个模块</string>
+    <string name="not_device_owner">手机不是Device Owner</string>
+    <!--Lock mode结束-->
+
+    <!--定义优先级数组-->
+    <string-array name="priority">
+        <item>高优先级</item>
+        <item>中优先级</item>
+        <item>低优先级</item>
+    </string-array>
+
+    <!--定义提醒数组-->
+    <string-array name="remind">
+        <item>不提醒</item>
+        <item>正点</item>
+        <item>五分钟前</item>
+        <item>十分钟前</item>
+    </string-array>
+
+    <!--重复数组-->
+    <string-array name="repeat">
+        <item>每日</item>
+        <item>每周</item>
+        <item>每月</item>
+        <item>每年</item>
+    </string-array>
 </resources>

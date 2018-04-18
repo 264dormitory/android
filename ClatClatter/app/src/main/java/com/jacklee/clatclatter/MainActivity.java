@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //实现应用的闪屏
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
