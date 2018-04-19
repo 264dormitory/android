@@ -1,16 +1,13 @@
 package com.jacklee.clatclatter;
 
-import android.app.Service;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +17,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,19 +27,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
 import com.jacklee.clatclatter.database.task;
-import com.jacklee.clatclatter.service.DetectionService;
+import com.jacklee.clatclatter.service.CreateTaskService;
 import com.rey.material.app.BottomSheetDialog;
-
-import org.litepal.crud.DataSupport;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.InputMismatchException;
 
-import io.blackbox_vision.materialcalendarview.view.DayView;
 
-import java.util.*;
 import java.util.Date;
 
 import static com.bigkoo.pickerview.TimePickerView.*;
@@ -248,8 +237,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                             R.string.remind_auxiliary_function,Toast.LENGTH_SHORT)
                             .show();
                 Log.i(TAG, "启动服务");
-                Intent intent = new Intent(CreateTaskActivity.this, DetectionService.class);
-                startService(intent);
 
                 if (focusModeSwitch.isChecked()) {
                     Log.i(TAG, "专注模式开启");
@@ -397,7 +384,30 @@ public class CreateTaskActivity extends AppCompatActivity {
 
         Log.i(TAG, "保存数据");
         task.save();
+
+        if (focus == 1) {
+            Log.i(TAG, "开启专注模式并设置定时任务");
+            this.setFocusTask();
+        }
     }
+
+    private void setFocusTask() {
+        Log.i(TAG, "正确拼接出第一次的时间");
+        String taskTime = task_date + " " + start_time + ":00";
+        String endTaskTime = task_date + " " + end_time + ":00";
+
+        Log.i(TAG, "在开始时刻启动服务");
+        Intent intent = new Intent(this, CreateTaskService.class);
+        intent.putExtra("startTime", taskTime);
+        intent.putExtra("endTime", endTaskTime);
+        intent.putExtra("strCycle", repeatSwitch.getText());
+        startService(intent);
+
+        Log.i(TAG, "将此任务设置成周期性任务");
+
+    }
+
+
 
     /**
      * 获取提醒时间
