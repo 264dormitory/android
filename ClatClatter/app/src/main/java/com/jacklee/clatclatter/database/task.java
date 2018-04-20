@@ -1,10 +1,12 @@
 package com.jacklee.clatclatter.database;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * 李世杰创建task类，对应相应的数据库中task表的映射
  */
 
-public class task {
+public class task extends DataSupport {
 
     private int id;  //任务id
 
