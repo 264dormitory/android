@@ -46,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
                 android:src="@drawable/ic_title"
                 android:layout_gravity="center"/>
             <TextView
@@ -87,7 +88,6 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/background" />
         </LinearLayout>
-
     </LinearLayout>
     <!--标题行结束-->
 
@@ -120,12 +120,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="2dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="3dp"
             android:src="@drawable/ic_bookmark"
             android:layout_gravity="top"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"            android:orientation="vertical">
+            android:layout_height="110dp"
+            android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -198,16 +199,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.35"
-                android:layout_gravity="center">
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTime"
                     android:textSize="16sp"
+                    android:text="时间"
                     android:layout_gravity="center_vertical|right" />
             </LinearLayout>
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -249,11 +252,10 @@
                 android:id="@+id/time_start"
                 android:layout_width="135dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
-                android:layout_weight="0.9"
-                android:orientation="vertical">
-
-                <TextView xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                android:orientation="vertical"
+                android:layout_weight="0.8">
+                <TextView
+                    xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -281,11 +283,10 @@
                 android:id="@+id/time_end"
                 android:layout_width="135dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="0.9"
-                android:orientation="vertical">
-
-                <TextView xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                android:orientation="vertical"
+                android:layout_weight="0.8">
+                <TextView
+                    xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
