@@ -1,4 +1,4 @@
-package com.jacklee.clatclatter;;
+package com.jacklee.clatclatter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,11 +8,13 @@ import android.provider.AlarmClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -21,8 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Model_Select extends AppCompatActivity {
+    private static final String TAG = CreateTaskActivity.class.getSimpleName();
     Intent intent = new Intent();
     final ArrayList mItemlist = new ArrayList <> ();
+    private ImageView imageView=null;//用于定义点击后显示对勾图片
     private  int index;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +41,10 @@ public class Model_Select extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_cancel);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_left);
         }
+
+
 
         GridView gridview = (GridView) findViewById(R.id.GrilView);
      //   final ArrayList mItemlist = new ArrayList <> ();
@@ -52,12 +58,15 @@ public class Model_Select extends AppCompatActivity {
 
         gridview.setAdapter(mAdaper);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 index=i;
                 intent.putExtra("model_name",index);
+                Log.i(TAG, "点击grideView");
                 switch (i){
                     case 0:
+                        Log.i(TAG, "点击加减大师");
                         intent.putExtra("model_return","加减大师");
                         break;
                     case 1:
@@ -81,6 +90,7 @@ public class Model_Select extends AppCompatActivity {
         HashMap map1=new HashMap();
         map1.put("mImageView", R.drawable.ic_task);
         map1.put("mTextView","加减大师");
+        map1.put("sureImage",null);
         HashMap map2=new HashMap();
         map2.put("mImageView",R.drawable.ic_task);
         map2.put("mTextView","摇一摇");
@@ -96,26 +106,17 @@ public class Model_Select extends AppCompatActivity {
         mItemlist.add(map4);
     }
 
-    //  进行Toolbar的初始化操作
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.floatbutton_tick, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.tick:
-                Toast.makeText(this, "You click the tick", Toast.LENGTH_SHORT).show();
+            case android.R.id.home:
+                Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK,intent);
                 SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
                 editor.putInt("indexof",index);
                 editor.apply();
-                this.finish();
-                break;
-            case android.R.id.home:
-                Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
                 this.finish();
                 break;
             default:
