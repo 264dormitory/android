@@ -26,6 +26,7 @@
         android:paddingRight="16dp">
 
         <View
+            android:layout_marginLeft="@dimen/icon_margin_left"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
@@ -45,12 +46,18 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/alarm"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="center"/>
 
             <TextView xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:text="铃声"
                 android:textSize="16sp" />
 
@@ -59,19 +66,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_weight="1.2"
+                android:gravity="right"
+                android:layout_marginRight="20dp"
                 android:text="Dream"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                />
 
-            <com.rey.material.widget.ImageView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/forword" />
+                android:src="@drawable/arrow"
+                android:layout_gravity="center"/>
         </LinearLayout>
         <!--此为下划线-->
         <View
+            android:layout_marginLeft="@dimen/icon_margin_left"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="5dp"
@@ -83,15 +93,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:layout_marginTop="0dp"
         android:onClick="sleep_set"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_ring"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center"/>
         <TextView
             android:id="@+id/model_label"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="防睡模式"
@@ -101,19 +119,17 @@
             android:id="@+id/model_text"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text=""
+            android:layout_weight="0.9"
+            android:gravity="center|right"
+            android:layout_marginRight="13dp"
+            android:text="请选择模式"
             android:textSize="16sp"/>
-
 
         <Switch
             android:id="@+id/model_switch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="17dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-
             />
     </LinearLayout>
 

@@ -42,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
                 android:src="@drawable/ic_title"
                 android:layout_gravity="center"/>
             <TextView
@@ -109,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="2dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="3dp"
             android:src="@drawable/ic_bookmark"
             android:layout_gravity="top"/>
         <LinearLayout
@@ -181,7 +182,7 @@
                 android:textSize="16sp"
                 android:gravity="right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="160dp"/>
+                android:layout_weight="1"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -211,14 +212,15 @@
         <!--下面的容器包含开始容器，图片和结束容器-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="105dp"
             android:orientation="horizontal">
             <!--下面容器为开始容器-->
             <LinearLayout
                 android:layout_width="135dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/time_start">
+                android:id="@+id/time_start"
+                android:layout_weight="0.8">
                 <TextView
                     xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                     android:layout_width="wrap_content"
@@ -247,7 +249,8 @@
                 android:layout_width="135dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/time_end">
+                android:id="@+id/time_end"
+                android:layout_weight="0.8">
                 <TextView
                     xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                     android:layout_width="wrap_content"
