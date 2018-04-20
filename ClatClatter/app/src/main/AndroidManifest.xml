@@ -64,8 +64,9 @@
                 android:resource="@xml/detection_service_config"/>
         </service>
         
-        <service android:name=".service.CreateTaskService">
-        </service>
+        <service android:name=".service.CreateTaskService"></service>
+
+        <service android:name=".service.NotificationService"></service>
 
         <!--注册创建任务活动-->
         <activity android:name=".DateTime">
@@ -120,4 +121,6 @@
     <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
     <!--<uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>-->
 
+    <!--震动权限-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 </manifest>

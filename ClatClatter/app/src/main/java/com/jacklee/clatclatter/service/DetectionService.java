@@ -36,7 +36,7 @@ public class DetectionService extends AccessibilityService {
         Log.i(TAG, "引导用户开启辅助功能");
         // 判断辅助功能是否开启
         if (!DetectionService.isAccessibilitySettingsOn(getBaseContext())) {
-            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getBaseContext().startActivity(intent);
         }
