@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.jacklee.clatclatter.App;
 import com.jacklee.clatclatter.AppAdapter;
+import com.jacklee.clatclatter.BaseFragment.BaseFragment;
 import com.jacklee.clatclatter.DividerItemDecoration;
 import com.jacklee.clatclatter.R;
 import com.jacklee.clatclatter.swipe.OnStartDragListener;
@@ -24,10 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by user on 2018/4/18.
+ * 李世杰创建应用白名单的fragment页面
  */
 
-public class WhiteListFragement extends Fragment {
+public class WhiteListFragement extends BaseFragment {
 
     RecyclerView mRecyclerView = null;
 

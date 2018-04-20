@@ -10,13 +10,14 @@
         android:layout_centerInParent="true"
         android:paddingLeft="20dip"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        />
+        android:layout_alignParentStart="true" />
     <TextView android:id="@+id/app_name"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toRightOf="@id/app_image"
+        android:textSize="15sp"
+        android:textColor="@color/black"
         android:paddingLeft="16dip"/>
     <TextView android:id="@+id/switch_show_status"
         android:layout_width="64dp"
@@ -32,8 +33,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:paddingRight="16dip"
-        />
+        android:paddingRight="16dip"/>
 </RelativeLayout>
 
 

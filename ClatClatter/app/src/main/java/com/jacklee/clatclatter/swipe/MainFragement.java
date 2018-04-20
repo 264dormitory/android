@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.jacklee.clatclatter.BaseFragment.BaseFragment;
 import com.jacklee.clatclatter.CreateTaskActivity;
 import com.jacklee.clatclatter.MainActivity;
 import com.jacklee.clatclatter.R;
@@ -37,7 +38,7 @@ import io.blackbox_vision.materialcalendarview.view.CalendarView;
  * 李世杰创建首页的Fragement
  */
 
-public class MainFragement extends Fragment implements OnStartDragListener {
+public class MainFragement extends BaseFragment implements OnStartDragListener {
 
 
     private final static String TAG = "MainActivity";
