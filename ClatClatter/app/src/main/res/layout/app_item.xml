@@ -17,18 +17,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toRightOf="@id/app_image"
-        android:paddingLeft="16dip"
-        android:fontFamily="sans-serif"
-        android:textStyle="normal|bold|italic"/>
+        android:paddingLeft="16dip"/>
     <TextView android:id="@+id/switch_show_status"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toRightOf="@id/app_name"
         android:layout_toEndOf="@+id/app_name"
-        android:text="关闭"
-        android:fontFamily="sans-serif"
-        android:textStyle="normal|bold|italic"/>
+        android:text="关闭"/>
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/whitelist_switchCompat"
         android:layout_width="wrap_content"

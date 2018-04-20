@@ -1,59 +1,61 @@
 package com.jacklee.clatclatter;
 
+import android.app.Fragment;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.jacklee.clatclatter.App;
+import com.jacklee.clatclatter.AppAdapter;
+import com.jacklee.clatclatter.DividerItemDecoration;
+import com.jacklee.clatclatter.R;
+import com.jacklee.clatclatter.swipe.OnStartDragListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WhiteListActivity extends AppCompatActivity {
+/**
+ * Created by user on 2018/4/18.
+ */
+
+public class WhiteListFragement extends Fragment {
+
     RecyclerView mRecyclerView = null;
+
     List<App> appList = null;
+
     AppAdapter adapter = null;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_whitelist);
-        //Toolbar Setting
-        Toolbar toolbar = (Toolbar) findViewById(R.id.whitelist_toolbar);
-        toolbar.setTitle("应用白名单");
-
-        //这句话用来实现使用toolbar 代替 actionbar
-        setSupportActionBar(toolbar);//actionbar的位置替换成toolbar
-
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null)
-        {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.menu_whitelist, null);
 
         //initApps();
-        mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
-
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.list_view);
         appList = getApp();
         updateUI(appList);
-
+        return view;
     }
 
     public void updateUI(List<App> appList)
     {
         if(null != appList)
         {
-            adapter = new AppAdapter(getApplication(), appList);
+            adapter = new AppAdapter(getActivity().getApplication(), appList);
             //mRecyclerView.setAdapter(adapter);
-            LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+            LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
             mRecyclerView.setLayoutManager(layoutManager);
-            mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                     DividerItemDecoration.VERTICAL_LIST));
             AppAdapter adpter=new AppAdapter(appList);
             mRecyclerView.setAdapter(adpter);
@@ -61,7 +63,7 @@ public class WhiteListActivity extends AppCompatActivity {
     }
     // 获取包名信息
     public List<App> getApp(){
-        PackageManager pm = getApplication().getPackageManager();
+        PackageManager pm = getActivity().getApplication().getPackageManager();
         List<PackageInfo>  packgeInfos = pm.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
         appList = new ArrayList<App>();
         /* 获取应用程序的名称，不是包名，而是清单文件中的labelname
@@ -76,5 +78,4 @@ public class WhiteListActivity extends AppCompatActivity {
         }
         return appList;
     }
-
 }
