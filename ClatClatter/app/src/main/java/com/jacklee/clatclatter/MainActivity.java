@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity{
 
     private PeriodicTask periodicTask;  //周期性任务的Fragment
 
+    private WhiteListFragement whiteListFragement;  //周期性任务的Fragment
+
     private boolean isToToday;  //用于设置是否显示toolbar的回到今日
 
     private boolean isDaily;
@@ -208,8 +210,27 @@ public class MainActivity extends AppCompatActivity{
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
     }
-    //专注模式的跳转
-
+    //周期性任务的跳转
+    public void switchToWhiteListFragment(){
+        isToToday = false;
+        isDaily = false;
+        isWeekly = false;
+        isMonthly = false;
+        isAnnual = false;
+        if(whiteListFragement == null){
+            Log.d("123", "switchToWhiteListFragment: 1");
+            whiteListFragement = new WhiteListFragement();
+            getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.frame_content)).add(R.id.frame_content, whiteListFragement).commit();
+        }
+        else{
+            Log.d("123", "switchToWhiteListFragment: 2");
+            getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.frame_content)).show(whiteListFragement).commit();
+        }
+        invalidateOptionsMenu();  //用于更新menu
+        toolbar.setTitle(R.string.app_whitelist_name);
+        floatingActionButton.setVisibility(View.GONE);
+        content.setVisibility(View.GONE);
+    }
     //进行抽屉栏的初始化
     public void navInit(){
         navView.setCheckedItem(R.id.main_nav_view);
@@ -227,6 +248,7 @@ public class MainActivity extends AppCompatActivity{
                         switchToPeriodicTaskFragment();
                         break;
                     case R.id.nav_whiteList:
+                        switchToWhiteListFragment();
                         break;
                     default:
                 }

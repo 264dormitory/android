@@ -2,12 +2,11 @@ package com.jacklee.clatclatter;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -18,28 +17,24 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
+import com.jacklee.clatclatter.database.task;
+import com.jacklee.clatclatter.service.CreateTaskService;
 import com.rey.material.app.BottomSheetDialog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.InputMismatchException;
 
-import io.blackbox_vision.materialcalendarview.view.DayView;
 
-import java.util.*;
 import java.util.Date;
 
 import static com.bigkoo.pickerview.TimePickerView.*;
@@ -69,6 +64,8 @@ public class CreateTaskActivity extends AppCompatActivity {
     private ComponentName mAdminComponentName;
 
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
+
+    private ServiceConnection serviceConnection;
 
     private EditText editTextMark;
     private EditText editText;
@@ -217,23 +214,29 @@ public class CreateTaskActivity extends AppCompatActivity {
         focusModeSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                if ( mDevicePolicyManager.isDeviceOwnerApp(
-                        getApplicationContext().getPackageName())) {
-                    Intent lockIntent = new Intent(getApplicationContext(),
-                            LockedActivity.class);
+//                if ( mDevicePolicyManager.isDeviceOwnerApp(
+//                        getApplicationContext().getPackageName())) {
+//                    Intent lockIntent = new Intent(getApplicationContext(),
+//                            LockedActivity.class);
+//
+//                    mPackageManager.setComponentEnabledSetting(
+//                            new ComponentName(getApplicationContext(),
+//                                    LockedActivity.class),
+//                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+//                            PackageManager.DONT_KILL_APP);
+//                    startActivity(lockIntent);
+//                    finish();
+//                } else {
+//                    Toast.makeText(getApplicationContext(),
+//                            R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
+//                            .show();
+//
+//                }
 
-                    mPackageManager.setComponentEnabledSetting(
-                            new ComponentName(getApplicationContext(),
-                                    LockedActivity.class),
-                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                            PackageManager.DONT_KILL_APP);
-                    startActivity(lockIntent);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.not_lock_whitelisted,Toast.LENGTH_SHORT)
+                Toast.makeText(getApplicationContext(),
+                            R.string.remind_auxiliary_function,Toast.LENGTH_SHORT)
                             .show();
-                }
+                Log.i(TAG, "启动服务");
 
                 if (focusModeSwitch.isChecked()) {
                     Log.i(TAG, "专注模式开启");
@@ -363,32 +366,48 @@ public class CreateTaskActivity extends AppCompatActivity {
      */
     private void saveTask() {
         Log.i(TAG, "初始化数据库对象");
-        DBManager db = new DBManager(this, "task.db", null, 3);
-
+        task task = new task();
 
         Log.i(TAG, "获取保存数据");
-        ContentValues task = new ContentValues();
-        task.put("title", editText.getText().toString());
-        task.put("mark", editTextMark.getText().toString());
-        task.put("focus", focus);
-        task.put("is_repeat", is_repeat);
-        task.put("sleep_pattern", sleep_pattern);
-        task.put("repeat_pattern", repeatSwitch.getText());
-        task.put("priority", priority);
-        task.put("sleep_pattern_kind", sleep_pattern_kind);
-        task.put("start_time", start_time);
-        task.put("end_time", end_time);
-        task.put("remind_time", getRmindTime());
-        task.put("task_date", task_date);
+        task.setTitle(editText.getText().toString());
+        task.setMark(editTextMark.getText().toString());
+        task.setFocus((char) focus);
+        task.setIs_repeat((char) is_repeat);
+        task.setSleep_pattern((char) sleep_pattern);
+        task.setRepeat_pattern(repeatSwitch.getText());
+        task.setPriority(priority);
+        task.setSleep_pattern_kind(sleep_pattern_kind);
+        task.setStart_time(start_time);
+        task.setEnd_time(end_time);
+        task.setRemind_time(getRmindTime());
+        task.setTask_date(task_date);
 
         Log.i(TAG, "保存数据");
-        db.getReadableDatabase().insert("task", null, task);
+        task.save();
 
-        Log.i(TAG, "查询数据");
-
-        Log.i(TAG, "关闭数据库对象");
-        db.close();
+        if (focus == 1) {
+            Log.i(TAG, "开启专注模式并设置定时任务");
+            this.setFocusTask();
+        }
     }
+
+    private void setFocusTask() {
+        Log.i(TAG, "正确拼接出第一次的时间");
+        String taskTime = task_date + " " + start_time + ":00";
+        String endTaskTime = task_date + " " + end_time + ":00";
+
+        Log.i(TAG, "在开始时刻启动服务");
+        Intent intent = new Intent(this, CreateTaskService.class);
+        intent.putExtra("startTime", taskTime);
+        intent.putExtra("endTime", endTaskTime);
+        intent.putExtra("strCycle", repeatSwitch.getText());
+        startService(intent);
+
+        Log.i(TAG, "将此任务设置成周期性任务");
+
+    }
+
+
 
     /**
      * 获取提醒时间

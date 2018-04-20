@@ -5,7 +5,7 @@ android {
     buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.jacklee.clatclatter"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -38,4 +38,6 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.2.1'
     testCompile 'junit:junit:4.12'
     compile 'com.bigkoo:pickerview:2.0.8'
+    //添加使用LitePal的依赖
+    compile 'org.litepal.android:core:1.4.1'
 }
