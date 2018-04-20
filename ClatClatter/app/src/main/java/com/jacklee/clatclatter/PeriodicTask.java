@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jacklee.clatclatter.BaseFragment.BaseFragment;
 import com.jacklee.clatclatter.swipe.OnStartDragListener;
 import com.jacklee.clatclatter.swipe.SimpleItemTouchHelperCallback;
 
@@ -24,7 +25,7 @@ import java.util.Random;
  * 周期性任务页面的Fragement
  */
 
-public class PeriodicTask extends Fragment implements OnStartDragListener {
+public class PeriodicTask extends BaseFragment implements OnStartDragListener {
 
     private final static String TAG = "MainActivity";
 
