@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //进行toolbar按钮的动态设置
-
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         Log.d("456", "onPrepareOptionsMenu: ");
@@ -199,6 +197,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
         }
     }
+
     //日历页面的跳转
     public void switchToMain(){
         isToToday = true;

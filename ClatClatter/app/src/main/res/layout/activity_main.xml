@@ -13,19 +13,18 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
         <!-- 带日历的主页Toolbar -->
-        <include
-            android:id="@+id/main_appbar"
-            layout="@layout/main_toolbar" />
 
-        <FrameLayout
-            android:id="@+id/frame_content"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/main_appbar"
-            android:scrollbars="none"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/frame_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </FrameLayout>
+        </android.support.v4.widget.NestedScrollView>
 
         <!-- 用于实现浮动按钮 -->
         <android.support.design.widget.FloatingActionButton
@@ -35,6 +34,10 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_plus"/>
+
+        <include
+            android:id="@+id/main_appbar"
+            layout="@layout/main_toolbar" />
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- 侧滑栏页面 -->
@@ -44,7 +47,6 @@
         android:layout_width="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/nav_header"
-        />
+        app:headerLayout="@layout/nav_header" />
 
 </android.support.v4.widget.DrawerLayout>

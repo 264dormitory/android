@@ -32,7 +32,8 @@
 
         <!-- APP的主程序页面 -->
         <activity android:name=".MainActivity"
-            android:supportsRtl="true">
+            android:supportsRtl="true"
+            android:theme="@style/CalendarTheme">
 
         </activity>
 
