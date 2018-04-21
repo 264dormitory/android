@@ -68,6 +68,12 @@ public class Model_Select extends AppCompatActivity {
                     case 0:
                         Log.i(TAG, "点击加减大师");
                         intent.putExtra("model_return","加减大师");
+
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor.putInt("indexof",index);
+                        editor.apply();
+
                         break;
                     case 1:
                         intent.putExtra("model_return","摇一摇");
@@ -113,10 +119,10 @@ public class Model_Select extends AppCompatActivity {
         switch(item.getItemId()){
             case android.R.id.home:
                 Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK,intent);
-                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
-                editor.putInt("indexof",index);
-                editor.apply();
+//                setResult(RESULT_OK,intent);
+//                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+//                editor.putInt("indexof",index);
+//                editor.apply();
                 this.finish();
                 break;
             default:
