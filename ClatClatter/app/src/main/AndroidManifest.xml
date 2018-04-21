@@ -1,15 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.jacklee.clatclatter">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"></uses-permission>
 
+
+    <!-- 在application中配置name属性才能使用LitePal -->
     <application
+        android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
@@ -31,7 +36,10 @@
         </activity>
 
         <!-- APP的主程序页面 -->
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"
+            android:supportsRtl="true">
+
+        </activity>
 
         <!-- 锁定任务Acvitity -->
         <activity
@@ -45,6 +53,29 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ShowActivity">
+        </activity>
+
+        <!--注册服务-->
+        <service
+            android:name=".service.DetectionService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/detection_service_config"/>
+        </service>
+
+        <service android:name=".service.CreateTaskService">
+        </service>
+        
+        <service android:name=".service.CreateTaskService"></service>
+
+        <service android:name=".service.NotificationService"></service>
+
         <!--注册创建任务活动-->
         <activity android:name=".DateTime">
         </activity>
@@ -96,4 +127,11 @@
 
     </application>
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <!--应用锁权限-->
+    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
+    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>-->
+
+    <!--震动权限-->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 </manifest>

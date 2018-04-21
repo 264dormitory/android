@@ -15,7 +15,13 @@
     <string name="not_lock_whitelisted">手机没有在权限白名单里，古不能开启这个模块</string>
     <string name="not_device_owner">手机不是Device Owner</string>
 
+    <string name="remind_auxiliary_function">请在手机中为ClatClatter打开辅助功能,否则无法使用此功能</string>
     <!--Lock mode结束-->
+
+    <string name="remind_message">请在手机设置中为ClatClatter开启通知</string>
+
+    <!--应用白名单-->
+    <string name="app_whitelist_name">应用白名单</string>
 
     <!--定义优先级数组-->
     <string-array name="priority">
@@ -34,6 +40,7 @@
 
     <!--重复数组-->
     <string-array name="repeat">
+        <item>不重复</item>
         <item>每日</item>
         <item>每周</item>
         <item>每月</item>

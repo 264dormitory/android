@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity{
 
     private PeriodicTask periodicTask;  //周期性任务的Fragment
 
+    private WhiteListFragement whiteListFragement;  //周期性任务的Fragment
+
     private boolean isToToday;  //用于设置是否显示toolbar的回到今日
 
     private boolean isDaily;
@@ -145,6 +147,58 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+    //自定义一个用于动态隐藏已有fragment页面的方法
+    public void hideAppointFragment(String tag){
+        //传入一个tag用于隐藏除tag之外的所有fragment
+        switch (tag){
+            case "mainFragment":
+                if(todayTaskFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("todayTaskTag")).commit();
+                }
+                if(periodicTask != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("periodicTaskTag")).commit();
+                }
+                if(whiteListFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("whiteListFragmentTag")).commit();
+                }
+                break;
+            case "todayTaskTag":
+                if(mainFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("mainFragmentTag")).commit();
+                }
+                if(periodicTask != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("periodicTaskTag")).commit();
+                }
+                if(whiteListFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("whiteListFragmentTag")).commit();
+                }
+                break;
+            case "periodicTaskTag":
+                if(mainFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("mainFragmentTag")).commit();
+                }
+                if(todayTaskFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("todayTaskTag")).commit();
+                }
+                if(whiteListFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("whiteListFragmentTag")).commit();
+                }
+                break;
+            case "whiteListFragmentTag":
+                if(mainFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("mainFragmentTag")).commit();
+                }
+                if(todayTaskFragement != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("todayTaskTag")).commit();
+                }
+                if(periodicTask != null){
+                    getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentByTag("periodicTaskTag")).commit();
+                }
+                break;
+            default:
+                break;
+        }
+    }
     //日历页面的跳转
     public void switchToMain(){
         isToToday = true;
@@ -155,11 +209,13 @@ public class MainActivity extends AppCompatActivity{
         if(mainFragement == null){
             Log.d("123", "switchToMain: 1");
             mainFragement = new MainFragement();
-            getFragmentManager().beginTransaction().add(R.id.frame_content, mainFragement).commit();
+            getFragmentManager().beginTransaction().add(R.id.frame_content, mainFragement, "mainFragmentTag").commit();
+            hideAppointFragment("mainFragmentTag");
         }
         else{
-            Log.d("123", "switchToMain: 2");
-            getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.frame_content)).show(mainFragement).commit();
+            Log.d("123", "switchToMain: 2");;
+            getFragmentManager().beginTransaction().show(mainFragement).commit();
+            hideAppointFragment("mainFragmentTag");
         }
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.app_name);
@@ -176,11 +232,13 @@ public class MainActivity extends AppCompatActivity{
         if(todayTaskFragement == null){
             Log.d("123", "switchToTodayTaskFragement: 1");
             todayTaskFragement = new TodayTaskFragement();
-            getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.frame_content)).add(R.id.frame_content, todayTaskFragement).commit();
+            hideAppointFragment("todayTaskTag");
+            getFragmentManager().beginTransaction().add(R.id.frame_content, todayTaskFragement, "todayTaskTag").commit();
         }
         else{
             Log.d("123", "switchToTodayTaskFragement: 2");
-            getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.frame_content)).show(todayTaskFragement).commit();   
+            hideAppointFragment("todayTaskTag");
+            getFragmentManager().beginTransaction().show(todayTaskFragement).commit();
         }
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.today_task);
@@ -197,18 +255,44 @@ public class MainActivity extends AppCompatActivity{
         if(periodicTask == null){
             Log.d("123", "switchToTodayTaskFragement: 1");
             periodicTask = new PeriodicTask();
-            getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.frame_content)).add(R.id.frame_content, periodicTask).commit();
+            hideAppointFragment("periodicTaskTag");
+            getFragmentManager().beginTransaction().add(R.id.frame_content, periodicTask, "periodicTaskTag").commit();
         }
         else{
             Log.d("123", "switchToTodayTaskFragement: 2");
-            getFragmentManager().beginTransaction().hide(getFragmentManager().findFragmentById(R.id.frame_content)).show(periodicTask).commit();
+            hideAppointFragment("periodicTaskTag");
+            getFragmentManager().beginTransaction().show(periodicTask).commit();
         }
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.daily);
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
     }
-    //专注模式的跳转
+    //周期性任务的跳转
+    public void switchToWhiteListFragment(){
+        isToToday = false;
+        isDaily = false;
+        isWeekly = false;
+        isMonthly = false;
+        isAnnual = false;
+        if(whiteListFragement == null){
+            Log.d("123", "switchToWhiteListFragment: 1");
+            whiteListFragement = new WhiteListFragement();
+            hideAppointFragment("whiteListFragmentTag");
+            getFragmentManager().beginTransaction().add(R.id.frame_content, whiteListFragement, "whiteListFragmentTag").commit();
+        }
+        else{
+            Log.d("123", "switchToWhiteListFragment: 2" + getFragmentManager().findFragmentById(R.id.frame_content));
+            hideAppointFragment("whiteListFragmentTag");
+            getFragmentManager().beginTransaction().show(whiteListFragement).commit();
+        }
+        invalidateOptionsMenu();  //用于更新menu
+        toolbar.setTitle(R.string.app_whitelist_name);
+        floatingActionButton.setVisibility(View.GONE);
+        content.setVisibility(View.GONE);
+    }
+
+    //为解决fragement页面残留的问题，重写onSaveInstanceState方法
 
     //进行抽屉栏的初始化
     public void navInit(){
@@ -227,6 +311,7 @@ public class MainActivity extends AppCompatActivity{
                         switchToPeriodicTaskFragment();
                         break;
                     case R.id.nav_whiteList:
+                        switchToWhiteListFragment();
                         break;
                     default:
                 }
