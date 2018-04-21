@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.jacklee.clatclatter.BaseFragment.BaseFragment;
 import com.jacklee.clatclatter.CreateTaskActivity;
 import com.jacklee.clatclatter.MainActivity;
 import com.jacklee.clatclatter.R;
@@ -37,7 +38,7 @@ import io.blackbox_vision.materialcalendarview.view.CalendarView;
  * 李世杰创建首页的Fragement
  */
 
-public class MainFragement extends Fragment implements OnStartDragListener {
+public class MainFragement extends BaseFragment implements OnStartDragListener {
 
 
     private final static String TAG = "MainActivity";
@@ -46,7 +47,7 @@ public class MainFragement extends Fragment implements OnStartDragListener {
 
     private TaskItemAdapter adapter;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
 
     private ItemTouchHelper touchHelper;
 
@@ -82,14 +83,14 @@ public class MainFragement extends Fragment implements OnStartDragListener {
         touchHelper.attachToRecyclerView(recyclerView);
 
         //用于实现下拉刷新的操作
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.main_swipe_refresh);
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshTask();
-            }
-        });
+//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.main_swipe_refresh);
+//        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                refreshTask();
+//            }
+//        });
     }
 
     //任务内容初始化（测试使用）
@@ -122,7 +123,7 @@ public class MainFragement extends Fragment implements OnStartDragListener {
                     @Override
                     public void run() {
                         adapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
+//                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
             }

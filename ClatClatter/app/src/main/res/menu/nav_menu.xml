@@ -20,15 +20,19 @@
             android:id="@+id/nav_cycle"
             android:icon="@drawable/nav_cycle"
             android:title="周期性任务"/>
+        <item
+            android:id="@+id/nav_whiteList"
+            android:icon="@drawable/nav_whitelist"
+            android:title="专注模式白名单"/>
     </group>
 
-    <item android:title="专注模式">
-        <menu>
-            <item
-                android:id="@+id/nav_whiteList"
-                android:icon="@drawable/nav_whitelist"
-                android:title="专注模式白名单"/>
-        </menu>
-    </item>
+    <!--<item android:title="专注模式">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_whiteList"-->
+                <!--android:icon="@drawable/nav_whitelist"-->
+                <!--android:title="专注模式白名单"/>-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>

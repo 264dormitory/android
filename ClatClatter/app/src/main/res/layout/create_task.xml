@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--创建任务时的主页面-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,6 +29,7 @@
     <!--界面上部-->
 
 
+
     <!--该linerlayout包含标题栏和下划线-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,15 +42,23 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_title"
+                android:layout_gravity="center"/>
             <TextView
                 xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="标题"
+                android:text="@string/title"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"/>
 
             <EditText
+                android:id="@+id/create_task_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -62,38 +74,75 @@
                 android:src="@drawable/ic_error" />
         </LinearLayout>
         <!--此为下划线-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/background" />
 
+        <LinearLayout
+
+            android:layout_marginLeft="@dimen/icon_margin_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/background" />
+        </LinearLayout>
     </LinearLayout>
     <!--标题行结束-->
+
+    <!--全屏显示按钮-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_imageView"/>
+
+    </LinearLayout>
+    <!--全屏显示按钮结束-->
 
     <!--内容行开始-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:orientation="vertical">
+        android:id="@+id/focus">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/ic_bookmark"
+            android:layout_gravity="top"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="内容（备注）"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"/>
+            <EditText
+                android:id="@+id/create_task_mark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="内容（备注）"
-            android:layout_gravity="center_vertical"
-            android:textSize="16sp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_gravity="center_vertical"
-            android:textSize="16sp"/>
     </LinearLayout>
-
     <!--内容框下划线特有的linerview，因为不好设计特提出该下划线-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -102,12 +151,21 @@
         android:paddingRight="16dp"
         android:orientation="vertical">
         <!--此为下划线-->
-        <View
+
+        <LinearLayout
+
+            android:layout_marginLeft="@dimen/icon_margin_left"
+
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/background" />
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/background" />
+        </LinearLayout>
     </LinearLayout>
     <!--日期行开始-->
     <LinearLayout
@@ -116,11 +174,20 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:orientation="vertical"
-        android:onClick="date_select">
+        android:id="@+id/date">
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="center"/>
             <TextView
                 xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
                 android:layout_width="wrap_content"
@@ -128,17 +195,133 @@
                 android:text="日期"
                 android:layout_gravity="center_vertical"
                 android:textSize="16sp"/>
+            <!--用于将显示时间的TextView居于屏幕右边-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvTime"
+                    android:textSize="16sp"
+                    android:text="时间"
+                    android:layout_gravity="center_vertical|right" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow"
+                android:layout_gravity="center_vertical|left"/>
+
         </LinearLayout>
         <!--此为下划线-->
-        <View
+        <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/background" />
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/background" />
+        </LinearLayout>
 
     </LinearLayout>
 
+    <!--时间行开始-->
+    <!--下面容器包含整个时间框和下划线-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <!--下面的容器包含开始容器，图片和结束容器-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal">
+            <!--下面容器为开始容器-->
+            <LinearLayout
+                android:id="@+id/time_start"
+                android:layout_width="135dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.8">
+                <TextView
+                    xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="开始"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/show_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:gravity="right"
+                    android:textSize="20sp" />
+            </LinearLayout>
+            <!--下面的为箭头-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow" />
+            <!--下面为结束容器-->
+            <LinearLayout
+                android:id="@+id/time_end"
+                android:layout_width="135dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.8">
+                <TextView
+                    xmlns:liming="http://schemas.android.com/apk/res/com.jacklee.clatclatter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="结束"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/show_time2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:gravity="right"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <!--内容容器结束-->
+        <!--此为下划线-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/background" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--时间行结束-->
 
 
     <com.jacklee.clatclatter.RowSwitchView
@@ -147,7 +330,9 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="特色闹钟" />
+        liming:title="特色闹钟"
+        liming:src="@drawable/alarm"
+        />
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/focus_mode"
@@ -155,7 +340,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="专注模式" />
+        liming:title="专注模式"
+        liming:src="@drawable/eye"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/repeat"
@@ -163,7 +349,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
-        liming:title="重复" />
+        liming:title="重复"
+        liming:src="@drawable/ic_repeat"/>
 
     <com.jacklee.clatclatter.RowSwitchView
         android:id="@+id/remind"
@@ -171,8 +358,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         liming:isShowDelimiter="false"
-        liming:title="提醒" />
-
-
+        liming:title="提醒"
+        liming:src="@drawable/ic_remind"/>
 
 </LinearLayout>
+</ScrollView>

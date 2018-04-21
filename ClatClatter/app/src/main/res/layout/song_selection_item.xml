@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="60dp">
+
+
+    <TextView
+        android:id="@+id/song_textview"
+        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="3"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:gravity="center_vertical"
+        android:text="Dream"
+
+        />
+
+    <ImageView
+        android:id="@+id/song_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_weight="1"
+        android:src="@drawable/ic_task"
+        />
+
+</LinearLayout>

@@ -18,7 +18,25 @@
         <item name="colorControlNormal">@color/grey</item>
         <item name="colorControlActivated">@color/grey_gone</item>
     </style>
+
+
     <style name="MyTimePicker" parent="@android:style/Widget.Material.TimePicker">
         <item name="android:textColorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <!-- 设置一个应用开启的闪屏主题 -->
+    <style name="launch_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/ic_task_sflash</item>
+    </style>
+
+    <style name="SwitchStyle">
+        <!--设置开关开启的颜色为蓝色-->
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <!--&lt;!&ndash; Inactive thumb color switch关闭时的拇指按钮的颜色 &ndash;&gt;-->
+        <!--<item name="colorSwitchThumbNormal">@color/blue</item>-->
+        <!--&lt;!&ndash; Inactive track color(30% transparency) switch关闭时的轨迹的颜色  30%这个颜色 &ndash;&gt;-->
+        <!--<item name="android:colorForeground">@color/blue</item>-->
     </style>
 </resources>
