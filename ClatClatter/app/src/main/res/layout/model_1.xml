@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#1C1C1C">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="430dp"
+    android:background="#9400d3"
+    android:orientation="vertical"
+    >
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#9400d3"
+        >
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="80dp"
+        android:background="#9400d3"
+        android:gravity="center"
+        android:text="答对五题关闭闹钟"
+        android:textColor="#FFFF00"/>
+    <ProgressBar
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/progress1"
+        android:max="100"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar"
+
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        >
+
+            <ImageView
+                android:id="@+id/problem_image"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_margin="5dp"
+                android:scaleType="centerCrop"
+                />
+
+
+</LinearLayout>
+</android.support.v7.widget.CardView>
+</LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/question_right"/>
+                </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/question_wrong"/>
+    </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+    </LinearLayout>
+
+

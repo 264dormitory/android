@@ -14,6 +14,7 @@
     <string name="stop_lock_button">Stop lock task mode</string>
     <string name="not_lock_whitelisted">手机没有在权限白名单里，古不能开启这个模块</string>
     <string name="not_device_owner">手机不是Device Owner</string>
+
     <string name="remind_auxiliary_function">请在手机中为ClatClatter打开辅助功能,否则无法使用此功能</string>
     <!--Lock mode结束-->
 
