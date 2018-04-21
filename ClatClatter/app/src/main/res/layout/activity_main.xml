@@ -13,6 +13,9 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
         <!-- 带日历的主页Toolbar -->
+        <include
+            android:id="@+id/main_appbar"
+            layout="@layout/main_toolbar" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -34,10 +37,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_plus"/>
-
-        <include
-            android:id="@+id/main_appbar"
-            layout="@layout/main_toolbar" />
     </android.support.design.widget.CoordinatorLayout>
 
     <!-- 侧滑栏页面 -->
