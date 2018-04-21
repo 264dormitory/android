@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@drawable/screen"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<FrameLayout android:layout_width="300dp"
+    android:layout_height="60dp"
+    android:layout_gravity="center|bottom"
+    android:layout_marginBottom="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/mainview_answer_1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/jiesuo_bg"
+        android:gravity="center"
+        android:paddingLeft="35dip"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+    <!-- 此处，滑动按钮的父亲组件不能为FrameLayout -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <com.jacklee.clatclatter.SlidingButton
+            android:id="@+id/mainview_answer_1_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@drawable/jiesuo_button"
+            android:gravity="center" />
+    </LinearLayout>
+</FrameLayout>
+</FrameLayout>

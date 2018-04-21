@@ -287,7 +287,6 @@
         android:layout_width="match_parent"
         liming:isShowDelimiter="true"
         liming:title="特色闹钟"
-        android:onClick="alarm_clock"
         liming:src="@drawable/alarm"
         />
 

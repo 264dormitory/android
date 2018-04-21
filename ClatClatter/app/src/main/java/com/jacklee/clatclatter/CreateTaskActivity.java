@@ -206,8 +206,11 @@ public class CreateTaskActivity extends AppCompatActivity {
         specialAlarmSwitch.setOnClickListener(new RowSwitchView.switchClickListener() {
             @Override
             public void switchListener() {
-                if (specialAlarmSwitch.isChecked())
-                    specialAlarmSwitch.setText("开启");
+                if (specialAlarmSwitch.isChecked()) {
+                    Toast.makeText(CreateTaskActivity.this, "选择了alarm_clock", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CreateTaskActivity.this, Alarm_Clock.class);
+                    startActivityForResult(intent, 1);
+                }
                 else
                     specialAlarmSwitch.setText("");
             }
@@ -573,11 +576,6 @@ public class CreateTaskActivity extends AppCompatActivity {
         return format.format(date);
     }
     //特色闹钟
-    public void alarm_clock(View view) {
-        Toast.makeText(CreateTaskActivity.this, "选择了alarm_clock", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(CreateTaskActivity.this, Alarm_Clock.class);
-        startActivityForResult(intent,1);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

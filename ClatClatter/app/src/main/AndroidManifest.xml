@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
@@ -69,6 +73,8 @@
         <activity android:name=".DateTime"></activity>
         <!-- 注册创建任务活动 -->
         <activity android:name=".DateTime2"></activity>
+        <activity android:name=".Model_1"></activity>
+        <activity android:name=".SlidingButtonActivity"></activity>
 
         <receiver
             android:name=".DeviceAdminReceiver"
@@ -87,6 +93,7 @@
         </receiver>
 
         <activity android:name=".Date"></activity>
+
     </application>
 
 </manifest>

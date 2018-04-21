@@ -40,6 +40,9 @@ public class Alarm_Clock extends AppCompatActivity {
     TextView model_tv;
     private int hour;
     private int minute;
+    String songPath;
+    boolean local_select=false;//最终选择本地
+    boolean system_select=false;//最终选择系统
     //将是否开启防睡模式存起来
     SharedPreferences.Editor isModel;
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,10 +134,13 @@ public class Alarm_Clock extends AppCompatActivity {
            case 1:
                if(resultCode==RESULT_OK){
                    String returnedData=data.getStringExtra("data_return");
-                   song = data.getIntExtra("song",0);
+                   songPath=data.getStringExtra("songPath");//获取选取的本地音乐的路径
+                   song = data.getIntExtra("song",0);//获取系统音乐的位置
                   songname_tv.setText(returnedData);
+                  local_select=data.getBooleanExtra("localselect",false);
+                  system_select=data.getBooleanExtra("systemselect",false);
                    SharedPreferences.Editor editor= getSharedPreferences("data",MODE_PRIVATE).edit();
-                   editor.putString("song_name",returnedData);
+                   editor.putString("song_name",returnedData);//将歌名存起来
                    editor.apply();
                }
                break;
@@ -167,7 +173,20 @@ public class Alarm_Clock extends AppCompatActivity {
             case R.id.tick:
                 Toast.makeText(this, "You click the tick", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent();
-                intent.putExtra("data_return",hour+":"+minute);//返回给上一层数据
+                if(hour<10){  //显示时间格式设置 小时小于10在前面补0，分钟小于10在前面补0
+                    if(minute<10){
+                        intent.putExtra("data_return","0"+hour+":0"+minute);//返回给上一层数据
+                    }else{
+                        intent.putExtra("data_return","0"+hour+":"+minute);//返回给上一层数据
+                    }
+                }else{
+                    if(minute<10){
+                        intent.putExtra("data_return",hour+":0"+minute);//返回给上一层数据
+                    }else{
+                        intent.putExtra("data_return",hour+":"+minute);//返回给上一层数据
+                    }
+                }
+
                 Calendar c=Calendar.getInstance();//获取日期对象
                 c.setTimeInMillis(System.currentTimeMillis());        //设置Calendar对象
                 c.set(Calendar.HOUR_OF_DAY, hour);        //设置闹钟小时数
@@ -176,9 +195,16 @@ public class Alarm_Clock extends AppCompatActivity {
                 c.set(Calendar.MILLISECOND, 0);//设置闹钟的毫秒数
                 Intent intent1 = new Intent("com.jacklee.clatclatter.alarm.clock");
                 Log.i("tag-intent1",song+"");
-                intent1.putExtra("song",song);
+
                 intent1.putExtra("indexof",indexof);
                 intent1.putExtra("isopen",isopen);
+                if (system_select&&!local_select){
+                    intent1.putExtra("song",song);
+                }else if(!system_select&&local_select){
+                    intent1.putExtra("songPath",songPath);
+                }
+
+
                 //创建Intent对象
                 // intent.setFlags(Integer.parseInt(id));//作为取消时候的标识
                 PendingIntent pi = PendingIntent.getBroadcast(Alarm_Clock.this, 0,
