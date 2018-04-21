@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.ClipData;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -34,6 +36,12 @@ import java.util.Calendar;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity{
+
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    private AppBarLayout appBarLayout;
+
+    private int title = R.string.app_name;  //用于设定toolbar的tittle
 
     private io.blackbox_vision.materialcalendarview.view.CalendarView calendarView;
 
@@ -76,6 +84,10 @@ public class MainActivity extends AppCompatActivity{
 
         //Toolbar setting
         toolbarInit();
+        //用于修改appbar的样式
+        appBarLayout = (AppBarLayout) findViewById(R.id.main_app_bar);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.main_toolbar_layout);
+
         //NavigationView Setting
         navInit();
         //calendarView init
@@ -102,8 +114,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //进行toolbar按钮的动态设置
-
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         Log.d("456", "onPrepareOptionsMenu: ");
@@ -199,6 +209,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
         }
     }
+
     //日历页面的跳转
     public void switchToMain(){
         isToToday = true;
@@ -218,7 +229,10 @@ public class MainActivity extends AppCompatActivity{
             hideAppointFragment("mainFragmentTag");
         }
         invalidateOptionsMenu();  //用于更新menu
-        toolbar.setTitle(R.string.app_name);
+        collapsingToolbarLayout.setTitle("ClatClat");
+        collapsingToolbarLayout.setTitleEnabled(true);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.VISIBLE);
     }
@@ -241,9 +255,10 @@ public class MainActivity extends AppCompatActivity{
             getFragmentManager().beginTransaction().show(todayTaskFragement).commit();
         }
         invalidateOptionsMenu();  //用于更新menu
-        toolbar.setTitle(R.string.today_task);
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
+        toolbar.setTitle(R.string.today_task);
+        collapsingToolbarLayout.setTitleEnabled(false);
     }
     //周期性任务的跳转
     public void switchToPeriodicTaskFragment(){
@@ -265,10 +280,11 @@ public class MainActivity extends AppCompatActivity{
         }
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.daily);
+        collapsingToolbarLayout.setTitleEnabled(false);
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
     }
-    //周期性任务的跳转
+    //应用白名单的跳转
     public void switchToWhiteListFragment(){
         isToToday = false;
         isDaily = false;
@@ -288,11 +304,10 @@ public class MainActivity extends AppCompatActivity{
         }
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.app_whitelist_name);
+        collapsingToolbarLayout.setTitleEnabled(false);
         floatingActionButton.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
     }
-
-    //为解决fragement页面残留的问题，重写onSaveInstanceState方法
 
     //进行抽屉栏的初始化
     public void navInit(){

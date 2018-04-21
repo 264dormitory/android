@@ -33,7 +33,7 @@ public class TodayTaskFragement extends BaseFragment implements OnStartDragListe
 
     private TaskItemAdapter adapter;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
 
     private ItemTouchHelper touchHelper;
 
@@ -69,14 +69,14 @@ public class TodayTaskFragement extends BaseFragment implements OnStartDragListe
         touchHelper.attachToRecyclerView(recyclerView);
 
         //用于实现下拉刷新的操作
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.today_swipe_refresh);
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshTask();
-            }
-        });
+//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.today_swipe_refresh);
+//        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                refreshTask();
+//            }
+//        });
     }
 
     //任务内容初始化（测试使用）
@@ -109,7 +109,7 @@ public class TodayTaskFragement extends BaseFragment implements OnStartDragListe
                     @Override
                     public void run() {
                         adapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
+//                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
             }
