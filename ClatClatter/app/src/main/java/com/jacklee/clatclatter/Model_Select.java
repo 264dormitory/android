@@ -45,7 +45,7 @@ public class Model_Select extends AppCompatActivity {
         }
 
 
-
+        imageView=(ImageView) findViewById(R.id.mImageView1);
         GridView gridview = (GridView) findViewById(R.id.GrilView);
      //   final ArrayList mItemlist = new ArrayList <> ();
 
@@ -96,7 +96,7 @@ public class Model_Select extends AppCompatActivity {
         HashMap map1=new HashMap();
         map1.put("mImageView", R.drawable.ic_task);
         map1.put("mTextView","加减大师");
-        map1.put("sureImage",null);
+
         HashMap map2=new HashMap();
         map2.put("mImageView",R.drawable.ic_task);
         map2.put("mTextView","摇一摇");
@@ -119,10 +119,10 @@ public class Model_Select extends AppCompatActivity {
         switch(item.getItemId()){
             case android.R.id.home:
                 Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
-//                setResult(RESULT_OK,intent);
-//                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
-//                editor.putInt("indexof",index);
-//                editor.apply();
+                setResult(RESULT_OK,intent);
+                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                editor.putInt("indexof",index);
+                editor.apply();
                 this.finish();
                 break;
             default:
