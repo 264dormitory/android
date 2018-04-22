@@ -457,7 +457,12 @@ public class MainActivity extends AppCompatActivity{
             case SUBACTIVITY:
                 if (resultCode == RESULT_OK) {
                     Log.i(TAG, "添加数据成功,刷新界面");
-                    todayTaskFragement.refreshTask();
+                    if (todayTaskFragement == null) {
+                        todayTaskFragement = new TodayTaskFragement();
+                        todayTaskFragement.refreshTask();
+
+                    } else
+                        todayTaskFragement.refreshTask();
 
                 } else {
                     Log.i(TAG, "取消添加数据,添加数据失败");
