@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
@@ -37,7 +38,10 @@ import com.bigkoo.pickerview.TimePickerView;
 import com.jacklee.clatclatter.database.task;
 import com.jacklee.clatclatter.service.CreateTaskService;
 import com.jacklee.clatclatter.service.NotificationService;
+import com.jacklee.clatclatter.swipe.MainFragement;
 import com.rey.material.app.BottomSheetDialog;
+
+import org.litepal.crud.DataSupport;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -47,6 +51,7 @@ import java.util.Calendar;
 
 
 import java.util.Date;
+import java.util.List;
 
 import static com.bigkoo.pickerview.TimePickerView.*;
 
@@ -69,7 +74,7 @@ public class CreateTaskActivity extends AppCompatActivity {
     private RowSwitchView focusModeSwitch;          //专注模式switch
     private RowSwitchView repeatSwitch;             //重复switch
     private RowSwitchView remindSwitch;             //提醒switch
-
+    private String title_p,mark_p,start_time_p,end_time_p,task_date_p;//用于定义页面初始的状态
     private PackageManager mPackageManager;
     private DevicePolicyManager mDevicePolicyManager;
     private ComponentName mAdminComponentName;
@@ -89,7 +94,6 @@ public class CreateTaskActivity extends AppCompatActivity {
     private String end_time;
     private String remind_time;
     private String task_date;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,12 +127,51 @@ public class CreateTaskActivity extends AppCompatActivity {
                     PackageManager.DONT_KILL_APP);
         }
 
+        /*获取传过来的task任务名*/
+        //从Intent当中根据key取得value
+        Intent intent_task = getIntent();//获得从task数据
 
+        String name = intent_task.getStringExtra("taskname");
+        if (name != null) {
+            //从数据库根据名字取出数据
+            Log.i(TAG, "获取到task");
+            List<task> tasks = DataSupport.where("title = ?", name).find(task.class);
+            task task = tasks.get(0);
+            title_p=task.getTitle();mark_p=task.getMark();start_time_p=task.getStart_time();end_time_p=task.getEnd_time();task_date_p=task.getTask_date();
+            EditText editText_title=(EditText)findViewById(R.id.create_task_edit_text);
+            editText_title.setText(title_p);
+            EditText editText_mark=(EditText)findViewById(R.id.create_task_mark);
+            editText_mark.setText(mark_p);
+            Log.i(TAG, title_p);
+
+            Log.i(TAG, "初始化自定义控件功能");
+            remindSwitch.setChecked(MainFragement.remindToBoolean(task.getRemind_time()));
+            remindSwitch.setText(timeToRemindStr(task.getRemind_time(), task.getStart_time()));
+
+            repeatSwitch.setChecked(MainFragement.intTOBoolean(task.getIs_repeat()));
+            repeatSwitch.setText(task.getRepeat_pattern());
+
+            focusModeSwitch.setChecked(MainFragement.intTOBoolean(task.getFocus()));
+            if (task.getFocus() == 1)
+                focusModeSwitch.setText("开启");
+
+        }else
+            Log.i(TAG, "未获取到task");
+
+        /*获取传过来的task任务名结束*/
         /*从下方弹出日历*/
         Log.i(TAG, "日历开始");
         tvTime = (TextView) findViewById(R.id.tvTime);
         timeInit();//设置时间选择器函数
-        tvTime.setText(time);
+        if(task_date_p!=null){
+            Log.i(TAG, "task_date_p不为空");
+            tvTime.setText(task_date_p);
+        }
+        else {
+            tvTime.setText(time);
+            Log.i(TAG, "task_date_p为空");
+        }
+
         pvTime.setOnTimeSelectListener(new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(java.util.Date date) {
@@ -146,7 +189,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -163,7 +206,14 @@ public class CreateTaskActivity extends AppCompatActivity {
 //        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 //        imm.hideSoftInputFromWindow(note.getWindowToken(), 0);
         timeInit_time(R.id.show_time);//设置时间选择器函数
-        showtime.setText(time);//初始时间
+        if(start_time_p!=null){
+            Log.i(TAG, "start_time_p不为空");
+            showtime.setText(start_time_p);
+        }
+        else {
+            showtime.setText(time);
+            Log.i(TAG, "start_time_p为空");
+        }
 
         pvtime_time.setOnTimeSelectListener(new OnTimeSelectListener() {
             @Override
@@ -183,7 +233,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(linearLayout_time.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -196,7 +246,14 @@ public class CreateTaskActivity extends AppCompatActivity {
         Log.i(TAG, "时间结束");
         showtime2 = (TextView) findViewById(R.id.show_time2);
         timeInit_time2(R.id.show_time2);//设置时间选择器函数
-        showtime2.setText(time);//初始时间
+        if(end_time_p!=null){
+            Log.i(TAG, "end_time_p不为空");
+            showtime2.setText(end_time_p);
+        }
+        else {
+            showtime2.setText(time);
+            Log.i(TAG, "end_time_p为空");
+        }
         pvtime_time2.setOnTimeSelectListener(new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(java.util.Date date) {
@@ -215,7 +272,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(linearLayout_time2.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -240,6 +297,38 @@ public class CreateTaskActivity extends AppCompatActivity {
         /*内容框聚焦结束*/
     }
     /*oncreate结束*/
+
+    private String timeToRemindStr(String startTime, String endTime) {
+        Log.i(TAG, "拼接出正确的时间格式");
+        startTime = "0000-00-00 " + startTime + ":00";
+        endTime   = "0000-00-00 " +endTime + ":00";
+
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        int minutes = 0;
+        try {
+            Log.i(TAG, "java Date 算出时间差");
+            long from   = sdf.parse(startTime).getTime();
+            long to     = sdf.parse(endTime).getTime();
+            minutes     = (int) ((to - from)/(1000 * 60));
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "返回正确的提醒时间字符串");
+        switch (minutes) {
+            case 0:
+                return "正点";
+            case 5:
+                return "5分钟前";
+            case 10:
+                return "10分钟前";
+            case 30:
+                return "30分钟前";
+        }
+
+        return "";
+    }
 
     /**
      * 注册控件的监听事件
@@ -319,7 +408,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(repeatSwitch.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -351,7 +440,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(remindSwitch.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -426,8 +515,8 @@ public class CreateTaskActivity extends AppCompatActivity {
         mPackageManager          = this.getPackageManager();
 
         Log.i(TAG, "初始化控件");
-        editTextMark = (EditText) findViewById(R.id.create_task_mark);
-        editText = (EditText) findViewById(R.id.create_task_edit_text);
+        editTextMark = (EditText) findViewById(R.id.create_task_mark);//内容
+        editText = (EditText) findViewById(R.id.create_task_edit_text);//标题
     }
 
     /**
@@ -668,7 +757,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 time = year + "-" + "0" + (month + 1) + "-" + day;
             }
         }
-        tvTime.setText(time);
+
         pvTime.setOnTimeSelectListener(new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(java.util.Date date) {
@@ -685,7 +774,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(tvTime.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -724,7 +813,6 @@ public class CreateTaskActivity extends AppCompatActivity {
             time=hour+":"+minute;
         }
         Log.i(TAG, "minute="+minute);
-        showtime.setText(time);
         pvtime_time.setOnTimeSelectListener(new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(java.util.Date date) {
@@ -742,7 +830,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -792,7 +880,6 @@ public class CreateTaskActivity extends AppCompatActivity {
             time=hour+":"+minute;
         }
         Log.i(TAG, "minute="+minute);
-        showtime.setText(time);
         pvtime_time2.setOnTimeSelectListener(new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(java.util.Date date) {
@@ -809,7 +896,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

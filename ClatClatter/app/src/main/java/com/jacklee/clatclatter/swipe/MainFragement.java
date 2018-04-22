@@ -132,6 +132,7 @@ public class MainFragement extends BaseFragment implements OnStartDragListener {
 
     //  进行任务列表的操作
     public void refreshTask(){
+
         new Thread(new Runnable() {
             @Override
             public void run() {
