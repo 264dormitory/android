@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5772c7</color>
-    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#2dc899</color>
     <color name="bilil_pink">#FA7199</color>
     <color name="pink">#de1982</color>
