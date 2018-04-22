@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Model_Select extends AppCompatActivity {
+
+    boolean choose=false; //是否选中
+    int lastchoose=0;//上一次选的位置
+   private CardView cardView;
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
     Intent intent = new Intent();
     final ArrayList mItemlist = new ArrayList <> ();
@@ -44,9 +49,7 @@ public class Model_Select extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_left);
         }
 
-
-
-        GridView gridview = (GridView) findViewById(R.id.GrilView);
+        final GridView gridview = (GridView) findViewById(R.id.GrilView);
      //   final ArrayList mItemlist = new ArrayList <> ();
 
         // 往list放HashMap数据,每个HashMap里有一个ImageView,TextView
@@ -66,14 +69,16 @@ public class Model_Select extends AppCompatActivity {
                 Log.i(TAG, "点击grideView");
                 switch (i){
                     case 0:
+                        if(choose==false||i!=lastchoose){
+                        cardView=(CardView)gridview.getChildAt(0);
+                        cardView.setCardBackgroundColor(getResources().getColor(R.color.clickchange));
+                        choose=true;}
                         Log.i(TAG, "点击加减大师");
                         intent.putExtra("model_return","加减大师");
-
                         setResult(RESULT_OK,intent);
                         SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
                         editor.putInt("indexof",index);
                         editor.apply();
-
                         break;
                     case 1:
                         intent.putExtra("model_return","摇一摇");
@@ -91,6 +96,7 @@ public class Model_Select extends AppCompatActivity {
 
         });
     }
+
 
     public void initModels(){
         HashMap map1=new HashMap();
@@ -129,4 +135,5 @@ public class Model_Select extends AppCompatActivity {
         }
         return true;
     }
+
 }

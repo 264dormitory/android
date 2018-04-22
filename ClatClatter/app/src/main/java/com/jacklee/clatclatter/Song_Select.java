@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Song_Select extends AppCompatActivity {
-    private TextView tv ;
     private List<String> songnames=new ArrayList<>();
     private List<Song> songlist=new ArrayList<>();
     private List<Song> songlist_local=new ArrayList<>();
@@ -48,14 +47,7 @@ public class Song_Select extends AppCompatActivity {
         initSongs();
         initSongs1();
         final ListView listView = (ListView) findViewById(R.id.ring_listview);
-        tv= (TextView) findViewById(R.id.select_local);
-       // listView1.setVisibility(View.INVISIBLE);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listView1.setVisibility(View.VISIBLE);
-            }
-        });
+
         listView1 = (ListView)findViewById(R.id.ring_listview1);
         preferences=getSharedPreferences("data",MODE_PRIVATE);
         //通过存储的布尔值判断选取的是系统铃声还是本地铃声，并在相应位置设置图标
@@ -239,7 +231,6 @@ public class Song_Select extends AppCompatActivity {
             songlist.add(song1);
             Song song2=new Song("泡沫",0);
             songlist.add(song2);
-
     }
     private void initSongs1(){
         list=MusicUtils.getMusicData(Song_Select.this);

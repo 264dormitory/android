@@ -88,9 +88,7 @@
         <activity android:name=".Song_Select">
 
         </activity>
-        <activity android:name=".Model0">
 
-        </activity>
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
                 <action android:name="com.jacklee.clatclatter.alarm.clock"/>
@@ -101,7 +99,7 @@
         <!-- 注册创建任务活动 -->
         <activity android:name=".CreateTaskActivity"></activity>
         <!-- 注册创建任务活动 -->
-        <activity android:name=".DateTime"></activity>
+        <!--<activity android:name=".DateTime"></activity>-->
         <!-- 注册创建任务活动 -->
         <activity android:name=".DateTime2"></activity>
         <activity android:name=".Model_1"></activity>

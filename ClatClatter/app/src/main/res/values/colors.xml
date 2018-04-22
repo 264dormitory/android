@@ -14,4 +14,5 @@
     <color name="red">#ed2121</color>
     <color name="grey_gone">#2000</color>
     <color name="black">#000000</color>
+    <color name="clickchange">#B5B5B5</color>
 </resources>
