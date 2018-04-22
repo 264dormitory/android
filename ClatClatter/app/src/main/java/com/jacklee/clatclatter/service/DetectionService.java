@@ -42,13 +42,13 @@ public class DetectionService extends AccessibilityService {
         }
 
         Log.i(TAG, "获取数据库中所有的应用程序黑名单");
-//        apps = DataSupport.findAll(app_backlist.class);
-        app_backlist backlist1 = new app_backlist();
-        backlist1.setName("com.tencent.tim");
-        app_backlist backlist2 = new app_backlist();
-        backlist2.setName("com.netease.cloudmusic");
-        apps.add(backlist1);
-        apps.add(backlist2);
+        apps = DataSupport.findAll(app_backlist.class);
+//        app_backlist backlist1 = new app_backlist();
+//        backlist1.setName("com.tencent.tim");
+//        app_backlist backlist2 = new app_backlist();
+//        backlist2.setName("com.netease.cloudmusic");
+//        apps.add(backlist1);
+//        apps.add(backlist2);
     }
 
     @Override
