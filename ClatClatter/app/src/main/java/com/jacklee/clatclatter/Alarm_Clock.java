@@ -215,7 +215,7 @@ public class Alarm_Clock extends AppCompatActivity {
                     Log.i("clock", "设置时间要推迟24小时,不然立刻会响");
                     alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis()+24*60*60*1000, pi);
                 }else{
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟，当前时间就唤醒
+                   alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);        //设置闹钟，当前时间就唤醒
                 }
                 setResult(RESULT_OK,intent);
                 isModel.putBoolean("isModel",isopen);
