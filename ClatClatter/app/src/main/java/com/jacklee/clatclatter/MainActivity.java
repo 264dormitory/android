@@ -3,6 +3,7 @@ package com.jacklee.clatclatter;
 import android.app.Fragment;
 import android.content.ClipData;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -28,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,6 +46,8 @@ import java.util.Calendar;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity{
+
+    private final String TAG = MainActivity.class.getSimpleName();
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
 
@@ -140,42 +144,58 @@ public class MainActivity extends AppCompatActivity{
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
+
+        Log.i(TAG, "对toolbar的标题设置的点击事件");
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.i(TAG, "刷新数据");
+                String title = (String) item.getTitle();
+                periodicTask.refreshTask(title);
+                toolbar.setTitle(title);
+                return false;
+            }
+        });
     }
 
     //进行toolbar按钮的动态设置
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        Log.d("456", "onPrepareOptionsMenu: ");
+        Log.e("456", "onPrepareOptionsMenu: ");
         if(isToToday){
             menu.findItem(R.id.toToday).setVisible(true);
-        }
-        else{
+        } else {
             menu.findItem(R.id.toToday).setVisible(false);
         }
+
         if(isDaily){
             menu.findItem(R.id.daily).setVisible(true);
         }
         else{
             menu.findItem(R.id.daily).setVisible(false);
         }
+
         if(isWeekly){
             menu.findItem(R.id.weekly).setVisible(true);
         }
         else{
             menu.findItem(R.id.weekly).setVisible(false);
         }
+
         if(isMonthly){
             menu.findItem(R.id.monthly).setVisible(true);
         }
         else{
             menu.findItem(R.id.monthly).setVisible(false);
         }
+
         if(isAnnual){
             menu.findItem(R.id.annual).setVisible(true);
         }
         else{
             menu.findItem(R.id.annual).setVisible(false);
         }
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -268,6 +288,7 @@ public class MainActivity extends AppCompatActivity{
         content.setFitsSystemWindows(true);
         content.setVisibility(View.VISIBLE);
     }
+
     //今日任务的跳转
     public void switchToTodayTaskFragement(){
         isToToday = false;
@@ -291,9 +312,7 @@ public class MainActivity extends AppCompatActivity{
         content.setVisibility(View.GONE);
         toolbar.setTitle(R.string.today_task);
         collapsingToolbarLayout.setTitleEnabled(false);
-        collapsingToolbarLayout.setFitsSystemWindows(false);
-        appBarLayout.setFitsSystemWindows(false);
-        content.setFitsSystemWindows(false);
+
     }
     //周期性任务的跳转
     public void switchToPeriodicTaskFragment(){
@@ -314,13 +333,10 @@ public class MainActivity extends AppCompatActivity{
             getFragmentManager().beginTransaction().show(periodicTask).commit();
         }
         invalidateOptionsMenu();  //用于更新menu
-        toolbar.setTitle(R.string.daily);
         collapsingToolbarLayout.setTitleEnabled(false);
+        toolbar.setTitle("每天");
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
-        collapsingToolbarLayout.setFitsSystemWindows(false);
-        appBarLayout.setFitsSystemWindows(false);
-        content.setFitsSystemWindows(false);
     }
     //应用白名单的跳转
     public void switchToWhiteListFragment(){
