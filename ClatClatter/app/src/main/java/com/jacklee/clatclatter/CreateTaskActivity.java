@@ -10,6 +10,7 @@ import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -278,6 +279,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                     is_repeat = 0;
                     repeatSwitch.setText("");
                 }
+
             }
         });
 
@@ -296,9 +298,15 @@ public class CreateTaskActivity extends AppCompatActivity {
                     }
 
                     showDialog(getResources().getStringArray(R.array.remind), remindSwitch);
+
+                    if (remindSwitch.getText() == "") {
+                        Log.i(TAG, "用户没有具体选择的提醒时间");
+                        remindSwitch.setChecked(false);
+                    }
                 }
                 else
                     remindSwitch.setText("");
+
             }
         });
     }
@@ -500,14 +508,16 @@ public class CreateTaskActivity extends AppCompatActivity {
      */
     private String getRmindTime() {
         switch (remindSwitch.getText()) {
-            case "不提醒":
+            case "":
                 return "00:00";
             case "正点":
                 return start_time;
-            case "五分钟前":
+            case "5分钟前":
                 return translateTime(5);
-            case "十分钟前":
+            case "10分钟前":
                 return translateTime(10);
+            case "30分钟前":
+                return translateTime(30);
                 default:
                     return start_time;
         }
