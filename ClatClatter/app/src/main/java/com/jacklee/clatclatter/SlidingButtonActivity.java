@@ -3,14 +3,20 @@ package com.jacklee.clatclatter;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 public class SlidingButtonActivity extends Activity {
 
     private SlidingButton mSlidingButton;
     private MediaPlayer mediaPlayer;
-    final PlayVoice playVoice = new PlayVoice(0);
+    private PlayVoice playVoice = new PlayVoice(0);
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,9 @@ public class SlidingButtonActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("tag","ondestroy");
         mediaPlayer.pause();
+
         playVoice.stopVoice();
     }
 }

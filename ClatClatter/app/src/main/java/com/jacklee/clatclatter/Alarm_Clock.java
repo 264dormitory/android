@@ -116,7 +116,7 @@ public class Alarm_Clock extends AppCompatActivity {
      * 跳转至铃声选择界面，并接收传来的数据
      * @param view
      */
-    public void song_select(View view){
+   public void song_select(View view){
         Intent intent = new Intent(Alarm_Clock.this,Song_Select.class);
         startActivityForResult(intent,1);
     }

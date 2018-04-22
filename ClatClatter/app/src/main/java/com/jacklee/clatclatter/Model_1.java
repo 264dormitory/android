@@ -39,8 +39,7 @@ public class Model_1 extends Activity {
         cardView2 = (CardView)findViewById(R.id.cardView2);
         cardView3 = (CardView)findViewById(R.id.cardView3);
 
-        cardView1.setRadius(20);//设置图片圆角的半径大小
-        cardView1.setCardElevation(8);//设置阴影部分大小
+
         cardView1.setContentPadding(5,5,5,5);//设置图片距离阴影大小
 
         cardView2.setRadius(20);//设置图片圆角的半径大小

@@ -9,6 +9,7 @@
 
     <!-- 可以实现圆角化的布局 主页的主体 -->
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -45,7 +46,6 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/nav_header" />
+        app:menu="@menu/nav_menu" />
 
 </android.support.v4.widget.DrawerLayout>

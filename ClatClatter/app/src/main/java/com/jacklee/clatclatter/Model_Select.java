@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Model_Select extends AppCompatActivity {
+
+    boolean choose=false; //是否选中
+    int lastchoose=0;//上一次选的位置
+   private CardView cardView;
     private static final String TAG = CreateTaskActivity.class.getSimpleName();
     Intent intent = new Intent();
     final ArrayList mItemlist = new ArrayList <> ();
@@ -44,9 +49,10 @@ public class Model_Select extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_left);
         }
 
+        final GridView gridview = (GridView) findViewById(R.id.GrilView);
 
+        imageView=(ImageView) findViewById(R.id.mImageView1);
 
-        GridView gridview = (GridView) findViewById(R.id.GrilView);
      //   final ArrayList mItemlist = new ArrayList <> ();
 
         // 往list放HashMap数据,每个HashMap里有一个ImageView,TextView
@@ -66,23 +72,40 @@ public class Model_Select extends AppCompatActivity {
                 Log.i(TAG, "点击grideView");
                 switch (i){
                     case 0:
+                        if(choose==false||i!=lastchoose){
+                        cardView=(CardView)gridview.getChildAt(0);
+                        cardView.setCardBackgroundColor(getResources().getColor(R.color.clickchange));
+                        choose=true;}
                         Log.i(TAG, "点击加减大师");
                         intent.putExtra("model_return","加减大师");
-
                         setResult(RESULT_OK,intent);
                         SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
                         editor.putInt("indexof",index);
                         editor.apply();
-
                         break;
                     case 1:
                         intent.putExtra("model_return","摇一摇");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor2 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor2.putInt("indexof",index);
+                        editor2.apply();
+
                         break;
                     case 2:
                         intent.putExtra("model_return","点击50次");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor3 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor3.putInt("indexof",index);
+                        editor3.apply();
+
                         break;
                     case 3:
                         intent.putExtra("model_return","成语猜猜看");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor4 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor4.putInt("indexof",index);
+                        editor4.apply();
+
                         break;
                         default: intent.putExtra("model_return","加减大师");
                             break;
@@ -92,11 +115,12 @@ public class Model_Select extends AppCompatActivity {
         });
     }
 
+
     public void initModels(){
         HashMap map1=new HashMap();
         map1.put("mImageView", R.drawable.ic_task);
         map1.put("mTextView","加减大师");
-        map1.put("sureImage",null);
+
         HashMap map2=new HashMap();
         map2.put("mImageView",R.drawable.ic_task);
         map2.put("mTextView","摇一摇");
@@ -119,14 +143,15 @@ public class Model_Select extends AppCompatActivity {
         switch(item.getItemId()){
             case android.R.id.home:
                 Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
-//                setResult(RESULT_OK,intent);
-//                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
-//                editor.putInt("indexof",index);
-//                editor.apply();
+                setResult(RESULT_OK,intent);
+                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                editor.putInt("indexof",index);
+                editor.apply();
                 this.finish();
                 break;
             default:
         }
         return true;
     }
+
 }
