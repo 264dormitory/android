@@ -254,7 +254,6 @@ public class Song_Select extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.tick:
-                Toast.makeText(this, "You click the tick", Toast.LENGTH_SHORT).show();
                 intent.putExtra("localselect",local_select);
                 intent.putExtra("systemselect",system_select);
                 setResult(RESULT_OK,intent);
@@ -266,8 +265,6 @@ public class Song_Select extends AppCompatActivity {
                 this.finish();
                 break;
             case android.R.id.home:
-                Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
-
                 playVoice.stopVoice();
                 player.pause();
                 this.finish();
