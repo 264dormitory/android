@@ -298,11 +298,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                     }
 
                     showDialog(getResources().getStringArray(R.array.remind), remindSwitch);
-
-                    if (remindSwitch.getText() == "") {
-                        Log.i(TAG, "用户没有具体选择的提醒时间");
-                        remindSwitch.setChecked(false);
-                    }
                 }
                 else
                     remindSwitch.setText("");
