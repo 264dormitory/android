@@ -75,12 +75,29 @@
         <service android:name=".service.CreateTaskService" />
         <service android:name=".service.NotificationService" />
 
+
+        <service android:name=".service.NotificationService"></service>
+
+        <!--注册创建任务活动-->
+        <activity android:name=".DateTime">
+        </activity>
+        <activity android:name=".Alarm_Clock">
+
+        </activity>
+        <activity android:name=".Model_Select">
+
+        </activity>
+        <activity android:name=".Song_Select">
+
+        </activity>
+
         <!-- 注册创建任务活动 -->
         <activity android:name=".DateTime"></activity>
         <activity android:name=".Alarm_Clock"></activity>
         <activity android:name=".Model_Select"></activity>
         <activity android:name=".Song_Select"></activity>
         <!--<activity android:name=".Model0"></activity>-->
+
 
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
@@ -91,7 +108,11 @@
         <!-- 注册创建任务活动 -->
         <activity android:name=".CreateTaskActivity" />
         <!-- 注册创建任务活动 -->
+
+        <!--<activity android:name=".DateTime"></activity>-->
+
         <!-- <activity android:name=".DateTime"></activity> -->
+
         <!-- 注册创建任务活动 -->
         <activity android:name=".DateTime2" />
         <activity android:name=".Model_1" />
