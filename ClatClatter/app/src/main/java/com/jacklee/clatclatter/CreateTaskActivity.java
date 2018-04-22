@@ -478,11 +478,13 @@ public class CreateTaskActivity extends AppCompatActivity {
             case R.id.tick:
                 Log.i(TAG, "点击对勾的事件");
                 this.saveTask();
+                setResult(RESULT_OK);
                 this.finish();
                 break;
             case android.R.id.home:
                 Log.i(TAG, "点击叉号的事件");
                 this.finish();
+                setResult(RESULT_CANCELED);
                 break;
             default:
         }
