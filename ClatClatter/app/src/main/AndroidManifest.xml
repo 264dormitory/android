@@ -80,7 +80,7 @@
         <activity android:name=".Alarm_Clock"></activity>
         <activity android:name=".Model_Select"></activity>
         <activity android:name=".Song_Select"></activity>
-        <activity android:name=".Model0"></activity>
+        <!--<activity android:name=".Model0"></activity>-->
 
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
