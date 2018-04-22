@@ -33,6 +33,7 @@ public class Model_Select extends AppCompatActivity {
     final ArrayList mItemlist = new ArrayList <> ();
     private ImageView imageView=null;//用于定义点击后显示对勾图片
     private  int index;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +59,7 @@ public class Model_Select extends AppCompatActivity {
         // 往list放HashMap数据,每个HashMap里有一个ImageView,TextView
         initModels();
        // SharedPreferences model_preferences=getSharedPreferences("model_data",MODE_PRIVATE);
-        SimpleAdapter mAdaper = new SimpleAdapter(this, mItemlist,
+        final SimpleAdapter mAdaper = new SimpleAdapter(this, mItemlist,
                 R.layout.model_item, new String[]{"mImageView", "mTextView"},
                 new int[]{R.id.mImageView, R.id.mTextView});
 
@@ -89,7 +90,6 @@ public class Model_Select extends AppCompatActivity {
                         SharedPreferences.Editor editor2 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
                         editor2.putInt("indexof",index);
                         editor2.apply();
-
                         break;
                     case 2:
                         intent.putExtra("model_return","点击50次");
@@ -97,7 +97,6 @@ public class Model_Select extends AppCompatActivity {
                         SharedPreferences.Editor editor3 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
                         editor3.putInt("indexof",index);
                         editor3.apply();
-
                         break;
                     case 3:
                         intent.putExtra("model_return","成语猜猜看");
@@ -105,7 +104,6 @@ public class Model_Select extends AppCompatActivity {
                         SharedPreferences.Editor editor4 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
                         editor4.putInt("indexof",index);
                         editor4.apply();
-
                         break;
                         default: intent.putExtra("model_return","加减大师");
                             break;
@@ -118,17 +116,16 @@ public class Model_Select extends AppCompatActivity {
 
     public void initModels(){
         HashMap map1=new HashMap();
-        map1.put("mImageView", R.drawable.ic_task);
+        map1.put("mImageView", R.drawable.calculate);
         map1.put("mTextView","加减大师");
-
         HashMap map2=new HashMap();
-        map2.put("mImageView",R.drawable.ic_task);
+        map2.put("mImageView",R.drawable.shark);
         map2.put("mTextView","摇一摇");
         HashMap map3=new HashMap();
-        map3.put("mImageView",R.drawable.ic_task);
+        map3.put("mImageView",R.drawable.clicktime);
         map3.put("mTextView","点击50次");
         HashMap map4=new HashMap();
-        map4.put("mImageView",R.drawable.ic_task);
+        map4.put("mImageView",R.drawable.idiom);
         map4.put("mTextView","成语猜猜看");
         mItemlist.add(map1);
         mItemlist.add(map2);
@@ -142,7 +139,6 @@ public class Model_Select extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case android.R.id.home:
-                Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK,intent);
                 SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
                 editor.putInt("indexof",index);

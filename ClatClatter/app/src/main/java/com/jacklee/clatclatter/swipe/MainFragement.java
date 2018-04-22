@@ -101,7 +101,6 @@ public class MainFragement extends BaseFragment implements OnStartDragListener {
     //任务内容初始化（测试使用）
     public void taskInit(){
         Random randomTnt = new Random();
-        Random randomBoolean = new Random();
         Log.i(TAG, "默认取出今天的任务");
         //todo 应该取出的任务包括周期性任务
         String d=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
@@ -117,14 +116,14 @@ public class MainFragement extends BaseFragment implements OnStartDragListener {
 
     }
 
-    private boolean intTOBoolean(int i) {
+    public static boolean intTOBoolean(int i) {
         if (i == 0)
             return false;
 
         return true;
     }
 
-    private boolean remindToBoolean(String i) {
+    public static boolean remindToBoolean(String i) {
         if (i == null)
             return false;
 

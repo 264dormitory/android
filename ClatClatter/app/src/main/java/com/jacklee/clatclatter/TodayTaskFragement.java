@@ -7,14 +7,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jacklee.clatclatter.BaseFragment.BaseFragment;
+import com.jacklee.clatclatter.database.task;
+import com.jacklee.clatclatter.swipe.MainFragement;
 import com.jacklee.clatclatter.swipe.OnStartDragListener;
 import com.jacklee.clatclatter.swipe.SimpleItemTouchHelperCallback;
 
+import org.litepal.crud.DataSupport;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -82,12 +88,17 @@ public class TodayTaskFragement extends BaseFragment implements OnStartDragListe
     //任务内容初始化（测试使用）
     public void taskInit(){
         Random randomTnt = new Random();
-        Random randomBoolean = new Random();
-        Calendar now = Calendar.getInstance();
-        for(int i=0; i<20; i++){
-            TaskItem task = new TaskItem(randomBoolean.nextBoolean(), "任务名称"+i, (now.get(Calendar.MONTH)+1)+"月"+now.get(Calendar.DAY_OF_MONTH)+"日"
-                    ,"9:00", "10:00", randomBoolean.nextBoolean(), randomBoolean.nextBoolean(), randomBoolean.nextBoolean()
-                    , randomBoolean.nextBoolean(), randomTnt.nextInt(4));
+
+        Log.i(TAG, "默认取出今天的任务");
+        //todo 应该取出的任务包括周期性任务
+        String d=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        List<task> tasks = DataSupport.where("task_date = ?", d).find(task.class);
+//        List<task> tasks = DataSupport.findAll(task.class);
+
+        for (task t: tasks) {
+            TaskItem task = new TaskItem(false, t.getTitle(), t.getTask_date()
+                    ,t.getStart_time(), t.getEnd_time(), true, MainFragement.intTOBoolean(t.getFocus()), MainFragement.remindToBoolean(t.getRemind_time())
+                    , MainFragement.intTOBoolean(t.getIs_repeat()), randomTnt.nextInt());
             taskList.add(task);
         }
 
@@ -95,6 +106,7 @@ public class TodayTaskFragement extends BaseFragment implements OnStartDragListe
 
     //  进行任务列表的操作
     public void refreshTask(){
+        this.taskInit();
         new Thread(new Runnable() {
             @Override
             public void run() {

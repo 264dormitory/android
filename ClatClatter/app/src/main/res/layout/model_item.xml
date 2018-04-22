@@ -37,18 +37,6 @@
                 android:textSize="16sp"
                 android:layout_below="@id/mImageView"
                 android:layout_centerHorizontal="true" />
-
-
-            <ImageView
-                android:id="@+id/imagechoose"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-
-                android:layout_marginLeft="-25dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/select"
-                android:visibility="invisible"
-                />
         </LinearLayout>
 
         <ImageView
