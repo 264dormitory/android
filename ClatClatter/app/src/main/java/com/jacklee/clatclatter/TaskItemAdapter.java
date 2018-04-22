@@ -1,7 +1,9 @@
 package com.jacklee.clatclatter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 
 public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHolder> implements ItemTouchHelperAdapter {
-
+    private static final String TAG = TaskItemAdapter.class.getSimpleName();
     private List<TaskItem> mTaskList;
 
     private Context mContext;
@@ -92,7 +94,12 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.ViewHo
             public void onClick(View v){
                 int position = holder.getAdapterPosition();
                 TaskItem taskItem = mTaskList.get(position);
-                Toast.makeText(mContext, "You clicked task" + taskItem.getTaskName(), Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "打开具体任务栏");
+                Intent intent = new Intent(mContext, CreateTaskActivity.class);
+                intent.putExtra("taskname",taskItem.getTaskName());
+                String name =taskItem.getTaskName();
+                mContext.startActivity(intent);
+//                Toast.makeText(mContext, "You clicked task" + taskItem.getTaskName(), Toast.LENGTH_SHORT).show();
             }
         });
         holder.taskCheckbox.setOnClickListener(new View.OnClickListener() {
