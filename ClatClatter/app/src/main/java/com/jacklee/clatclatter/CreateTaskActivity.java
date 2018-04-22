@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Build;
@@ -37,6 +38,7 @@ import com.bigkoo.pickerview.TimePickerView;
 import com.jacklee.clatclatter.database.task;
 import com.jacklee.clatclatter.service.CreateTaskService;
 import com.jacklee.clatclatter.service.NotificationService;
+import com.jacklee.clatclatter.swipe.MainFragement;
 import com.rey.material.app.BottomSheetDialog;
 
 import org.litepal.crud.DataSupport;
@@ -143,8 +145,19 @@ public class CreateTaskActivity extends AppCompatActivity {
             Log.i(TAG, title_p);
 
             Log.i(TAG, "初始化自定义控件功能");
-            remindSwitch.setChecked();
-        }else  Log.i(TAG, "未获取到task");
+            remindSwitch.setChecked(MainFragement.remindToBoolean(task.getRemind_time()));
+            remindSwitch.setText(timeToRemindStr(task.getRemind_time(), task.getStart_time()));
+
+            repeatSwitch.setChecked(MainFragement.intTOBoolean(task.getIs_repeat()));
+            repeatSwitch.setText(task.getRepeat_pattern());
+
+            focusModeSwitch.setChecked(MainFragement.intTOBoolean(task.getFocus()));
+            if (task.getFocus() == 1)
+                focusModeSwitch.setText("开启");
+
+        }else
+            Log.i(TAG, "未获取到task");
+
         /*获取传过来的task任务名结束*/
         /*从下方弹出日历*/
         Log.i(TAG, "日历开始");
@@ -220,7 +233,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(linearLayout_time.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -259,7 +272,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(linearLayout_time2.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -284,6 +297,38 @@ public class CreateTaskActivity extends AppCompatActivity {
         /*内容框聚焦结束*/
     }
     /*oncreate结束*/
+
+    private String timeToRemindStr(String startTime, String endTime) {
+        Log.i(TAG, "拼接出正确的时间格式");
+        startTime = "0000-00-00 " + startTime + ":00";
+        endTime   = "0000-00-00 " +endTime + ":00";
+
+        String format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        int minutes = 0;
+        try {
+            Log.i(TAG, "java Date 算出时间差");
+            long from   = sdf.parse(startTime).getTime();
+            long to     = sdf.parse(endTime).getTime();
+            minutes     = (int) ((to - from)/(1000 * 60));
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "返回正确的提醒时间字符串");
+        switch (minutes) {
+            case 0:
+                return "正点";
+            case 5:
+                return "5分钟前";
+            case 10:
+                return "10分钟前";
+            case 30:
+                return "30分钟前";
+        }
+
+        return "";
+    }
 
     /**
      * 注册控件的监听事件
@@ -363,7 +408,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(repeatSwitch.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -785,7 +830,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -851,7 +896,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
                 try {
-                    Thread.sleep(500); // 休眠1秒
+                    Thread.sleep(200); // 休眠1秒
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
