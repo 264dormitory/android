@@ -77,12 +77,27 @@ public class Model_Select extends AppCompatActivity {
                         break;
                     case 1:
                         intent.putExtra("model_return","摇一摇");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor2 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor2.putInt("indexof",index);
+                        editor2.apply();
+
                         break;
                     case 2:
                         intent.putExtra("model_return","点击50次");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor3 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor3.putInt("indexof",index);
+                        editor3.apply();
+
                         break;
                     case 3:
                         intent.putExtra("model_return","成语猜猜看");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor4 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor4.putInt("indexof",index);
+                        editor4.apply();
+
                         break;
                         default: intent.putExtra("model_return","加减大师");
                             break;
