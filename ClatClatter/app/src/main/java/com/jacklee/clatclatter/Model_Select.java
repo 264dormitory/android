@@ -50,6 +50,9 @@ public class Model_Select extends AppCompatActivity {
         }
 
         final GridView gridview = (GridView) findViewById(R.id.GrilView);
+
+        imageView=(ImageView) findViewById(R.id.mImageView1);
+
      //   final ArrayList mItemlist = new ArrayList <> ();
 
         // 往list放HashMap数据,每个HashMap里有一个ImageView,TextView
@@ -82,12 +85,27 @@ public class Model_Select extends AppCompatActivity {
                         break;
                     case 1:
                         intent.putExtra("model_return","摇一摇");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor2 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor2.putInt("indexof",index);
+                        editor2.apply();
+
                         break;
                     case 2:
                         intent.putExtra("model_return","点击50次");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor3 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor3.putInt("indexof",index);
+                        editor3.apply();
+
                         break;
                     case 3:
                         intent.putExtra("model_return","成语猜猜看");
+                        setResult(RESULT_OK,intent);
+                        SharedPreferences.Editor editor4 = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                        editor4.putInt("indexof",index);
+                        editor4.apply();
+
                         break;
                         default: intent.putExtra("model_return","加减大师");
                             break;
@@ -102,7 +120,7 @@ public class Model_Select extends AppCompatActivity {
         HashMap map1=new HashMap();
         map1.put("mImageView", R.drawable.ic_task);
         map1.put("mTextView","加减大师");
-        map1.put("sureImage",null);
+
         HashMap map2=new HashMap();
         map2.put("mImageView",R.drawable.ic_task);
         map2.put("mTextView","摇一摇");
@@ -125,10 +143,10 @@ public class Model_Select extends AppCompatActivity {
         switch(item.getItemId()){
             case android.R.id.home:
                 Toast.makeText(this, "You click the wrong", Toast.LENGTH_SHORT).show();
-//                setResult(RESULT_OK,intent);
-//                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
-//                editor.putInt("indexof",index);
-//                editor.apply();
+                setResult(RESULT_OK,intent);
+                SharedPreferences.Editor editor = getSharedPreferences("model_data",MODE_PRIVATE).edit();
+                editor.putInt("indexof",index);
+                editor.apply();
                 this.finish();
                 break;
             default:

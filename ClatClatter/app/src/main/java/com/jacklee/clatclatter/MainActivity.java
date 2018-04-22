@@ -4,10 +4,14 @@ import android.app.Fragment;
 import android.content.ClipData;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -20,9 +24,13 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.blackbox_vision.materialcalendarview.view.CalendarView;
 import com.jacklee.clatclatter.swipe.*;
 
@@ -34,6 +42,12 @@ import java.util.Calendar;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity{
+
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+
+    private AppBarLayout appBarLayout;
+
+    private int title = R.string.app_name;  //用于设定toolbar的tittle
 
     private io.blackbox_vision.materialcalendarview.view.CalendarView calendarView;
 
@@ -54,6 +68,12 @@ public class MainActivity extends AppCompatActivity{
     private PeriodicTask periodicTask;  //周期性任务的Fragment
 
     private WhiteListFragement whiteListFragement;  //周期性任务的Fragment
+
+    private CircleImageView image;  //个人中心的入口
+
+    private NavigationView navigationView;
+
+    private CoordinatorLayout coordinatorLayout;
 
     private boolean isToToday;  //用于设置是否显示toolbar的回到今日
 
@@ -76,6 +96,25 @@ public class MainActivity extends AppCompatActivity{
 
         //Toolbar setting
         toolbarInit();
+        //用于修改appbar的样式
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
+        View view = View.inflate(MainActivity.this, R.layout.main_toolbar, null);
+        appBarLayout = (AppBarLayout) view.findViewById(R.id.main_app_bar);
+        Log.d("159", appBarLayout + "");
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.main_toolbar_layout);
+
+        navigationView = (NavigationView) findViewById(R.id.main_nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
+        image = (CircleImageView) headerView.findViewById(R.id.icon_image);  //获取个人头像对象
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PersonalPageMain.class);
+                startActivity(intent);
+            }
+        });
+
         //NavigationView Setting
         navInit();
         //calendarView init
@@ -102,8 +141,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //进行toolbar按钮的动态设置
-
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         Log.d("456", "onPrepareOptionsMenu: ");
@@ -199,6 +236,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
         }
     }
+
     //日历页面的跳转
     public void switchToMain(){
         isToToday = true;
@@ -218,8 +256,14 @@ public class MainActivity extends AppCompatActivity{
             hideAppointFragment("mainFragmentTag");
         }
         invalidateOptionsMenu();  //用于更新menu
-        toolbar.setTitle(R.string.app_name);
+        collapsingToolbarLayout.setTitle("ClatClat");
+        collapsingToolbarLayout.setTitleEnabled(true);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));
         floatingActionButton.setVisibility(View.VISIBLE);
+        appBarLayout.setFitsSystemWindows(true);
+        collapsingToolbarLayout.setFitsSystemWindows(true);
+        content.setFitsSystemWindows(true);
         content.setVisibility(View.VISIBLE);
     }
     //今日任务的跳转
@@ -241,9 +285,13 @@ public class MainActivity extends AppCompatActivity{
             getFragmentManager().beginTransaction().show(todayTaskFragement).commit();
         }
         invalidateOptionsMenu();  //用于更新menu
-        toolbar.setTitle(R.string.today_task);
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
+        toolbar.setTitle(R.string.today_task);
+        collapsingToolbarLayout.setTitleEnabled(false);
+        collapsingToolbarLayout.setFitsSystemWindows(false);
+        appBarLayout.setFitsSystemWindows(false);
+        content.setFitsSystemWindows(false);
     }
     //周期性任务的跳转
     public void switchToPeriodicTaskFragment(){
@@ -265,10 +313,14 @@ public class MainActivity extends AppCompatActivity{
         }
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.daily);
+        collapsingToolbarLayout.setTitleEnabled(false);
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
+        collapsingToolbarLayout.setFitsSystemWindows(false);
+        appBarLayout.setFitsSystemWindows(false);
+        content.setFitsSystemWindows(false);
     }
-    //周期性任务的跳转
+    //应用白名单的跳转
     public void switchToWhiteListFragment(){
         isToToday = false;
         isDaily = false;
@@ -288,11 +340,13 @@ public class MainActivity extends AppCompatActivity{
         }
         invalidateOptionsMenu();  //用于更新menu
         toolbar.setTitle(R.string.app_whitelist_name);
+        collapsingToolbarLayout.setTitleEnabled(false);
         floatingActionButton.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
+        collapsingToolbarLayout.setFitsSystemWindows(false);
+        appBarLayout.setFitsSystemWindows(false);
+        content.setFitsSystemWindows(false);
     }
-
-    //为解决fragement页面残留的问题，重写onSaveInstanceState方法
 
     //进行抽屉栏的初始化
     public void navInit(){

@@ -12,7 +12,7 @@
         android:layout_height="70dp"
         android:src="@drawable/nav_icon"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="36dp"/>
+        android:layout_marginTop="36dp" />
 
     <TextView
         android:id="@+id/header_mail"
