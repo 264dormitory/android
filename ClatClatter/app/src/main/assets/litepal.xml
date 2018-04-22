@@ -4,7 +4,7 @@
     <!-- 配置数据库的名称 -->
     <dbname value="TaskManager"></dbname>
     <!-- 数据库的版本，用于数据库更新的时候使用 -->
-    <version value="1"></version>
+    <version value="2"></version>
 
     <!-- 用于指定所有数据库中的所有映射 -->
     <list>
