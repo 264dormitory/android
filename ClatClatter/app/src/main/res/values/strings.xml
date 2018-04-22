@@ -21,7 +21,7 @@
     <string name="remind_message">请在手机设置中为ClatClatter开启通知</string>
 
     <!--应用白名单-->
-    <string name="app_whitelist_name">应用白名单</string>
+    <string name="app_whitelist_name">应用黑名单</string>
 
     <!--定义优先级数组-->
     <string-array name="priority">
