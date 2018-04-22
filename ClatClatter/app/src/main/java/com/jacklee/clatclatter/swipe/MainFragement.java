@@ -24,7 +24,12 @@ import com.jacklee.clatclatter.MainActivity;
 import com.jacklee.clatclatter.R;
 import com.jacklee.clatclatter.TaskItem;
 import com.jacklee.clatclatter.TaskItemAdapter;
+import com.jacklee.clatclatter.database.task;
 
+import org.litepal.crud.DataSupport;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -97,14 +102,33 @@ public class MainFragement extends BaseFragment implements OnStartDragListener {
     public void taskInit(){
         Random randomTnt = new Random();
         Random randomBoolean = new Random();
-        Calendar now = Calendar.getInstance();
-        for(int i=0; i<20; i++){
-            TaskItem task = new TaskItem(randomBoolean.nextBoolean(), "任务名称"+i, (now.get(Calendar.MONTH)+1)+"月"+now.get(Calendar.DAY_OF_MONTH)+"日"
-                    ,"9:00", "10:00", randomBoolean.nextBoolean(), randomBoolean.nextBoolean(), randomBoolean.nextBoolean()
-                    , randomBoolean.nextBoolean(), randomTnt.nextInt(4));
+        Log.i(TAG, "默认取出今天的任务");
+        //todo 应该取出的任务包括周期性任务
+        String d=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        List<task> tasks = DataSupport.where("task_date = ?", d).find(task.class);
+//        List<task> tasks = DataSupport.findAll(task.class);
+
+        for (task t: tasks) {
+            TaskItem task = new TaskItem(false, t.getTitle(), t.getTask_date()
+                    ,t.getStart_time(), t.getEnd_time(), true, intTOBoolean(t.getFocus()), remindToBoolean(t.getRemind_time())
+                    , intTOBoolean(t.getIs_repeat()), randomTnt.nextInt());
             taskList.add(task);
         }
 
+    }
+
+    private boolean intTOBoolean(int i) {
+        if (i == 0)
+            return false;
+
+        return true;
+    }
+
+    private boolean remindToBoolean(String i) {
+        if (i == null)
+            return false;
+
+        return true;
     }
 
     //  进行任务列表的操作
