@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity{
 
     private NavigationView navigationView;
 
+    private CoordinatorLayout coordinatorLayout;
+
     private boolean isToToday;  //用于设置是否显示toolbar的回到今日
 
     private boolean isDaily;
@@ -94,7 +97,10 @@ public class MainActivity extends AppCompatActivity{
         //Toolbar setting
         toolbarInit();
         //用于修改appbar的样式
-        appBarLayout = (AppBarLayout) findViewById(R.id.main_app_bar);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_layout);
+        View view = View.inflate(MainActivity.this, R.layout.main_toolbar, null);
+        appBarLayout = (AppBarLayout) view.findViewById(R.id.main_app_bar);
+        Log.d("159", appBarLayout + "");
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.main_toolbar_layout);
 
@@ -255,6 +261,9 @@ public class MainActivity extends AppCompatActivity{
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));
         floatingActionButton.setVisibility(View.VISIBLE);
+        appBarLayout.setFitsSystemWindows(true);
+        collapsingToolbarLayout.setFitsSystemWindows(true);
+        content.setFitsSystemWindows(true);
         content.setVisibility(View.VISIBLE);
     }
     //今日任务的跳转
@@ -280,6 +289,9 @@ public class MainActivity extends AppCompatActivity{
         content.setVisibility(View.GONE);
         toolbar.setTitle(R.string.today_task);
         collapsingToolbarLayout.setTitleEnabled(false);
+        collapsingToolbarLayout.setFitsSystemWindows(false);
+        appBarLayout.setFitsSystemWindows(false);
+        content.setFitsSystemWindows(false);
     }
     //周期性任务的跳转
     public void switchToPeriodicTaskFragment(){
@@ -304,6 +316,9 @@ public class MainActivity extends AppCompatActivity{
         collapsingToolbarLayout.setTitleEnabled(false);
         floatingActionButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
+        collapsingToolbarLayout.setFitsSystemWindows(false);
+        appBarLayout.setFitsSystemWindows(false);
+        content.setFitsSystemWindows(false);
     }
     //应用白名单的跳转
     public void switchToWhiteListFragment(){
@@ -328,6 +343,9 @@ public class MainActivity extends AppCompatActivity{
         collapsingToolbarLayout.setTitleEnabled(false);
         floatingActionButton.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
+        collapsingToolbarLayout.setFitsSystemWindows(false);
+        appBarLayout.setFitsSystemWindows(false);
+        content.setFitsSystemWindows(false);
     }
 
     //进行抽屉栏的初始化

@@ -116,7 +116,8 @@
         <activity android:name=".Date" />
 
         <!-- 个人中心主页面 -->
-        <activity android:name=".PersonalPageMain">
+        <activity android:name=".PersonalPageMain"
+            android:theme="@style/CalendarTheme">
         </activity>
     </application>
 
