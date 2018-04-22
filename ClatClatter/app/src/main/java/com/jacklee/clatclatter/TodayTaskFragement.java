@@ -110,12 +110,12 @@ public class TodayTaskFragement extends BaseFragment implements OnStartDragListe
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try{
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException e){
-                    e.printStackTrace();
-                }
+//                try{
+//                    Thread.sleep(2000);
+//                }
+//                catch(InterruptedException e){
+//                    e.printStackTrace();
+//                }
 //              将线程且切换到当前的主线程
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
