@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 public class App {
     private String name;
     private  int ImageId;
+    private String packageName;
+    private boolean enabled  = false;
 
     Drawable drawable;
 
@@ -23,10 +25,11 @@ public class App {
         this.ImageId=ImageId;
     }
 
-    public App(String name,Drawable drawable)
+    public App(String name,Drawable drawable, String packageName)
     {
         this.name=name;
         this.drawable = drawable;
+        this.packageName = packageName;
     }
 
     public String getAppName() {
@@ -34,6 +37,14 @@ public class App {
             return "";
         else
             return name;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public void setAppName(String name) {
@@ -54,5 +65,13 @@ public class App {
     public int getImageId()
     {
         return ImageId;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
