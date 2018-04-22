@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.WindowManager;
@@ -24,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         Log.i("tag", "闹钟响了........");
         int song=intent.getIntExtra("song",-1);//获取歌的位置。默认设为-1
         int indexof=intent.getIntExtra("indexof",-1);
-        String songPath=intent.getStringExtra("songPath");
+        final String songPath=intent.getStringExtra("songPath");
         Log.i("tag", "onReceive: "+songPath);
         boolean isopen = intent.getBooleanExtra("isopen",false);
         Log.i("tag",song+"");
@@ -39,9 +40,11 @@ public class AlarmReceiver extends BroadcastReceiver{
         }else  {
             try {
                 Log.i("tag", "mmmmmmmmmmmmmmmmmmmmmmmmmmm");
+
                 mediaPlayer.setDataSource(songPath);
                 mediaPlayer.prepare();
                 mediaPlayer.start();
+                Log.i("tag", "nnnnnnnnnnnnnnnnnnnnnn");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,7 +83,7 @@ public class AlarmReceiver extends BroadcastReceiver{
             Intent intent1=new Intent(context,SlidingButtonActivity.class);
             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent1);
-            /*AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+           /* AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
             dialogBuilder.setTitle("提示");
             dialogBuilder.setMessage("闹钟响了，点击确定关闭");
             dialogBuilder.setCancelable(false);

@@ -137,10 +137,20 @@ public class CreateTaskActivity extends AppCompatActivity {
             }
         });
         //弹出时间选择器
-        LinearLayout linearLayout=(LinearLayout) findViewById(R.id.date);
+        final LinearLayout linearLayout=(LinearLayout) findViewById(R.id.date);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
                 pvTime.show();
             }
         });
@@ -148,20 +158,36 @@ public class CreateTaskActivity extends AppCompatActivity {
         /*从下方弹出开始时间*/
         Log.i(TAG, "时间开始");
         showtime = (TextView) findViewById(R.id.show_time);
+        EditText note=(EditText) findViewById(R.id.create_task_mark);
+//        note.setFocusable(false);
+//        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(note.getWindowToken(), 0);
         timeInit_time(R.id.show_time);//设置时间选择器函数
         showtime.setText(time);//初始时间
+
         pvtime_time.setOnTimeSelectListener(new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(java.util.Date date) {
+                Log.i(TAG, "timepicker弹出选择后");
                 showtime.setText(getTime_time(date));
                 start_time=getTime_time(date);
             }
         });
         //弹出时间选择器
-        LinearLayout linearLayout_time=(LinearLayout) findViewById(R.id.time_start);
+        final LinearLayout linearLayout_time=(LinearLayout) findViewById(R.id.time_start);
         linearLayout_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(linearLayout_time.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
                 pvtime_time.show();
             }
         });
@@ -180,10 +206,20 @@ public class CreateTaskActivity extends AppCompatActivity {
             }
         });
         //弹出时间选择器
-        LinearLayout linearLayout_time2=(LinearLayout) findViewById(R.id.time_end);
+        final LinearLayout linearLayout_time2=(LinearLayout) findViewById(R.id.time_end);
         linearLayout_time2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(linearLayout_time2.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
                 pvtime_time2.show();
             }
         });
@@ -199,7 +235,6 @@ public class CreateTaskActivity extends AppCompatActivity {
                 note.setFocusableInTouchMode(true);
                 note.requestFocus();
                 showKeyboard(note);//弹出软键盘
-
             }
         });
         /*内容框聚焦结束*/
@@ -279,7 +314,16 @@ public class CreateTaskActivity extends AppCompatActivity {
                     is_repeat = 0;
                     repeatSwitch.setText("");
                 }
-
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(repeatSwitch.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
             }
         });
 
@@ -302,6 +346,16 @@ public class CreateTaskActivity extends AppCompatActivity {
                 else
                     remindSwitch.setText("");
 
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(remindSwitch.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
             }
         });
     }
@@ -624,6 +678,16 @@ public class CreateTaskActivity extends AppCompatActivity {
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(tvTime.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
                 pvTime.show();
             }
         });
@@ -667,9 +731,20 @@ public class CreateTaskActivity extends AppCompatActivity {
             }
         });
         //弹出时间选择器
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
                 pvtime_time.show();
             }
         });
@@ -727,11 +802,21 @@ public class CreateTaskActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*取消软键盘*/
+                Log.i(TAG, "取消软键盘");
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                try {
+                    Thread.sleep(500); // 休眠1秒
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*取消软键盘结束*/
                 pvtime_time2.show();
             }
         });
     }
-    /*选择日期结束*/
+    /*选择结束时间结束*/
     /*弹出软键盘函数*/
     public static void showKeyboard(View view){
         InputMethodManager inputMethodManager=(InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -741,4 +826,16 @@ public class CreateTaskActivity extends AppCompatActivity {
         }
     }
     /*弹出软键盘函数结束*/
+    /**
+     * 关闭软键盘
+     *
+     * @param
+     * @param
+     */
+    public static void closeKeybord(EditText mEditText, Context mContext) {
+        Log.i(TAG, "成功调用关闭函数");
+        InputMethodManager imm = (InputMethodManager) mContext
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+    }
 }

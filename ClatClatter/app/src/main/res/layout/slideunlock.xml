@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/screen"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
 <FrameLayout android:layout_width="300dp"
     android:layout_height="60dp"
     android:layout_gravity="center|bottom"
@@ -26,9 +27,9 @@
 
         <com.jacklee.clatclatter.SlidingButton
             android:id="@+id/mainview_answer_1_button"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="fill_parent"
-            android:background="@drawable/jiesuo_button"
+            android:background="@drawable/lock"
             android:gravity="center" />
     </LinearLayout>
 </FrameLayout>
