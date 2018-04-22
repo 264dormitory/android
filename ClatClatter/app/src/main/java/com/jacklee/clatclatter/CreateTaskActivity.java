@@ -10,6 +10,7 @@ import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -344,6 +345,7 @@ public class CreateTaskActivity extends AppCompatActivity {
                 }
                 else
                     remindSwitch.setText("");
+
                 /*取消软键盘*/
                 Log.i(TAG, "取消软键盘");
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
@@ -555,14 +557,16 @@ public class CreateTaskActivity extends AppCompatActivity {
      */
     private String getRmindTime() {
         switch (remindSwitch.getText()) {
-            case "不提醒":
+            case "":
                 return "00:00";
             case "正点":
                 return start_time;
-            case "五分钟前":
+            case "5分钟前":
                 return translateTime(5);
-            case "十分钟前":
+            case "10分钟前":
                 return translateTime(10);
+            case "30分钟前":
+                return translateTime(30);
                 default:
                     return start_time;
         }
@@ -825,8 +829,8 @@ public class CreateTaskActivity extends AppCompatActivity {
     /**
      * 关闭软键盘
      *
-     * @param mEditText输入框
-     * @param mContext上下文
+     * @param
+     * @param
      */
     public static void closeKeybord(EditText mEditText, Context mContext) {
         Log.i(TAG, "成功调用关闭函数");

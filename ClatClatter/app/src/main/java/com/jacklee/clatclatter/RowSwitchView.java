@@ -119,6 +119,13 @@ public class RowSwitchView extends LinearLayout {
     }
 
     /**
+     * 设置swtich为开启状态
+     */
+    public void setChecked(boolean swtich) {
+        rowSwtich.setChecked(swtich);
+    }
+
+    /**
      * 初始化文件布局
      */
     private void  initView() {

@@ -42,7 +42,13 @@ public class DetectionService extends AccessibilityService {
         }
 
         Log.i(TAG, "获取数据库中所有的应用程序黑名单");
-        apps = DataSupport.findAll(app_backlist.class);
+//        apps = DataSupport.findAll(app_backlist.class);
+        app_backlist backlist1 = new app_backlist();
+        backlist1.setName("com.tencent.tim");
+        app_backlist backlist2 = new app_backlist();
+        backlist2.setName("com.netease.cloudmusic");
+        apps.add(backlist1);
+        apps.add(backlist2);
     }
 
     @Override
@@ -81,6 +87,7 @@ public class DetectionService extends AccessibilityService {
              * 如果在不同进程，可以利用 Intent 或 bind service 进行通信
              */
                 foregroundPackageName = event.getPackageName().toString();
+                Log.i(TAG, foregroundPackageName);
 
                 Log.i(TAG, "启动服务");
                 if (getrRunningAppEqualBackList()) {
