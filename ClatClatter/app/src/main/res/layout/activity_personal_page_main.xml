@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/personal_page_appbar"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="235dp"
         android:fitsSystemWindows="true">
 
         <!-- 用于实现高级的Toolbar -->
@@ -90,6 +90,7 @@
                     android:textColor="@color/black"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
                     android:text="最近任务完成情况"/>
                 <com.db.chart.view.LineChartView
                     android:id="@+id/personal_achievement_value"
@@ -101,7 +102,7 @@
                     android:paddingBottom="5dp"/>
             </android.support.v7.widget.CardView>
 
-            <!-- 最近七天的任务完成情况 -->
+            <!-- 本周工作情况 -->
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +117,43 @@
                     android:textColor="@color/black"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
                     android:text="本周工作情况"/>
+                <com.db.chart.view.HorizontalBarChartView
+                    android:id="@+id/weekly_work_performance"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:paddingTop="50dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="5dp"/>
+            </android.support.v7.widget.CardView>
+
+            <!-- 本周最佳工作日 -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                app:cardCornerRadius="4dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
+                    android:text="本周最佳工作日"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:paddingTop="30dp"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/black"
+                    android:text="周六"/>
                 <com.db.chart.view.BarChartView
                     android:id="@+id/personal_weekly_achievement_value"
                     android:layout_width="match_parent"
