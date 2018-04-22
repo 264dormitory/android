@@ -72,7 +72,7 @@ public class DetectionService extends AccessibilityService {
             e.printStackTrace();
         }
 
-        Log.e(TAG, dateTime.compareTo(endDateTime) + "");
+//        Log.e(TAG, dateTime.compareTo(endDateTime) + "");
         Log.e(TAG, now);
         Log.e(TAG, taskEndTime);
 

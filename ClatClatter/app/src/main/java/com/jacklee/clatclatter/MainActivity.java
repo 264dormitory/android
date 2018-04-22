@@ -3,6 +3,7 @@ package com.jacklee.clatclatter;
 import android.app.Fragment;
 import android.content.ClipData;
 import android.content.Intent;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity{
     private boolean isMonthly;
 
     private boolean isAnnual;
+
+    private static final int SUBACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -440,8 +443,27 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CreateTaskActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, SUBACTIVITY);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "覆盖onActivityResult方法");
+
+        switch (requestCode) {
+            case SUBACTIVITY:
+                if (resultCode == RESULT_OK) {
+                    Log.i(TAG, "添加数据成功,刷新界面");
+                    todayTaskFragement.refreshTask();
+
+                } else {
+                    Log.i(TAG, "取消添加数据,添加数据失败");
+                }
+
+                break;
+        }
     }
 }

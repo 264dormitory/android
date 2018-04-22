@@ -106,6 +106,7 @@ public class TodayTaskFragement extends BaseFragment implements OnStartDragListe
 
     //  进行任务列表的操作
     public void refreshTask(){
+        this.taskInit();
         new Thread(new Runnable() {
             @Override
             public void run() {
